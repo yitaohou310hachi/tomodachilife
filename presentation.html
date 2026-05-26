@@ -1,0 +1,2222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>朋友收集 梦想生活 · 设计分享</title>
+<style>
+  /* ============ Design Tokens ============ */
+  :root {
+    --bg: #FFF6EC;
+    --bg-2: #FFE9DD;
+    --paper: #FFFFFF;
+    --ink: #2F2520;
+    --ink-soft: #6B5A56;
+    --ink-faint: #A2918C;
+    --pink: #FF96A8;
+    --pink-soft: #FFD2D9;
+    --coral: #FF7E6B;
+    --sky: #7FC8E8;
+    --sky-soft: #CDEAF6;
+    --mint: #97D8B2;
+    --yellow: #FFD27A;
+    --lilac: #C9B2E8;
+    --line: rgba(58, 45, 42, 0.10);
+    --shadow-sm: 0 2px 8px -2px rgba(58, 45, 42, 0.08);
+    --shadow: 0 24px 48px -24px rgba(58, 45, 42, 0.22), 0 4px 12px -6px rgba(58, 45, 42, 0.08);
+    --shadow-lg: 0 30px 60px -20px rgba(58, 45, 42, 0.28), 0 8px 20px -8px rgba(58, 45, 42, 0.12);
+    --radius-lg: 28px;
+    --radius-md: 18px;
+    --radius-sm: 10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'PingFang SC', 'Hiragino Sans GB', 'Source Han Sans CN', 'Microsoft YaHei',
+                 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-feature-settings: 'palt';
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============ Stage ============ */
+  .stage {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .slides {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    padding: 5vh 6vw;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: opacity 480ms ease, transform 600ms cubic-bezier(.2, .8, .2, 1);
+    overflow: hidden;
+  }
+  .slide.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  /* Background decorations */
+  .stage::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 12% 20%, rgba(255, 150, 168, 0.10) 0, transparent 28%),
+      radial-gradient(circle at 88% 18%, rgba(127, 200, 232, 0.12) 0, transparent 30%),
+      radial-gradient(circle at 88% 88%, rgba(151, 216, 178, 0.10) 0, transparent 30%),
+      radial-gradient(circle at 10% 86%, rgba(255, 210, 122, 0.10) 0, transparent 28%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .stage::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(58, 45, 42, 0.05) 1px, transparent 1px);
+    background-size: 22px 22px;
+    opacity: 0.55;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ============ Universal Layout ============ */
+  .slide-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1380px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.05em;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 18px;
+    width: fit-content;
+    font-weight: 500;
+  }
+  .eyebrow .dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--pink);
+  }
+
+  h1.title {
+    font-size: clamp(40px, 4.6vw, 64px);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+  }
+  h2.section-title {
+    font-size: clamp(28px, 3vw, 42px);
+    font-weight: 800;
+    line-height: 1.18;
+    margin-bottom: 12px;
+    letter-spacing: -0.005em;
+  }
+  h3.sub-title {
+    font-size: clamp(20px, 1.8vw, 26px);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  p.lead {
+    font-size: clamp(14px, 1.1vw, 17px);
+    color: var(--ink-soft);
+    line-height: 1.8;
+    max-width: 56ch;
+  }
+
+  .accent { color: var(--coral); }
+  .accent-pink { color: #D85A75; }
+  .accent-sky { color: #3F8FB0; }
+  .accent-mint { color: #4FA378; }
+
+  .highlight {
+    background: linear-gradient(180deg, transparent 60%, var(--yellow) 60%);
+    padding: 0 4px;
+    font-weight: 700;
+  }
+
+  /* ============ Navigation ============ */
+  .nav {
+    position: fixed;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 100;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 10px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(8px);
+  }
+  .nav button {
+    border: none;
+    background: var(--bg-2);
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--ink);
+    transition: transform 200ms ease, background 200ms ease;
+  }
+  .nav button:hover { transform: scale(1.08); background: var(--pink-soft); }
+  .nav .pages {
+    display: flex; gap: 4px; align-items: center; padding: 0 4px;
+    font-size: 12px; color: var(--ink-soft); min-width: 50px; justify-content: center;
+  }
+  .nav .pages strong { color: var(--ink); font-weight: 700; }
+
+  .progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--pink), var(--coral), var(--yellow));
+    width: 0%;
+    z-index: 99;
+    transition: width 400ms ease;
+  }
+
+  /* Slide top-left label */
+  .slide-label {
+    position: absolute;
+    top: 22px;
+    left: 6vw;
+    font-size: 11px;
+    color: var(--ink-faint);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    z-index: 5;
+    font-weight: 500;
+  }
+
+  /* ============ Cover Slide ============ */
+  .cover {
+    padding: 0;
+    background: linear-gradient(135deg, #FFE0CB 0%, #FFD2D9 50%, #DDEEF8 100%);
+    display: flex;
+  }
+  .cover-image-wrap {
+    flex: 1;
+    height: 100%;
+    background: url('assets/cover-island.png') center/cover no-repeat;
+    position: relative;
+  }
+  .cover-image-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 50%, rgba(255, 242, 230, 0.6) 100%);
+  }
+  .cover-text {
+    flex: 0 0 42%;
+    padding: 8vh 4vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(135deg, rgba(255, 246, 236, 0.95), rgba(255, 233, 221, 0.95));
+    backdrop-filter: blur(8px);
+  }
+  .cover-text .badge {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    padding: 8px 14px;
+    background: var(--paper);
+    border-radius: 999px;
+    box-shadow: var(--shadow-sm);
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-bottom: 22px;
+    width: fit-content;
+  }
+  .cover-text h1 {
+    font-size: clamp(44px, 5vw, 78px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 18px;
+    background: linear-gradient(135deg, #FF6B5C 0%, #FF8E9F 40%, #5FA8C8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .cover-text .subtitle {
+    font-size: clamp(15px, 1.3vw, 19px);
+    color: var(--ink-soft);
+    margin-bottom: 32px;
+    line-height: 1.7;
+  }
+  .cover-text .meta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: var(--ink-soft);
+    font-size: 13px;
+  }
+  .cover-text .meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cover-text .meta span::before {
+    content: '·';
+    color: var(--coral);
+    font-weight: 800;
+  }
+
+  /* ============ TOC ============ */
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-top: 28px;
+  }
+  .toc-card {
+    background: var(--paper);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+    transition: transform 240ms ease, box-shadow 240ms ease;
+  }
+  .toc-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .toc-card .num {
+    font-size: 56px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 8px;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+  .toc-card.c1 .num { background-image: linear-gradient(135deg, #FF8E9F, #FFD2D9); }
+  .toc-card.c2 .num { background-image: linear-gradient(135deg, #5FA8C8, #CDEAF6); }
+  .toc-card.c3 .num { background-image: linear-gradient(135deg, #4FA378, #C5EBD0); }
+  .toc-card.c4 .num { background-image: linear-gradient(135deg, #E5A641, #FFE2A5); }
+  .toc-card h4 {
+    font-size: 17px;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .toc-card p {
+    font-size: 12.5px;
+    color: var(--ink-faint);
+    line-height: 1.7;
+  }
+  .toc-card .bar {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 4px;
+  }
+  .toc-card.c1 .bar { background: var(--pink); }
+  .toc-card.c2 .bar { background: var(--sky); }
+  .toc-card.c3 .bar { background: var(--mint); }
+  .toc-card.c4 .bar { background: var(--yellow); }
+
+  /* ============ Chapter Cover ============ */
+  .chapter-cover {
+    padding: 0;
+    display: flex;
+  }
+  .chapter-cover .ch-side {
+    flex: 0 0 48%;
+    padding: 0 6vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .chapter-cover .ch-image {
+    flex: 1;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .chapter-cover .ch-num {
+    font-size: clamp(120px, 14vw, 200px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    margin-bottom: 12px;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+  .chapter-cover.c1 { background: linear-gradient(135deg, #FFF6EC, #FFE8E2); }
+  .chapter-cover.c1 .ch-num { background-image: linear-gradient(135deg, #FFB5BF, #FFDDE2); }
+  .chapter-cover.c2 { background: linear-gradient(135deg, #F0F8FC, #E0F0F8); }
+  .chapter-cover.c2 .ch-num { background-image: linear-gradient(135deg, #A4D4E8, #D5EAF4); }
+  .chapter-cover.c3 { background: linear-gradient(135deg, #F0FAF3, #DDF1E2); }
+  .chapter-cover.c3 .ch-num { background-image: linear-gradient(135deg, #A6D8B8, #D2EBDA); }
+  .chapter-cover.c4 { background: linear-gradient(135deg, #FFFAEC, #FFF1D6); }
+  .chapter-cover.c4 .ch-num { background-image: linear-gradient(135deg, #E8C57E, #FFE2A5); }
+  .chapter-cover h2 { font-size: clamp(36px, 3.8vw, 52px); margin-bottom: 14px; }
+  .chapter-cover p { color: var(--ink-soft); font-size: 16px; line-height: 1.85; max-width: 26em; }
+
+  /* ============ Cards ============ */
+  .card {
+    background: var(--paper);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    position: relative;
+  }
+  .card .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    background: var(--bg-2);
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+    letter-spacing: 0.04em;
+  }
+  .card h4 {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .card p {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.8;
+  }
+
+  /* ============ Grid ============ */
+  .grid { display: grid; gap: 18px; }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+  /* ============ Hero Image Layout ============ */
+  .hero-split {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 40px;
+    flex: 1;
+    align-items: center;
+  }
+  .hero-split.reverse {
+    grid-template-columns: 1.1fr 1fr;
+  }
+  .hero-image {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--line);
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+  }
+  .hero-image-wrap {
+    position: relative;
+  }
+  .hero-image-wrap .image-caption {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    background: rgba(255, 255, 255, 0.92);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    color: var(--ink-soft);
+    backdrop-filter: blur(4px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* ============ Quote ============ */
+  .quote {
+    background: linear-gradient(135deg, #FFF1ED, #FFE8E2);
+    border-radius: var(--radius-lg);
+    padding: 24px 28px;
+    position: relative;
+    border-left: 5px solid var(--coral);
+  }
+  .quote::before {
+    content: '"';
+    position: absolute;
+    top: -10px; left: 14px;
+    font-size: 80px;
+    color: var(--coral);
+    opacity: 0.18;
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+  .quote p {
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--ink);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .quote .who {
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .quote .who::before { content: '— '; color: var(--ink-faint); }
+  .quote.sky { background: linear-gradient(135deg, #F0F8FC, #E0F0F8); border-left-color: var(--sky); }
+  .quote.sky::before { color: var(--sky); }
+  .quote.mint { background: linear-gradient(135deg, #F0FAF3, #DDF1E2); border-left-color: var(--mint); }
+  .quote.mint::before { color: var(--mint); }
+
+  /* ============ Compare table ============ */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .compare .col {
+    background: var(--paper);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    border: 1px solid var(--line);
+  }
+  .compare .col h5 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .compare .col h5 .pill {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 999px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .compare .col.bad .pill { background: #FFE0E0; color: #B43E3E; }
+  .compare .col.good .pill { background: #DEF3E5; color: #2C7A4B; }
+  .compare ul { list-style: none; padding: 0; }
+  .compare li {
+    font-size: 13px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--line);
+    display: flex;
+    gap: 8px;
+  }
+  .compare li::before {
+    content: '·';
+    color: var(--ink-faint);
+    font-weight: 700;
+  }
+  .compare li:last-child { border-bottom: none; }
+
+  /* ============ Stat / Big Number ============ */
+  .big-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .big-row .item {
+    text-align: left;
+    padding: 22px;
+    background: var(--paper);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+  .big-row .item .num {
+    font-size: 52px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .big-row .item .num.pink { color: var(--coral); }
+  .big-row .item .num.sky { color: #3F8FB0; }
+  .big-row .item .num.mint { color: #4FA378; }
+  .big-row .item .label {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  /* ============ Story Card ============ */
+  .story {
+    background: linear-gradient(135deg, #FFFBEE, #FFF4DC);
+    border-radius: var(--radius-lg);
+    padding: 22px 24px;
+    position: relative;
+    border: 1px dashed #E5C988;
+  }
+  .story .label {
+    display: inline-block;
+    background: var(--yellow);
+    color: #6E4D14;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 0.04em;
+  }
+  .story h4 {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .story p {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.8;
+  }
+
+  /* ============ Principle Card ============ */
+  .principle {
+    background: var(--paper);
+    border-radius: var(--radius-md);
+    padding: 22px 20px;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .principle .icon {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    margin: 0 auto 14px;
+    display: grid; place-items: center;
+    background: var(--bg-2);
+    font-size: 28px;
+  }
+  .principle h5 {
+    font-size: 17px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .principle p {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+  .principle.pink .icon { background: var(--pink-soft); }
+  .principle.sky .icon { background: var(--sky-soft); }
+  .principle.mint .icon { background: #DAF1E1; }
+
+  /* ============ Pill / Chip ============ */
+  .pill {
+    display: inline-block;
+    padding: 5px 11px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    background: var(--bg-2);
+    color: var(--ink);
+    border: 1px solid var(--line);
+  }
+  .pill.alert { background: #FFE0E5; color: #B43E5A; border-color: #FFB8C5; }
+  .pill.success { background: #DEF3E5; color: #2C7A4B; border-color: #B6E0C2; }
+  .pill.muted { background: var(--paper); }
+  .pill-row {
+    display: flex; gap: 6px; flex-wrap: wrap;
+  }
+
+  /* ============ Speech Bubble ============ */
+  .bubble {
+    background: var(--paper);
+    border-radius: 16px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    display: inline-block;
+    max-width: 280px;
+  }
+  .bubble .who { font-size: 10px; color: var(--ink-faint); margin-bottom: 2px; }
+  .bubble.left::after {
+    content: '';
+    position: absolute;
+    left: -8px; top: 18px;
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 8px 10px 8px 0;
+    border-color: transparent var(--paper) transparent transparent;
+  }
+  .bubble.right::after {
+    content: '';
+    position: absolute;
+    right: -8px; top: 18px;
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 8px 0 8px 10px;
+    border-color: transparent transparent transparent var(--paper);
+  }
+
+  /* ============ Timeline ============ */
+  .timeline {
+    position: relative;
+    padding: 8px 6px 8px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 32px;
+    left: 4%; right: 4%;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, var(--ink-faint) 0 5px, transparent 5px 11px);
+    opacity: 0.4;
+  }
+  .timeline-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+  }
+  .timeline-node {
+    position: relative;
+    text-align: center;
+  }
+  .timeline-node .dot {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 3px solid var(--pink);
+    margin: 0 auto 12px;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 0 0 4px var(--bg);
+  }
+  .timeline-node:nth-child(2) .dot { border-color: var(--sky); }
+  .timeline-node:nth-child(3) .dot { border-color: var(--mint); }
+  .timeline-node:nth-child(4) .dot { border-color: var(--yellow); }
+  .timeline-node:nth-child(5) .dot { border-color: var(--coral); background: var(--coral); }
+  .timeline-node .year {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 2px;
+  }
+  .timeline-node .platform {
+    font-size: 10px;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .timeline-node .name {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+  .timeline-node .desc {
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  /* ============ Full-width Hero ============ */
+  .image-hero {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    margin-bottom: 18px;
+    border: 1px solid var(--line);
+    flex-shrink: 0;
+  }
+  .image-hero img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 16 / 7;
+    object-fit: cover;
+  }
+  .timeline-consoles-hero {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    margin-bottom: 0;
+  }
+
+  /* ============ Video Showcase ============ */
+  .video-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 980px;
+    margin: 18px auto 0;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(255, 196, 188, 0.7), transparent 55%),
+      radial-gradient(ellipse at 75% 80%, rgba(255, 223, 188, 0.7), transparent 55%),
+      linear-gradient(135deg, #FFF1ED, #FFE8E2);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--line);
+  }
+  .video-wrap video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background: #000;
+    z-index: 2;
+  }
+  .video-wrap.has-video video {
+    display: block;
+  }
+  .video-wrap.has-video .video-placeholder {
+    display: none;
+  }
+  .video-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+    z-index: 1;
+  }
+  .video-placeholder .play-icon {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FFFFFF, #FFF1ED);
+    color: var(--coral);
+    display: grid;
+    place-items: center;
+    font-size: 36px;
+    box-shadow:
+      0 12px 36px rgba(255, 126, 107, 0.28),
+      inset 0 -3px 0 rgba(255, 126, 107, 0.18);
+    margin-bottom: 18px;
+    transform: translateX(3px);
+    animation: pulse-ring 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse-ring {
+    0%, 100% { box-shadow: 0 12px 36px rgba(255, 126, 107, 0.28), 0 0 0 0 rgba(255, 126, 107, 0.35), inset 0 -3px 0 rgba(255, 126, 107, 0.18); }
+    50% { box-shadow: 0 12px 36px rgba(255, 126, 107, 0.28), 0 0 0 16px rgba(255, 126, 107, 0), inset 0 -3px 0 rgba(255, 126, 107, 0.18); }
+  }
+  .video-placeholder .placeholder-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    margin-bottom: 8px;
+  }
+  .video-placeholder .placeholder-hint {
+    font-size: 13px;
+    line-height: 1.85;
+    color: var(--ink-soft);
+    max-width: 36ch;
+  }
+  .video-placeholder code {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 1px 7px;
+    border-radius: 6px;
+    font-family: 'SF Mono', Menlo, monospace;
+    font-size: 12px;
+    color: var(--coral);
+  }
+  .video-deco-tags {
+    position: absolute;
+    pointer-events: none;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    background: rgba(255, 255, 255, 0.85);
+    padding: 6px 11px;
+    border-radius: 999px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--line);
+    z-index: 1;
+  }
+  .video-wrap.has-video .video-deco-tags { display: none; }
+  .video-deco-tags.t1 { top: 22px; left: 22px; }
+  .video-deco-tags.t2 { top: 22px; right: 22px; }
+  .video-deco-tags.t3 { bottom: 22px; left: 22px; }
+  .video-deco-tags.t4 { bottom: 22px; right: 22px; }
+
+  /* ============ Highlight Box ============ */
+  .highlight-box {
+    padding: 14px 18px;
+    background: var(--bg-2);
+    border-radius: 14px;
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .highlight-box.pink { background: #FFE5EA; color: #8A3A4F; }
+  .highlight-box.sky { background: #E5F1F8; color: #2C5C7C; }
+  .highlight-box.mint { background: #E5F4EA; color: #2C5E45; }
+  .highlight-box.yellow { background: #FFF1D6; color: #6E4D14; }
+
+  /* ============ Overflow-safe slide variants ============ */
+  .fit-slide .eyebrow {
+    padding: 6px 12px;
+    margin-bottom: 12px;
+  }
+  .fit-slide h2.section-title {
+    font-size: clamp(26px, 2.6vw, 38px);
+    line-height: 1.14;
+    margin-bottom: 8px;
+  }
+  .fit-slide p.lead {
+    line-height: 1.6;
+  }
+  .fit-slide .card,
+  .fit-slide .principle {
+    padding: 18px 20px;
+  }
+  .fit-slide .card .tag,
+  .fit-slide .story .label {
+    margin-bottom: 7px;
+  }
+  .fit-slide .card h4,
+  .fit-slide .story h4 {
+    font-size: 16px;
+    line-height: 1.32;
+    margin-bottom: 6px;
+  }
+  .fit-slide .card p,
+  .fit-slide .story p {
+    font-size: 12.8px;
+    line-height: 1.65;
+  }
+  .fit-slide .story {
+    padding: 18px 20px;
+  }
+  .fit-slide .quote {
+    padding: 18px 22px;
+  }
+  .fit-slide .quote p {
+    font-size: 15px;
+    line-height: 1.65;
+  }
+  .fit-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 24px;
+    align-items: center;
+    margin-top: 18px;
+  }
+  .fit-hero-grid .image-hero {
+    margin: 0;
+  }
+  .fit-page-4 .image-hero img {
+    aspect-ratio: 16 / 5.4;
+  }
+  .fit-page-4 .timeline {
+    padding-top: 0;
+  }
+  .fit-page-4 .timeline-node .dot {
+    margin-bottom: 8px;
+  }
+  .fit-page-4 .timeline-node .year {
+    font-size: 18px;
+  }
+
+  /* ============ Ending ============ */
+  .ending {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(ellipse at center, #FFE8DC, transparent 70%), var(--bg);
+  }
+  .ending h2 {
+    font-size: clamp(46px, 5vw, 78px);
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--coral), var(--pink), var(--lilac));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 18px;
+    letter-spacing: -0.01em;
+  }
+  .ending p { font-size: 17px; color: var(--ink-soft); }
+
+  /* ============ Floating decorations ============ */
+  .float-deco {
+    position: absolute;
+    font-size: 24px;
+    opacity: 0.5;
+    pointer-events: none;
+    animation: floaty 8s ease-in-out infinite;
+  }
+  @keyframes floaty {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-12px) rotate(3deg); }
+  }
+
+  /* ============ Animations ============ */
+  @keyframes pop-in {
+    from { opacity: 0; transform: translateY(16px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .slide.active .card,
+  .slide.active .toc-card,
+  .slide.active .timeline-node,
+  .slide.active .quote,
+  .slide.active .story,
+  .slide.active .principle,
+  .slide.active .compare .col,
+  .slide.active .big-row .item,
+  .slide.active .bubble,
+  .slide.active .hero-image-wrap,
+  .slide.active .image-hero {
+    animation: pop-in 600ms cubic-bezier(.2, .8, .2, 1) backwards;
+  }
+  .slide.active *:nth-child(1) { animation-delay: 50ms; }
+  .slide.active *:nth-child(2) { animation-delay: 100ms; }
+  .slide.active *:nth-child(3) { animation-delay: 150ms; }
+  .slide.active *:nth-child(4) { animation-delay: 200ms; }
+  .slide.active *:nth-child(5) { animation-delay: 250ms; }
+
+  /* ============ Misc ============ */
+  .key-quote {
+    font-size: clamp(24px, 2.6vw, 38px);
+    font-weight: 800;
+    line-height: 1.4;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    max-width: 22ch;
+  }
+  .key-quote .by {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-top: 16px;
+    font-weight: 500;
+    display: block;
+  }
+
+  .image-card {
+    background: var(--paper);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+  .image-card img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  .image-card .text {
+    padding: 16px 20px;
+  }
+  .image-card .text h5 {
+    font-size: 15px;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .image-card .text p {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<div class="stage">
+
+  <div class="slides" id="slides">
+
+    <!-- ============ Slide 1: 封面 ============ -->
+    <section class="slide cover active">
+      <div class="cover-image-wrap"></div>
+      <div class="cover-text">
+        <div class="badge">
+          <span style="font-size: 14px;">🎮</span>
+          <span>Nintendo Switch · 2026.4.16 发售</span>
+        </div>
+        <h1>朋友收集<br/>梦想生活</h1>
+        <p class="subtitle">一座小岛、一群 Mii，<br/>以及 9 年时间打磨出的「随心所欲」</p>
+        <div class="meta">
+          <span>设计组分享 · 约 15 分钟</span>
+          <span>Tomodachi Life: Living the Dream</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 2: 目录 ============ -->
+    <section class="slide">
+      <div class="slide-label">AGENDA · 分享目录</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>今天会聊到</div>
+        <h2 class="section-title">从「<span class="accent">Mii 是怎样的生物</span>」出发，<br/>一次系统级的设计思考</h2>
+        <p class="lead">不直接控制 Mii，而是用尽办法去理解和照顾它们——下面四章我们会沿着这个内核展开。</p>
+
+        <div class="toc-grid">
+          <div class="toc-card c1">
+            <div class="bar"></div>
+            <div class="num">01</div>
+            <h4>前世今生</h4>
+            <p>从 DS 到 Switch，<br/>16 年的系列血脉</p>
+          </div>
+          <div class="toc-card c2">
+            <div class="bar"></div>
+            <div class="num">02</div>
+            <h4>Mii 的设计哲学</h4>
+            <p>不是分身，<br/>是「拥有人格的生物」</p>
+          </div>
+          <div class="toc-card c3">
+            <div class="bar"></div>
+            <div class="num">03</div>
+            <h4>UGC 生态</h4>
+            <p>玩家创造一切，<br/>Mii 决定怎么用</p>
+          </div>
+          <div class="toc-card c4">
+            <div class="bar"></div>
+            <div class="num">04</div>
+            <h4>幕后故事</h4>
+            <p>6–7 年开发，<br/>9 年份的圈内梗</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 3: Part 1 Cover ============ -->
+    <section class="slide chapter-cover c1">
+      <div class="ch-side">
+        <div class="slide-label">PART 01</div>
+        <div class="eyebrow"><span class="dot"></span>第一部分</div>
+        <div class="ch-num">01</div>
+        <h2>前世今生</h2>
+        <p>朋友收集系列 16 年的进化与等待。<br/>一个被任天堂自己称为<span class="highlight">「究极小圈子的圈内梗软体」</span>的奇特血脉。</p>
+      </div>
+      <div class="ch-image" style="background-image: url('assets/cover-island.png');"></div>
+    </section>
+
+    <!-- ============ Slide 4: 系列时间线 ============ -->
+    <section class="slide fit-slide fit-page-4">
+      <div class="slide-label">01.1 · 系列家谱</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>16 年血脉</div>
+        <h2 class="section-title">一条<span class="accent">「观察 Mii」</span>的暗线，<br/>跨越四代主机</h2>
+
+        <div class="image-hero timeline-consoles-hero" style="margin-top: 10px;">
+          <img src="assets/timeline-consoles-clean.png" alt="Tomodachi 系列主机演变" />
+        </div>
+
+        <div class="timeline" style="margin-top: -18px;">
+          <div class="timeline-row">
+            <div class="timeline-node">
+              <div class="dot"></div>
+              <div class="year">2009</div>
+              <div class="platform">Nintendo DS</div>
+              <div class="name">Tomodachi<br/>Collection</div>
+              <div class="desc">系列原点</div>
+            </div>
+            <div class="timeline-node">
+              <div class="dot"></div>
+              <div class="year">2013</div>
+              <div class="platform">Nintendo 3DS</div>
+              <div class="name">Tomodachi Life</div>
+              <div class="desc">加入育儿、首次出海</div>
+            </div>
+            <div class="timeline-node">
+              <div class="dot"></div>
+              <div class="year">2016</div>
+              <div class="platform">iOS / Android</div>
+              <div class="name">Miitomo</div>
+              <div class="desc">2018 终止服务</div>
+            </div>
+            <div class="timeline-node">
+              <div class="dot"></div>
+              <div class="year">2016</div>
+              <div class="platform">3DS · 后移植 Switch</div>
+              <div class="name">Miitopia</div>
+              <div class="desc">Mii 的 RPG 冒险</div>
+            </div>
+            <div class="timeline-node">
+              <div class="dot"></div>
+              <div class="year">2026</div>
+              <div class="platform">Switch / Switch 2</div>
+              <div class="name" style="color: var(--coral);">朋友收集<br/>梦想生活</div>
+              <div class="desc">脱胎换骨重制</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 5: 重制的契机 - 我玩透了 ============ -->
+    <section class="slide">
+      <div class="slide-label">01.2 · 重制的契机</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>从一声叹息开始</div>
+        <h2 class="section-title">从一声<span class="accent">叹息</span>，<br/>开启 6 年重制之路</h2>
+
+        <div class="key-quote" style="margin-top: 28px;">
+          「明明想让他们做更多事，<br/>可是我已经<span class="highlight">没有新东西</span><br/>可以让这些 Mii 做了……」
+          <span class="by">—— 制作人 坂本贺勇<br/>把前作《Tomodachi Life》玩了好几年之后</span>
+        </div>
+
+        <div class="grid grid-3" style="margin-top: 36px;">
+          <div class="big-row" style="display: contents;">
+            <div class="item">
+              <div class="num pink">2017</div>
+              <div class="label">开发起点<br/>《Miitomo》之后</div>
+            </div>
+            <div class="item">
+              <div class="num sky">6–7 年</div>
+              <div class="label">实际开发周期<br/>原计划仅 1.5 年</div>
+            </div>
+            <div class="item">
+              <div class="num mint">10+ 年</div>
+              <div class="label">前作至今的间隔<br/>玩家苦等多年</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 6: 两个核心命题 ============ -->
+    <section class="slide">
+      <div class="slide-label">01.3 · 核心命题</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>不是续作，是重生</div>
+        <h2 class="section-title">「<span class="accent">脱胎换骨</span>的全新 Tomodachi Collection」</h2>
+        <p class="lead">高桥监督的开发宣言：保留系列灵魂，但每一行代码、每一个部件，全部重做。</p>
+
+        <div class="grid grid-2" style="margin-top: 22px;">
+          <div class="card">
+            <div class="tag">命题一</div>
+            <h4>🏝 让大量 Mii 在岛上自由走动</h4>
+            <p>3DS 因机能限制只能用「公寓大楼」承载 Mii。Switch 终于能让大量 Mii 同时在岛上活动——<strong>行动空间的扩张，是一切设计自由度的起点</strong>。</p>
+          </div>
+          <div class="card">
+            <div class="tag">命题二</div>
+            <h4>🎨 用 UGC 重现更多「圈内梗」</h4>
+            <p>系列定位是「究极小圈子的圈内梗软体」。沿用旧路只能比道具数量，最终生厌。<strong>UGC 让玩家自己制造新梗，乐趣无限扩展</strong>。</p>
+          </div>
+        </div>
+
+        <div class="quote" style="margin-top: 22px;">
+          <p>「Tomodachi Collection 的玩家不只是把 Mii 当成自己的分身，<br/>而是会对 Mii 这个『生物』<span class="highlight">投放情感</span>。」</p>
+          <div class="who">蔭山 大介（美术总监）</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 7: Part 2 Cover ============ -->
+    <section class="slide chapter-cover c2">
+      <div class="ch-side">
+        <div class="slide-label">PART 02</div>
+        <div class="eyebrow"><span class="dot"></span>第二部分</div>
+        <div class="ch-num">02</div>
+        <h2>Mii 的设计哲学</h2>
+        <p>Mii 不是头像，不是分身。<br/>而是「<span class="highlight">值得被照顾的、像小孩般纯真的存在</span>」。<br/>所有设计取舍，都围绕这一句展开。</p>
+      </div>
+      <div class="ch-image" style="background-image: url('assets/mii-variety.png');"></div>
+    </section>
+
+    <!-- ============ Slide 8: Mii 是怎样的生物 ============ -->
+    <section class="slide">
+      <div class="slide-label">02.1 · 核心命题</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>整个团队反复讨论的一句话</div>
+        <h2 class="section-title">Mii 不是分身，<br/>是<span class="accent">拥有人格</span>的「生物」</h2>
+
+        <div style="display: flex; gap: 18px; margin-top: 28px;">
+          <div class="principle pink" style="flex: 1;">
+            <div class="icon">🍼</div>
+            <h5>值得被照顾</h5>
+            <p>玩家投放的不是控制欲，<br/>而是<strong>家长般的目光</strong></p>
+          </div>
+          <div class="principle sky" style="flex: 1;">
+            <div class="icon">🌱</div>
+            <h5>像小孩般纯真</h5>
+            <p>不机智、不毒舌，<br/>偶尔说出让人惊讶的<strong>大实话</strong></p>
+          </div>
+          <div class="principle mint" style="flex: 1;">
+            <div class="icon">🎭</div>
+            <h5>只装傻、不吐槽</h5>
+            <p>Mii 抛梗，<br/>吐槽留给<strong>玩家自己</strong></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 9: 设计取舍 ============ -->
+    <section class="slide">
+      <div class="slide-label">02.2 · 设计取舍</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>性能提升 ≠ 视觉升级</div>
+        <h2 class="section-title">最大的难题：硬件变好了，<br/>怎么<span class="accent">「不变」</span>才正确</h2>
+
+        <div class="compare" style="margin-top: 22px;">
+          <div class="col bad">
+            <h5>一开始尝试 <span class="pill" style="background: #FFE0E0; color: #B43E3E;">却失败</span></h5>
+            <ul>
+              <li>提升解析度、让脸部部件更精细</li>
+              <li>让 Mii 看起来更<strong>「成熟」</strong>、更精致</li>
+              <li>用新语音引擎做<strong>真人感</strong>的写实声音</li>
+              <li>动作加入流畅预备帧、转身过渡</li>
+            </ul>
+            <div class="highlight-box pink" style="margin-top: 12px;">
+              ❌ 结果：「这不太像 Mii 了。」
+            </div>
+          </div>
+          <div class="col good">
+            <h5>最终的方向 <span class="pill" style="background: #DEF3E5; color: #2C7A4B;">克制升级</span></h5>
+            <ul>
+              <li><strong>保留</strong>脸部部件、手脚形状等核心特征</li>
+              <li>素朴<strong>卡通风格</strong>更新（与初代盒装画风暗合）</li>
+              <li>对真人语音<strong>反向加工</strong>，留一丝机械感</li>
+              <li>动作刻意省略圆润预备帧，保留夸张关键动作</li>
+            </ul>
+            <div class="highlight-box mint" style="margin-top: 12px;">
+              ✅ 结果：「啊，这就是当年那只 Mii。」
+            </div>
+          </div>
+        </div>
+
+        <div class="quote" style="margin-top: 20px;">
+          <p>「不能只因为『解析度提升了』就草率改变 Mii 设计。<br/>这些 Mii 里，装满了不同玩家<span class="highlight">深厚的情感</span>。」</p>
+          <div class="who">蔭山 大介（美术总监）· 接下来三页会拆开讲 ②③④ 点</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 10: 卡通风格的重生 ============ -->
+    <section class="slide fit-slide">
+      <div class="slide-label">02.2 · 设计取舍 · ② 卡通风格</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>形状不变，但每一个部件都重画</div>
+        <h2 class="section-title">素朴的<span class="accent">卡通风格</span>更新</h2>
+        <p class="lead">不改变「Mii 之所以是 Mii」的核心特征，但把每一个部件的结构与设计都从头审视一遍。</p>
+
+        <div class="fit-hero-grid">
+          <div class="image-hero">
+            <img src="assets/mii-style-evolution.png" alt="Mii 风格的三代演变" style="aspect-ratio: 4 / 3;" />
+          </div>
+
+          <div>
+            <div class="grid" style="grid-template-columns: 1fr; gap: 12px;">
+              <div class="card">
+                <div class="tag" style="background: #E5F1F8; color: #2C5C7C;">🔒 保留</div>
+                <h4>「Mii 之所以是 Mii」的核心</h4>
+                <p>· 脸部部件的<strong>形状</strong>与位置<br/>· 手脚的圆润形状<br/>· 整体身体比例</p>
+              </div>
+              <div class="card" style="background: linear-gradient(135deg, #F1FFF6, #DFF5E5); border-color: #B6E0C2;">
+                <div class="tag" style="background: #BDE6CA; color: #2C7A4B;">🎨 更新</div>
+                <h4>每个部件从头重画</h4>
+                <p>· 素朴 +<strong>动画风格的卡通调性</strong><br/>· 让 Mii 间的戏剧场景<strong>更容易让人投入</strong><br/>· 在现代屏幕上看起来不显得过时</p>
+              </div>
+            </div>
+
+            <div class="story" style="margin-top: 12px;">
+              <span class="label">🎁 一个意外的发现</span>
+              <h4>新风格 = 17 年前盒装上的<span class="accent">初代理想型</span></h4>
+              <p>验证过程中团队发现：这个「卡通风格」与坂本贺勇从初代就想呈现的形象<strong>不谋而合</strong>。初代盒装上的 Mii 与当年游戏内画风并不相同，反而更接近本作。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 11: 声音 - 反向工程 ============ -->
+    <section class="slide">
+      <div class="slide-label">02.2 · 设计取舍 · ③ 声音</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>关于「原声」的反向调音</div>
+        <h2 class="section-title">真人感 → 故意<span class="accent">「退一步」</span></h2>
+        <p class="lead">峰岸音效总监在为 Mii 做声音时最难的事，不是让它更真实，而是知道<strong>在哪里收手</strong>。</p>
+
+        <div class="hero-split" style="margin-top: 18px; flex: 0; gap: 30px;">
+          <div class="hero-image-wrap">
+            <img class="hero-image" src="assets/voice-processing.png" alt="Mii 声音的反向工程流程" style="aspect-ratio: 3 / 2;" />
+            <div class="image-caption">原声 → 滤波 → Mii 声音的三步走</div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 14px; justify-content: center;">
+            <div class="card" style="padding: 18px 20px;">
+              <div class="tag">🎤 引擎升级</div>
+              <h4 style="font-size: 16px;">新的语音合成引擎</h4>
+              <p style="font-size: 13px;">Switch 时代的引擎，理论上 Mii 可以发出非常自然、接近真人的声音。</p>
+              <div class="highlight-box pink" style="margin-top: 10px; font-size: 12px; padding: 10px 14px;">
+                ⚠️ 直接输出 → 「这不太像 Mii」
+              </div>
+            </div>
+
+            <div class="card" style="padding: 18px 20px; background: linear-gradient(135deg, #F1FFF6, #DFF5E5); border-color: #B6E0C2;">
+              <div class="tag" style="background: #BDE6CA; color: #2C7A4B;">🛠 反向加工</div>
+              <h4 style="font-size: 16px;">把真人感往回压</h4>
+              <p style="font-size: 13px;">提取频率特征、量化重塑——加回<strong>颗粒感与机械余韵</strong>，下了苦工做细微调整。</p>
+              <div class="highlight-box mint" style="margin-top: 10px; font-size: 12px; padding: 10px 14px;">
+                ✅ 一听就知道：「啊，是 Mii。」
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote" style="margin-top: 20px;">
+          <p>「希望同时保留过去 Tomodachi Collection 的感觉，又能适度地配合时代进行更新。<br/>要找到这个<span class="highlight">恰到好处</span>的平衡点，并不容易。」</p>
+          <div class="who">峰岸 透（音效总监）</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 12: 动作 - 反向设计 ============ -->
+    <section class="slide fit-slide">
+      <div class="slide-label">02.2 · 设计取舍 · ④ 动作</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>动画师与设计师的反复商讨</div>
+        <h2 class="section-title">圆润 → 刻意<span class="accent">「去掉」</span></h2>
+        <p class="lead">如果动作太流畅、太帅气，就不太像 Mii。所以团队选择「反着设计」——动画师本能想加的过渡，全部砍掉。</p>
+
+        <div class="fit-hero-grid">
+          <div class="image-hero">
+            <img src="assets/mii-animation.png" alt="Mii 的夸张动作设计" style="aspect-ratio: 4 / 3;" />
+          </div>
+
+          <div>
+            <div class="grid" style="grid-template-columns: 1fr; gap: 12px;">
+              <div class="card">
+                <div class="tag" style="background: #FFE0E0; color: #B43E3E;">❌ 删掉</div>
+                <h4>「预备帧」与过渡动作</h4>
+                <p>让动作看起来圆润、流畅的过渡帧，团队<strong>刻意省略</strong>。动作有点僵硬、像旧动画——但这正是 Mii 的味道。</p>
+              </div>
+              <div class="card" style="background: linear-gradient(135deg, #FFFBEE, #FFF4DC); border-color: #E5C988;">
+                <div class="tag" style="background: var(--yellow); color: #6E4D14;">✅ 加强</div>
+                <h4>夸张、留下深刻印象的关键动作</h4>
+                <p>跳跃、惊吓、跑步姿势都刻意夸大：<strong>关键帧 over，过渡帧 under</strong>。记忆点反而更强。</p>
+              </div>
+            </div>
+
+            <div class="quote" style="margin-top: 12px;">
+              <p>「我们经常与动画工作人员商量，像是『<span class="highlight">这会否太写实了</span>』之类的问题。」</p>
+              <div class="who">蔭山 大介（美术总监）</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 13: 与 Mii 的交互 · 总览 ============ -->
+    <section class="slide">
+      <div class="slide-label">02.3 · 与 Mii 的交互 · 总览</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>保持边界，为惊喜留出空间</div>
+        <h2 class="section-title">为<span class="accent">「保持边界」</span>而设计的<br/>3 种交互方式</h2>
+        <p class="lead">不让玩家直接指挥 Mii——这是核心原则。<br/>玩家能做的，都是「轻轻种下种子」的动作。</p>
+
+        <div class="quote" style="margin-top: 22px;">
+          <p>「Mii 听从指示就<span class="highlight">没意思了</span>。<br/>抓起并放下，但之后做什么，<strong>交给 Mii 自己决定</strong>。」</p>
+          <div class="who">上野 隆臣（程式总监）</div>
+        </div>
+
+        <div class="grid grid-3" style="margin-top: 22px;">
+          <div class="card">
+            <div class="tag">① 抓起</div>
+            <h4>把 Mii 放到另一只旁边</h4>
+            <p>他俩会聊起来吗？打架吗？不知道。<br/>—— 留给意外</p>
+          </div>
+          <div class="card">
+            <div class="tag">② 送礼</div>
+            <h4>食物 / 衣服 / 书籍 / 个性</h4>
+            <p>Mii 收到后自己决定怎么用。<br/>—— 留给个性</p>
+          </div>
+          <div class="card">
+            <div class="tag">③ 教话</div>
+            <h4>教 Mii 说某句话</h4>
+            <p>这句话会在意想不到的时刻冒出来。<br/>—— 留给惊喜</p>
+          </div>
+        </div>
+
+        <div class="highlight-box yellow" style="margin-top: 22px;">
+          ⚠️ 早期方案曾尝试「纸杯传声筒」让玩家给 Mii 提建议（4 选 1）—— <strong>被高桥否决</strong>：「这样意外的惊喜就消失了。」 接下来 3 页会拆开讲 ①②③。
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 14: 抓起 Mii ============ -->
+    <section class="slide">
+      <div class="slide-label">02.3 · 与 Mii 的交互 · ① 抓起</div>
+      <div class="slide-inner">
+        <div class="hero-split">
+          <div>
+            <div class="eyebrow"><span class="dot"></span>玩家唯一的"主动权"</div>
+            <h2 class="section-title">「抓起 Mii」<br/>—— 整作的<span class="accent">核心交互</span></h2>
+
+            <p class="lead" style="margin-top: 16px;">玩家可以抓起 Mii，搬到岛上任意角落。<br/>但这<strong>就是玩家能做的全部</strong>。</p>
+
+            <div class="grid grid-3" style="margin-top: 18px;">
+              <div class="principle pink">
+                <div class="icon">🤏</div>
+                <h5>抓起</h5>
+                <p>从家里、街上、海边⋯<br/>把 Mii 拎起来</p>
+              </div>
+              <div class="principle sky">
+                <div class="icon">📦</div>
+                <h5>放下</h5>
+                <p>放到任意位置：<br/>另一个 Mii 旁、店铺、房间</p>
+              </div>
+              <div class="principle mint">
+                <div class="icon">👀</div>
+                <h5>观察</h5>
+                <p>剩下的全部交给 Mii——<br/>他们决定要不要互动</p>
+              </div>
+            </div>
+
+            <div class="highlight-box mint" style="margin-top: 16px;">
+              ✅ 抓起 + 放下 = 玩家能做的全部。<br/>之后<strong>是否相处</strong>、<strong>谈什么</strong>——交给 Mii。
+            </div>
+          </div>
+
+          <div class="hero-image-wrap">
+            <img class="hero-image" src="assets/pickup-mii.png" alt="抓起 Mii 的核心交互" />
+            <div class="image-caption">游戏内核心动作：玩家可以抓起 Mii，搬到任何位置</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 15: 送礼 ============ -->
+    <section class="slide">
+      <div class="slide-label">02.3 · 与 Mii 的交互 · ② 送礼</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>送什么是你的，怎么用是 Mii 的</div>
+        <h2 class="section-title">同一份礼物，<br/><span class="accent">不同 Mii</span> 给出不同反应</h2>
+        <p class="lead">玩家可以送 Mii 食物、衣服、书、游戏、宠物，甚至「微个性」——<br/>但反应、用法，由 Mii 自己的人格决定。</p>
+
+        <div style="text-align: center; margin: 26px 0 16px;">
+          <div style="display: inline-flex; align-items: center; gap: 14px; padding: 12px 22px; background: var(--paper); border-radius: 999px; box-shadow: var(--shadow); border: 1px solid var(--line);">
+            <span style="font-size: 30px;">🍔</span>
+            <span style="font-size: 14px; color: var(--ink-soft);">同一个汉堡，送给 3 只不同个性的 Mii  →</span>
+          </div>
+        </div>
+
+        <div class="grid grid-3">
+          <div class="card" style="background: linear-gradient(135deg, #FFF5F5, #FFE9EC); border-color: #FFB8C5;">
+            <div class="tag" style="background: #FFC8D2; color: #8A3A4F;">🍴 大食量 个性</div>
+            <h4 style="color: #D85A75; margin-top: 8px; font-size: 17px;">「太棒了！再来 10 个！」</h4>
+            <p>满意度直冲顶 · 立刻吃光 · 还想加餐</p>
+          </div>
+          <div class="card">
+            <div class="tag">😐 普通 个性</div>
+            <h4 style="color: var(--ink-soft); margin-top: 8px; font-size: 17px;">「谢谢⋯味道还可以。」</h4>
+            <p>满意度小幅上升 · 慢慢吃完 · 没特别反应</p>
+          </div>
+          <div class="card" style="background: linear-gradient(135deg, #F7FBFF, #EAF4FF); border-color: #B6D8EC;">
+            <div class="tag" style="background: #BDE6F5; color: #2C5C7C;">🙅 挑食 个性</div>
+            <h4 style="color: #3F8FB0; margin-top: 8px; font-size: 17px;">「这个我不喜欢吃⋯」</h4>
+            <p>皱眉 · 悄悄放下 · 满意度反而下降</p>
+          </div>
+        </div>
+
+        <div class="quote" style="margin-top: 22px;">
+          <p>「玩家可以将各种东西送给 Mii，<br/>但要<span class="highlight">怎么运用</span>，则取决于 Mii——并享受 Mii 的各种不同反应。」</p>
+          <div class="who">高桥 龙太郎（总监督）</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 16: 教话 ============ -->
+    <section class="slide">
+      <div class="slide-label">02.3 · 与 Mii 的交互 · ③ 教话</div>
+      <div class="slide-inner">
+        <div class="hero-split">
+          <div>
+            <div class="eyebrow"><span class="dot"></span>种下一句话，不写剧本</div>
+            <h2 class="section-title">你教的话，<br/><span class="accent">何时何地</span>冒出来，<br/>由 Mii 自己决定</h2>
+
+            <div class="story" style="margin-top: 20px;">
+              <span class="label">📖 真实例子 · 来自访谈</span>
+              <h4>「治好了四十肩」</h4>
+              <p>高桥说：Mii 问「最近有什么新闻？」<br/>我顺手回答「治好了四十肩」。<br/><br/>几天后我都已经忘了，<br/>看见 Mii 们凑在一起聊天，靠近一听——<br/><strong style="color: var(--coral);">居然热烈讨论起『治好了四十肩』这件事。</strong></p>
+            </div>
+          </div>
+
+          <div>
+            <div style="background: var(--paper); border-radius: 24px; padding: 22px 24px; border: 1px solid var(--line); box-shadow: var(--shadow);">
+              <div style="font-size: 11px; color: var(--ink-faint); margin-bottom: 14px; letter-spacing: 0.1em;">📍 几天后，岛上 · 公园长椅</div>
+
+              <div style="display: flex; margin-bottom: 10px;">
+                <div class="bubble left">
+                  <div class="who">Mii A</div>
+                  你听说了吗？听说他治好了<strong>四十肩</strong>！
+                </div>
+              </div>
+              <div style="display: flex; justify-content: flex-end; margin-bottom: 10px;">
+                <div class="bubble right" style="background: var(--pink-soft);">
+                  <div class="who">Mii B</div>
+                  哦哦哦，那真是太好了！
+                </div>
+              </div>
+              <div style="display: flex; margin-bottom: 10px;">
+                <div class="bubble left">
+                  <div class="who">Mii C</div>
+                  最近天气也越来越暖和了呢。
+                </div>
+              </div>
+              <div style="display: flex; justify-content: flex-end;">
+                <div class="bubble right" style="background: var(--pink-soft);">
+                  <div class="who">Mii A</div>
+                  说回那个四十肩⋯⋯
+                </div>
+              </div>
+
+              <div style="text-align: center; margin-top: 16px; padding: 9px; background: var(--bg-2); border-radius: 10px; font-size: 12px; color: var(--ink-soft);">
+                💭 玩家：「这是什么对话？！」 ← 圈内梗诞生
+              </div>
+            </div>
+
+            <div class="highlight-box mint" style="margin-top: 14px; font-size: 13px;">
+              <strong>设计原理：</strong>玩家输入 → 进入岛屿专属词库 →<br/>Mii 按自己的人格、当下场景<strong>随机引用</strong>。
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 13: Part 3 Cover ============ -->
+    <section class="slide chapter-cover c3">
+      <div class="ch-side">
+        <div class="slide-label">PART 03</div>
+        <div class="eyebrow"><span class="dot"></span>第三部分</div>
+        <div class="ch-num">03</div>
+        <h2>UGC 生态<br/>是如何长出来的</h2>
+        <p>「把开发团队准备的东西，<br/>与玩家自行制作的东西结合起来，<br/><span class="highlight">乐趣就会无限扩大。</span>」</p>
+      </div>
+      <div class="ch-image" style="background-image: url('assets/palette-house.png');"></div>
+    </section>
+
+    <!-- ============ Slide 14: UGC 真实内容预览 ============ -->
+    <section class="slide">
+      <div class="slide-label">03.0 · 玩家做出了什么</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>在拆解机制之前⋯</div>
+        <h2 class="section-title">先看看玩家<br/>真的<span class="accent">做出了什么</span></h2>
+
+        <div class="video-wrap" id="ugc-video-wrap">
+          <video id="ugc-video" controls preload="metadata" playsinline>
+            <source src="images/ugc-showcase.mp4" type="video/mp4">
+          </video>
+
+          <div class="video-deco-tags t1">🎤 偶像团体</div>
+          <div class="video-deco-tags t2">🏝️ 主题岛屿</div>
+          <div class="video-deco-tags t3">💌 跨服恋爱</div>
+          <div class="video-deco-tags t4">🍱 自制便当</div>
+
+          <div class="video-placeholder">
+            <div class="play-icon">▶</div>
+            <div class="placeholder-title">真实 UGC 视频展示位</div>
+            <div class="placeholder-hint">
+              把视频命名为 <code>ugc-showcase.mp4</code><br/>
+              放入项目根目录的 <code>images/</code> 文件夹即可自动加载
+            </div>
+          </div>
+        </div>
+
+        <p class="lead" style="margin: 20px auto 0; text-align: center;">
+          这些都是玩家用 UGC 机制做出来的内容 —— 接下来几页，
+          我们来拆解他们<strong>如何</strong>做到。
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ Slide 15: UGC 五条主线 ============ -->
+    <section class="slide">
+      <div class="slide-label">03.0 · UGC 全景</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>玩家创造一切，Mii 决定怎么用</div>
+        <h2 class="section-title">四条 UGC 主线，<br/>共同构成<span class="accent">「圈内梗」</span>生产系统</h2>
+
+        <div class="grid grid-4" style="margin-top: 26px;">
+          <div class="principle pink">
+            <div class="icon">😀</div>
+            <h5>① Mii 自定义</h5>
+            <p>面容 / 肤色 / 涂鸦 / 声音 / 性别 / 取向</p>
+          </div>
+          <div class="principle sky">
+            <div class="icon">🎭</div>
+            <h5>② 性格 & 微个性</h5>
+            <p>16 主性格 + 可送的小习惯</p>
+          </div>
+          <div class="principle mint">
+            <div class="icon">🎁</div>
+            <h5>③ 礼物制作</h5>
+            <p>食物 / 衣服 / 书 / 游戏 / 宠物</p>
+          </div>
+          <div class="principle" style="background: linear-gradient(180deg, #FFFBEE, #FFF4DC);">
+            <div class="icon" style="background: var(--yellow);">🏝</div>
+            <h5>④ 造岛</h5>
+            <p>地砖 / 建筑外观 / 路径</p>
+          </div>
+        </div>
+
+        <div class="quote" style="margin-top: 26px;">
+          <p>「Tomodachi Collection 的概念是『究极小圈子的圈内梗软体』。<br/>能让玩家自由制作喜欢东西的 UGC，与这款游戏<span class="highlight">非常契合</span>。」</p>
+          <div class="who">高桥 龙太郎（总监督）</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 15: Mii Maker 自定义 ============ -->
+    <section class="slide">
+      <div class="slide-label">03.1 · Mii 面容自定义</div>
+      <div class="slide-inner">
+        <div class="hero-split">
+          <div>
+            <div class="eyebrow"><span class="dot"></span>① 面容</div>
+            <h2 class="section-title">从「像本人」到<br/>「想做<span class="accent">谁</span>就做谁」</h2>
+
+            <div class="grid" style="grid-template-columns: 1fr; gap: 12px; margin-top: 18px;">
+              <div class="highlight-box sky">
+                ✨ <strong>更细的部件</strong>：睫毛、双眼皮、嘴巴可调角度
+              </div>
+              <div class="highlight-box pink">
+                🎨 <strong>头发双色</strong>：副色设定能做双色发型
+              </div>
+              <div class="highlight-box mint">
+                🌈 <strong>颜色全开</strong>：肤色 / 部件色不限——能做动物、外星人
+              </div>
+              <div class="highlight-box yellow">
+                🏳️‍🌈 <strong>无限制关系</strong>：性别 / 恋爱对象 / 婚礼服自由
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-image-wrap">
+            <img class="hero-image" src="assets/mii-maker.png" alt="Mii Maker 自定义界面" />
+            <div class="image-caption">Mii Maker：脸型、五官、发型、颜色全部可调</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 16: Face Paint ============ -->
+    <section class="slide">
+      <div class="slide-label">03.2 · 脸部彩绘</div>
+      <div class="slide-inner">
+        <div class="hero-split reverse">
+          <div class="hero-image-wrap">
+            <img class="hero-image" src="assets/face-paint.png" alt="Face Paint 脸部彩绘功能" />
+            <div class="image-caption">Face Paint：可在 Mii 脸上直接手绘任意图案</div>
+          </div>
+
+          <div>
+            <div class="eyebrow"><span class="dot"></span>② 脸部彩绘 · 本作最受好评的功能</div>
+            <h2 class="section-title">把<span class="accent">手绘自由度</span><br/>开到最大</h2>
+
+            <p class="lead" style="margin-top: 14px;">不只是选择部件——还能在 Mii 脸上<strong>直接画</strong>。<br/>胡子、雀斑、纹身、彩妆、动物特征……</p>
+
+            <div class="story" style="margin-top: 20px;">
+              <span class="label">😻 真实彩蛋</span>
+              <h4>猫脸 Mii 生下的孩子，<br/>真的继承了猫的特征</h4>
+              <p>团队对 Mii 婴儿做了「特征遗传系统」调整。<br/>测试时一只画了猫脸的 Mii 真的生出了猫脸宝宝——<strong>把开发成员都吓了一跳</strong>。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 17: 自动生成 Mii ============ -->
+    <section class="slide">
+      <div class="slide-label">03.3 · 给「不擅长画画」的人</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>自由度太高 = 新手会怕</div>
+        <h2 class="section-title">问答式 Mii<span class="accent">自动生成</span></h2>
+        <p class="lead">为不擅长制作 Mii 的玩家准备的全新功能——回答问题，「啪」的一声生成一只 Mii。</p>
+
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; margin-top: 24px; align-items: start;">
+          <div style="background: var(--paper); border-radius: 24px; padding: 24px; border: 1px solid var(--line); box-shadow: var(--shadow);">
+            <div style="display: flex; gap: 14px; margin-bottom: 14px;">
+              <div class="bubble left" style="background: var(--bg-2);">头发长还是短？</div>
+              <div class="bubble right" style="background: var(--pink-soft);">短</div>
+            </div>
+            <div style="display: flex; gap: 14px; margin-bottom: 14px;">
+              <div class="bubble left" style="background: var(--bg-2);">脸型偏圆还是偏方？</div>
+              <div class="bubble right" style="background: var(--pink-soft);">偏圆</div>
+            </div>
+            <div style="display: flex; gap: 14px; margin-bottom: 14px; align-items: center;">
+              <div class="bubble left" style="background: var(--bg-2);">眼睛细长还是大？</div>
+              <div class="bubble right" style="background: var(--pink-soft);">大</div>
+            </div>
+            <div style="text-align: center; padding: 12px 0; color: var(--ink-faint); font-size: 12px;">⋯⋯</div>
+            <div style="text-align: center; padding: 12px; background: linear-gradient(135deg, #FFE8DC, #FFD2D9); border-radius: 14px; font-size: 14px; font-weight: 600;">
+              🎉 「啪！」 生成一只 Mii
+            </div>
+          </div>
+
+          <div class="highlight-box mint" style="align-self: center;">
+            💡 <strong>设计哲学</strong>：就算长得不像，吐槽「这是谁啊！」也能成为新的<span class="highlight">「圈内梗」</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 18: Mii 多样性展示 ============ -->
+    <section class="slide">
+      <div class="slide-label">03.4 · 自定义的极限</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>UGC 工具能做到什么程度</div>
+        <h2 class="section-title">动物、外星人、机器人、<br/>甚至<span class="accent">浮在空中</span>的 Mii</h2>
+
+        <div class="image-hero" style="margin-top: 18px;">
+          <img src="assets/mii-variety.png" alt="多样化的 Mii 角色" />
+        </div>
+
+        <p class="lead" style="margin-top: 18px; max-width: none;">「除了本人、家人、朋友等真实人物之外，也会有玩家想制作原创角色。<br/>因此我们<strong>尽可能让玩家透过各种方式制作出任何样子的 Mii</strong>。」<span style="font-size: 12px; color: var(--ink-faint);">—— 高桥 龙太郎</span></p>
+      </div>
+    </section>
+
+    <!-- ============ Slide 19: 性格系统 ============ -->
+    <section class="slide">
+      <div class="slide-label">03.5 · 性格设计的两层结构</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>③ 性格 × 微个性</div>
+        <h2 class="section-title">为什么 16 种性格<span class="accent">不够</span>？</h2>
+
+        <div class="grid grid-2" style="margin-top: 22px;">
+          <div class="card">
+            <div class="tag">基础层 · 自初代延续</div>
+            <h4>16 种主性格</h4>
+            <p style="margin-bottom: 14px;">决定 Mii 的对话风格、行动倾向。覆盖大多数人格类型。</p>
+            <div class="pill-row">
+              <span class="pill">温柔</span>
+              <span class="pill">活泼</span>
+              <span class="pill">认真</span>
+              <span class="pill">冷静</span>
+              <span class="pill muted">… 共 16 种</span>
+            </div>
+          </div>
+          <div class="card" style="background: linear-gradient(135deg, #FFFBEE, #FFF4DC); border-color: #E5C988;">
+            <div class="tag" style="background: var(--yellow); color: #6E4D14;">本作新增 · 一大发明</div>
+            <h4>「微个性」：玩家拼贴的细节</h4>
+            <p style="margin-bottom: 14px;">无法塞进 16 种主性格里的细节，做成<strong>可送给 Mii 的礼物</strong>。</p>
+            <div class="pill-row">
+              <span class="pill">独特步姿</span>
+              <span class="pill">大胃王</span>
+              <span class="pill">小鸟胃</span>
+              <span class="pill">说话很大声</span>
+              <span class="pill">睡相差</span>
+              <span class="pill">浮在空中</span>
+              <span class="pill alert">⚠️ 放屁</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote" style="margin-top: 22px;">
+          <p>「『微个性』可以说是本作的<span class="highlight">一大发明</span>。<br/>你自己决定加什么，才能更像本人——而那就是『圈内梗』的起点。」</p>
+          <div class="who">高桥 龙太郎（总监督）</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 20: 放屁的故事 ============ -->
+    <section class="slide">
+      <div class="slide-label">03.6 · 微个性背后的争论</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>真实故事</div>
+        <h2 class="section-title">要不要让 Mii<span class="accent">「放屁」</span>？</h2>
+        <p class="lead">一个让团队意见两极分裂的微个性。</p>
+
+        <div class="grid grid-2" style="margin-top: 22px;">
+          <div class="highlight-box pink" style="padding: 18px;">
+            <div style="font-size: 36px; margin-bottom: 8px;">😆</div>
+            <strong>「很有趣！」</strong>
+            <p style="margin-top: 6px; font-size: 12px; color: var(--ink-soft);">一派开发者支持加入</p>
+          </div>
+          <div class="highlight-box sky" style="padding: 18px;">
+            <div style="font-size: 36px; margin-bottom: 8px;">😣</div>
+            <strong>「有点低俗、不太喜欢。」</strong>
+            <p style="margin-top: 6px; font-size: 12px; color: var(--ink-soft);">另一派觉得拉低品味</p>
+          </div>
+        </div>
+
+        <div class="story" style="margin-top: 22px;">
+          <span class="label">🎯 最终方案</span>
+          <h4>做成可选「微个性」</h4>
+          <p>喜欢的人送给 Mii，不喜欢的人不送就好。<br/>音效也反复重录——曾经做出过<strong>「砰！」一声爆炸式</strong>的版本（全员爆笑）。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 22: Palette House ============ -->
+    <section class="slide">
+      <div class="slide-label">03.8 · 礼物制作</div>
+      <div class="slide-inner">
+        <div class="hero-split reverse">
+          <div class="hero-image-wrap">
+            <img class="hero-image" src="assets/palette-house.png" alt="Palette House Workshop" />
+            <div class="image-caption">Palette House Workshop：84 色调色板，万物皆可手绘</div>
+          </div>
+
+          <div>
+            <div class="eyebrow"><span class="dot"></span>⑤ 万物皆可手绘</div>
+            <h2 class="section-title">Palette House<br/><span class="accent">「礼物作坊」</span></h2>
+
+            <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px;">
+              <div class="pill muted" style="padding: 8px 12px; font-size: 12px;">🍔 食物</div>
+              <div class="pill muted" style="padding: 8px 12px; font-size: 12px;">👕 衣服</div>
+              <div class="pill muted" style="padding: 8px 12px; font-size: 12px;">📚 书籍</div>
+              <div class="pill muted" style="padding: 8px 12px; font-size: 12px;">🎮 游戏</div>
+              <div class="pill muted" style="padding: 8px 12px; font-size: 12px;">🐱 宠物</div>
+              <div class="pill muted" style="padding: 8px 12px; font-size: 12px;">🪑 家具</div>
+              <div class="pill muted" style="padding: 8px 12px; font-size: 12px;">🧱 地砖</div>
+              <div class="pill muted" style="padding: 8px 12px; font-size: 12px;">🏠 建筑外观</div>
+            </div>
+
+            <div class="highlight-box yellow" style="margin-top: 20px;">
+              💡 不会画？可以用<strong>文字、贴 Mii 脸照</strong>、套范本，<br/>甚至完全不用 UGC 也能享受游戏。
+            </div>
+
+            <div class="quote" style="margin-top: 16px; padding: 16px 20px;">
+              <p style="font-size: 14px;">「能送给 Mii 最大的东西，就是<strong>『岛』本身</strong>。」</p>
+              <div class="who">高桥 龙太郎</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 23: 造岛 ============ -->
+    <section class="slide fit-slide">
+      <div class="slide-label">03.9 · 造岛</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>能送给 Mii 最大的礼物</div>
+        <h2 class="section-title">从一座岛，<br/>到<span class="accent">每一寸地砖</span></h2>
+
+        <div class="fit-hero-grid" style="grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);">
+          <div class="image-hero">
+            <img src="assets/island-overview.png" alt="Tomodachi 岛俯视图" style="aspect-ratio: 16 / 9;" />
+          </div>
+
+          <div class="story">
+            <span class="label">🏢 团队的「本社开发岛」</span>
+            <h4>开发组把任天堂办公室搬进了游戏</h4>
+            <p>团队成员用造岛功能<strong>重现了自己的办公室</strong>，让开发人员的 Mii 住在里面。每张桌子都是一只 Mii 的家——但大家都不坐桌前，到处聊天躺着（笑）。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 24: 在地化 ============ -->
+    <section class="slide">
+      <div class="slide-label">03.10 · 在地化</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>本地化不是翻译</div>
+        <h2 class="section-title">让玩家觉得<span class="accent">「这是我熟悉的世界」</span></h2>
+        <p class="lead">为了让玩家相信「这就是我生活的小岛」，团队连物价和早餐都按地区改了。</p>
+
+        <div class="grid grid-3" style="margin-top: 24px;">
+          <div class="card">
+            <div class="tag">🍙 食物</div>
+            <h4>开局菜单不一样</h4>
+            <p>· 🇯🇵 日本：<strong>梅干、茶泡饭</strong><br/>· 🇺🇸 美国：<strong>S'more 棉花糖夹心饼</strong><br/>· 后期所有食物都能买到，但开场印象很重要</p>
+          </div>
+          <div class="card">
+            <div class="tag">💰 货币</div>
+            <h4>不用架空货币</h4>
+            <p>根据地区显示日元 / 美元 / 欧元，价格也跟着调整。<br/><strong>避免「突然走进陌生世界」的疏离感。</strong></p>
+          </div>
+          <div class="card">
+            <div class="tag">🎵 BGM</div>
+            <h4>看似松散，内里复杂</h4>
+            <p>峰岸用钢琴单独弹奏初代主题曲后发现：<br/>这其实是一首<strong>带爵士风格的复杂乐曲</strong>。<br/>松散是表面，复杂是底色。</p>
+          </div>
+        </div>
+
+        <div class="quote" style="margin-top: 22px;">
+          <p>「表面看起来略显憨拙、廉价，但内里其实有更复杂的东西。<br/>这<span class="highlight">或许不只适用于音乐</span>，也适用于整个 Tomodachi Collection。」</p>
+          <div class="who">峰岸 透（音效总监）</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 25: Part 4 Cover ============ -->
+    <section class="slide chapter-cover c4">
+      <div class="ch-side">
+        <div class="slide-label">PART 04</div>
+        <div class="eyebrow"><span class="dot"></span>第四部分</div>
+        <div class="ch-num">04</div>
+        <h2>幕后故事</h2>
+        <p>从 Debug 工具到核心玩法，<br/>从公告板到 Mii 新闻，<br/>还有<span class="highlight">藏在访谈里 9 年份的圈内梗</span>。</p>
+      </div>
+      <div class="ch-image" style="background-image: url('assets/behind-scenes.png');"></div>
+    </section>
+
+    <!-- ============ Slide 26: 抓起的交互 - Debug 工具的逆袭 ============ -->
+    <section class="slide">
+      <div class="slide-label">04.1 · 一个 Debug 工具的逆袭</div>
+      <div class="slide-inner">
+        <div class="hero-split">
+          <div>
+            <div class="eyebrow"><span class="dot"></span>① 抓起的交互</div>
+            <h2 class="section-title">「抓起 Mii」原本只是<br/>程式组的 <span class="accent">Debug 工具</span></h2>
+
+            <div class="story" style="margin-top: 20px;">
+              <span class="label">📖 设计小故事</span>
+              <h4>岛屿变大 → 加入「强制搬运」用于测试</h4>
+              <p>岛屿规模做大后，验证用的 Mii 容易离得太远——程式组加入了「强制搬运」当作 Debug 工具。</p>
+              <p style="margin-top: 12px;">结果在测试过程中，开发者忍不住说出来：<br/><strong style="color: var(--coral);">「希望这个 Mii 和那个 Mii 能一起玩。」</strong><br/>—— 这个 Debug 功能，就这样成为了正式玩法。</p>
+            </div>
+
+            <div class="highlight-box mint" style="margin-top: 16px;">
+              💡 <strong>启示：</strong>团队自己测试时冒出来的<strong>「我也想试试」</strong>，<br/>往往就是产品最该保留的核心动词。
+            </div>
+          </div>
+
+          <div class="hero-image-wrap">
+            <img class="hero-image" src="assets/pickup-mii.png" alt="抓起 Mii" />
+            <div class="image-caption">最终成为整作核心交互的「抓起」</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 27: 构思公告板 ============ -->
+    <section class="slide fit-slide">
+      <div class="slide-label">04.2 · 团队协作秘诀</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>② 构思公告板</div>
+        <h2 class="section-title">「<span class="accent">构思公告板</span>」<br/>把热情转换成产能</h2>
+
+        <div class="quote" style="margin-top: 16px;">
+          <p>「让所有工作人员都能<span class="highlight">自由写下自己的想法</span>。<br/>当有人写下有趣的想法时，不同岗位的人就会记下，并把它实现。」</p>
+          <div class="who">蔭山 大介（美术总监）</div>
+        </div>
+
+        <div class="grid grid-3" style="margin-top: 16px;">
+          <div class="principle pink">
+            <div class="icon">📝</div>
+            <h5>任何人都能提案</h5>
+            <p>不分岗位 / 资历，<br/>都能贴到公告板上</p>
+          </div>
+          <div class="principle sky">
+            <div class="icon">🙋</div>
+            <h5>提案者可挂帅</h5>
+            <p>「由我来统筹负责！」<br/>主动推动落地</p>
+          </div>
+          <div class="principle mint">
+            <div class="icon">⚖️</div>
+            <h5>资深做平衡</h5>
+            <p>把热情调整到<br/><strong>现实可行的程度</strong></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 28: Mii 新闻的故事 ============ -->
+    <section class="slide">
+      <div class="slide-label">04.3 · 自下而上的力量</div>
+      <div class="slide-inner">
+        <div class="hero-split reverse">
+          <div class="hero-image-wrap">
+            <img class="hero-image" src="assets/mii-news.png" alt="Mii News 新闻播报" />
+            <div class="image-caption">Mii 新闻：让岛上发生的事变成每日播报</div>
+          </div>
+
+          <div>
+            <div class="eyebrow"><span class="dot"></span>③ Mii 新闻 · 差点被砍的功能</div>
+            <h2 class="section-title">「没有 Mii 新闻就<br/>不像<span class="accent">Tomodachi</span> 啊！」</h2>
+
+            <div class="story" style="margin-top: 18px;">
+              <span class="label">⚡ 真实经过</span>
+              <h4>一位年轻设计师救回来的功能</h4>
+              <p>原计划因为时间不够要砍掉 Mii 新闻。<br/>一位<strong>年轻设计师</strong>站出来力争：<br/>「没有 Mii 新闻就不像是 Tomodachi Collection！」<br/><br/>她去找各组商量调整方案，把功能<strong>调整到现实可行的程度</strong>实装。</p>
+            </div>
+
+            <div class="quote mint" style="margin-top: 18px; padding: 16px 20px;">
+              <p style="font-size: 14px;">「原本以玩家身份享受作品的人，如今成为了开发者，<br/><strong>亲手将自身的回忆转化为具体的成果</strong>。」</p>
+              <div class="who">高桥 龙太郎</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 29: 不为人知的小故事 ============ -->
+    <section class="slide">
+      <div class="slide-label">04.4 · 不为人知的小故事</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>④ 9 年份梗的彩蛋</div>
+        <h2 class="section-title">访谈里偷偷藏的<span class="accent">小故事</span></h2>
+
+        <div class="grid grid-2" style="margin-top: 22px;">
+          <div class="card" style="background: linear-gradient(135deg, #F1FFF6, #DFF5E5); border-color: #B6E0C2;">
+            <div class="tag" style="background: #BDE6CA; color: #2C7A4B;">🪴 Pikmin 当宠物</div>
+            <h4>「我们熟悉的生物，做成宠物吧」</h4>
+            <p>开发团队在 UGC 自定义宠物里<strong>亲手做了 Pikmin</strong>，让 Mii 一起散步玩耍。「我们做了很多这种内部的圈内梗。」—— 高桥</p>
+          </div>
+          <div class="card" style="background: linear-gradient(135deg, #F7FBFF, #EAF4FF); border-color: #B6D8EC;">
+            <div class="tag" style="background: #BDE6F5; color: #2C5C7C;">💳 高桥的员工证</div>
+            <h4>道具系统里的内部梗</h4>
+            <p>UGC 道具中真的有<strong>「高桥龙太郎的员工证」</strong>与「薪水袋」。开发者自己玩得很嗨，希望玩家也能制造类似的圈内梗。</p>
+          </div>
+          <div class="card" style="background: linear-gradient(135deg, #FFFBEE, #FFF4DC); border-color: #E5C988;">
+            <div class="tag" style="background: var(--yellow); color: #6E4D14;">💨 放屁的音效</div>
+            <h4>反复重录的「砰！」</h4>
+            <p>放屁音效重录过<strong>非常多次</strong>。曾做出过爆炸式的「砰！」——「这个太写实了」之类的意见层出不穷。</p>
+          </div>
+          <div class="card" style="background: linear-gradient(135deg, #FFF5F5, #FFE9EC); border-color: #FFB8C5;">
+            <div class="tag" style="background: #FFC8D2; color: #8A3A4F;">🏢 本社开发岛</div>
+            <h4>把办公室搬进游戏</h4>
+            <p>团队成员重现了自己的<strong>任天堂办公室</strong>，让开发人员的 Mii 住在里面。每张桌子都是一只 Mii 的家。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 30: 设计师的 3 件事 ============ -->
+    <section class="slide">
+      <div class="slide-label">05 · 给设计师的启示</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>如果只能带走 3 件事</div>
+        <h2 class="section-title">作为设计师，<br/>这款游戏让我学到的<span class="accent">3 件事</span></h2>
+
+        <div class="grid grid-3" style="margin-top: 32px;">
+          <div class="card" style="background: linear-gradient(135deg, #FFF5F5, #FFE9EC); border-color: #FFB8C5;">
+            <div class="tag" style="background: #FFC8D2; color: #8A3A4F;">01</div>
+            <h4 style="font-size: 22px; margin: 12px 0;">先回答<br/>「这是怎样的生物」</h4>
+            <p>硬件、引擎、画面可以升级——但<strong>是否升级</strong>取决于你的设计对象「应当是什么样子」。<br/>这个共识比任何 KPI 都重要。</p>
+          </div>
+          <div class="card" style="background: linear-gradient(135deg, #F7FBFF, #EAF4FF); border-color: #B6D8EC;">
+            <div class="tag" style="background: #BDE6F5; color: #2C5C7C;">02</div>
+            <h4 style="font-size: 22px; margin: 12px 0;">不要把<br/>「意外」吃掉</h4>
+            <p>玩家完全指挥 Mii，乐趣就消失。<br/>类比到产品工作：<strong>不要替用户做所有决定</strong>。<br/>给系统留出「自然反应」的空间，故事才会发生。</p>
+          </div>
+          <div class="card" style="background: linear-gradient(135deg, #F1FFF6, #DFF5E5); border-color: #B6E0C2;">
+            <div class="tag" style="background: #BDE6CA; color: #2C7A4B;">03</div>
+            <h4 style="font-size: 22px; margin: 12px 0;">UGC 不是功能，<br/>是<strong>一种自洽</strong></h4>
+            <p>玩家创造一切，但 Mii 决定怎么用——<br/>这两个动作之间的张力，才是 UGC 真正的引擎。<br/><strong>设计 UGC，先设计「使用 UGC 的对象」。</strong></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 31: 鸣谢 ============ -->
+    <section class="slide ending">
+      <div class="slide-inner" style="justify-content: center;">
+        <div style="text-align: center;">
+          <h2>谢谢观看</h2>
+          <p>欢迎一起聊聊：你最想做成 Mii 的那个朋友，<br/>会拥有什么样的「微个性」？</p>
+          <div style="margin-top: 36px; font-size: 12px; color: var(--ink-faint); letter-spacing: 0.1em; line-height: 1.9;">
+            资料来源 · Nintendo 官方开发者访谈 vol.21（Part 1 / 2 / 3）<br/>
+            Nintendo Life · Wccftech · Final Weapon · Eneba · IGN · GamesRadar+ 等评测<br/>
+            Wikipedia (Tomodachi Life: Living the Dream / Tomodachi Collection) · MiiWiki
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<div class="nav">
+  <button id="prev" aria-label="上一页">←</button>
+  <div class="pages"><strong id="cur">1</strong> / <span id="total">35</span></div>
+  <button id="next" aria-label="下一页">→</button>
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  let cur = 0;
+
+  const $cur = document.getElementById('cur');
+  const $total = document.getElementById('total');
+  const $progress = document.getElementById('progress');
+
+  $total.textContent = total;
+
+  function goTo(idx) {
+    idx = Math.max(0, Math.min(total - 1, idx));
+    if (idx === cur) return;
+    slides[cur].classList.remove('active');
+    cur = idx;
+    slides[cur].classList.add('active');
+    $cur.textContent = cur + 1;
+    $progress.style.width = ((cur + 1) / total * 100) + '%';
+  }
+
+  document.getElementById('prev').addEventListener('click', () => goTo(cur - 1));
+  document.getElementById('next').addEventListener('click', () => goTo(cur + 1));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+      e.preventDefault(); goTo(cur + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      e.preventDefault(); goTo(cur - 1);
+    } else if (e.key === 'Home') {
+      e.preventDefault(); goTo(0);
+    } else if (e.key === 'End') {
+      e.preventDefault(); goTo(total - 1);
+    }
+  });
+
+  let touchStartX = 0;
+  document.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; });
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 60) goTo(cur + (dx < 0 ? 1 : -1));
+  });
+
+  let wheelLock = false;
+  document.addEventListener('wheel', e => {
+    if (wheelLock) return;
+    if (Math.abs(e.deltaY) < 30) return;
+    wheelLock = true;
+    setTimeout(() => wheelLock = false, 700);
+    goTo(cur + (e.deltaY > 0 ? 1 : -1));
+  }, { passive: true });
+
+  $progress.style.width = (1 / total * 100) + '%';
+
+  // UGC video: 当视频成功加载时，隐藏占位、显示视频
+  const ugcVideo = document.getElementById('ugc-video');
+  const ugcWrap = document.getElementById('ugc-video-wrap');
+  if (ugcVideo && ugcWrap) {
+    ugcVideo.addEventListener('loadeddata', () => ugcWrap.classList.add('has-video'));
+    ugcVideo.addEventListener('canplay', () => ugcWrap.classList.add('has-video'));
+  }
+</script>
+
+</body>
+</html>
