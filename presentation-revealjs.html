@@ -1,0 +1,917 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>朋友收集 梦想生活 · 设计分享</title>
+
+  <!-- Reveal.js core -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="presentation-revealjs.css">
+
+  <!-- Chart.js for data visualization -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section id="title" class="cover" data-state="is-section-divider">
+        <div class="floater f-tl">🌸</div>
+        <div class="floater f-tr">☁️</div>
+        <div class="floater f-bl">🌿</div>
+        <div class="floater f-br">⭐</div>
+        <p class="badge">🎮&nbsp;&nbsp;Nintendo Switch · 2026.4.16 发售</p>
+        <h1>朋友收集<br/>梦想生活</h1>
+        <p class="subtitle">一座小岛、一群 Mii，<br/>以及 9 年时间打磨出的「随心所欲」</p>
+        <p class="meta">
+          <span>设计组分享 · 约 15 分钟</span>
+          <span>Tomodachi Life: Living the Dream</span>
+        </p>
+      </section>
+
+      <section id="slide-2">
+        <p class="slide-label">AGENDA · 分享目录</p>
+        <p class="eyebrow"><span class="dot"></span>今天会聊到</p>
+        <h2>从「<span class="accent">Mii 是怎样的生物</span>」出发，<br/>一次系统级的设计思考</h2>
+        <div class="content">
+          <p class="text-md text-muted">不直接控制 Mii，而是用尽办法去理解和照顾它们——下面四章我们会沿着这个内核展开。</p>
+          <div class="toc-grid" style="margin-top: 22px;">
+            <div class="toc-card c1">
+              <div class="bar"></div>
+              <p class="num">01</p>
+              <h4>前世今生</h4>
+              <p>从 DS 到 Switch，<br/>16 年的系列血脉</p>
+            </div>
+            <div class="toc-card c2">
+              <div class="bar"></div>
+              <p class="num">02</p>
+              <h4>Mii 的设计哲学</h4>
+              <p>不是分身，<br/>是「拥有人格的生物」</p>
+            </div>
+            <div class="toc-card c3">
+              <div class="bar"></div>
+              <p class="num">03</p>
+              <h4>UGC 生态</h4>
+              <p>玩家创造一切，<br/>Mii 决定怎么用</p>
+            </div>
+            <div class="toc-card c4">
+              <div class="bar"></div>
+              <p class="num">04</p>
+              <h4>幕后故事</h4>
+              <p>6–7 年开发，<br/>9 年份的圈内梗</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="divider-1" class="section-divider c1" data-state="chapter-1">
+        <p class="ch-num">01</p>
+        <div class="ch-body">
+          <p class="slide-label">PART 01</p>
+          <p class="eyebrow"><span class="dot"></span>第一部分</p>
+          <h1>前世今生</h1>
+          <p>朋友收集系列 16 年的进化与等待。<br/>一个被任天堂自己称为<span class="highlight">「究极小圈子的圈内梗软体」</span>的奇特血脉。</p>
+        </div>
+      </section>
+
+      <section id="slide-4">
+        <p class="slide-label">01.1 · 系列家谱</p>
+        <p class="eyebrow"><span class="dot"></span>16 年血脉</p>
+        <h2>一条<span class="accent">「观察 Mii」</span>的暗线，跨越四代主机</h2>
+        <div class="content">
+          <div class="timeline-row">
+            <div class="timeline-node">
+              <div class="dot"></div>
+              <p class="year">2009</p>
+              <p class="platform">Nintendo DS</p>
+              <p class="name">Tomodachi<br/>Collection</p>
+              <p class="desc">系列原点</p>
+            </div>
+            <div class="timeline-node">
+              <div class="dot"></div>
+              <p class="year">2013</p>
+              <p class="platform">Nintendo 3DS</p>
+              <p class="name">Tomodachi Life</p>
+              <p class="desc">加入育儿、首次出海</p>
+            </div>
+            <div class="timeline-node">
+              <div class="dot"></div>
+              <p class="year">2016</p>
+              <p class="platform">iOS / Android</p>
+              <p class="name">Miitomo</p>
+              <p class="desc">2018 终止服务</p>
+            </div>
+            <div class="timeline-node">
+              <div class="dot"></div>
+              <p class="year">2016</p>
+              <p class="platform">3DS · 移植 Switch</p>
+              <p class="name">Miitopia</p>
+              <p class="desc">Mii 的 RPG 冒险</p>
+            </div>
+            <div class="timeline-node">
+              <div class="dot"></div>
+              <p class="year">2026</p>
+              <p class="platform">Switch / Switch 2</p>
+              <p class="name" style="color: var(--primary-color);">朋友收集<br/>梦想生活</p>
+              <p class="desc">脱胎换骨重制</p>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px;">
+            <div class="card">
+              <p class="tag">为什么是 2017 年起步</p>
+              <h4>从「玩透了」开始的新作念头</h4>
+              <p>制作人坂本贺勇与监督高桥反复玩前作，最终发出感叹：<span class="highlight">「明明想让 Mii 们做更多事，可是已经没有新东西可给他们了……」</span>开发由此拉开序幕。</p>
+            </div>
+            <div class="card card-tint-sky">
+              <p class="tag">为什么是 Switch</p>
+              <h4>主机性能 = 设计自由度</h4>
+              <p>3DS 因机能限制只能用「公寓大楼」承载 Mii。Switch 终于支持<span class="highlight">大量 Mii 在整座岛上自由走动</span>，UGC 内容彼此咬合，演化出意想不到的剧情。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-5">
+        <p class="slide-label">01.2 · 重制的契机</p>
+        <p class="eyebrow"><span class="dot"></span>从一声叹息开始</p>
+        <h2>从一声<span class="accent">叹息</span>，<br/>开启 6 年重制之路</h2>
+        <div class="content">
+          <blockquote style="margin-top: 6px;">
+            <p>「明明想让他们做更多事，可是我已经<span class="highlight">没有新东西</span>可以让这些 Mii 做了……」</p>
+            <cite>制作人 坂本贺勇 · 把前作《Tomodachi Life》玩了好几年之后</cite>
+          </blockquote>
+          <div class="big-row" style="margin-top: 24px;">
+            <div class="item">
+              <p class="num pink">2017</p>
+              <p class="label">开发起点<br/>《Miitomo》之后</p>
+            </div>
+            <div class="item">
+              <p class="num sky">6–7 年</p>
+              <p class="label">实际开发周期<br/>原计划仅 1.5 年</p>
+            </div>
+            <div class="item">
+              <p class="num mint">10+ 年</p>
+              <p class="label">前作至今的间隔<br/>玩家苦等多年</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-6">
+        <p class="slide-label">01.3 · 核心命题</p>
+        <p class="eyebrow"><span class="dot"></span>不是续作，是重生</p>
+        <h2>「<span class="accent">脱胎换骨</span>的全新 Tomodachi Collection」</h2>
+        <div class="content">
+          <p class="text-md text-muted">高桥监督的开发宣言：保留系列灵魂，但每一行代码、每一个部件，全部重做。</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px;">
+            <div class="card">
+              <p class="tag">命题一</p>
+              <h4>🏝 让大量 Mii 在岛上自由走动</h4>
+              <p>3DS 因机能限制只能用「公寓大楼」承载 Mii。Switch 终于能让大量 Mii 同时在岛上活动——<strong>行动空间的扩张，是一切设计自由度的起点</strong>。</p>
+            </div>
+            <div class="card">
+              <p class="tag">命题二</p>
+              <h4>🎨 用 UGC 重现更多「圈内梗」</h4>
+              <p>系列定位是「究极小圈子的圈内梗软体」。沿用旧路只能比道具数量。<strong>UGC 让玩家自己制造新梗，乐趣无限扩展</strong>。</p>
+            </div>
+          </div>
+          <blockquote>
+            <p>「Tomodachi Collection 的玩家不只是把 Mii 当成自己的分身，而是会对 Mii 这个『生物』<span class="highlight">投放情感</span>。」</p>
+            <cite>蔭山 大介（美术总监）</cite>
+          </blockquote>
+        </div>
+      </section>
+
+      <section id="divider-2" class="section-divider c2" data-state="chapter-2">
+        <p class="ch-num">02</p>
+        <div class="ch-body">
+          <p class="slide-label">PART 02</p>
+          <p class="eyebrow"><span class="dot"></span>第二部分</p>
+          <h1>Mii 的设计哲学</h1>
+          <p>从「<span class="highlight">定义 Mii</span>」到「实现 Mii」，<br/>看团队如何把一个虚拟角色，设计成值得玩家持续牵挂的存在。</p>
+        </div>
+      </section>
+
+      <section id="slide-8">
+        <p class="slide-label">02.1 · 核心命题</p>
+        <p class="eyebrow"><span class="dot"></span>整个团队反复讨论的一句话</p>
+        <h2>Mii 不是分身，<br/>是<span class="accent">拥有人格</span>的「生物」</h2>
+        <div class="content">
+          <p class="text-md text-muted">Mii 不是头像，不是分身，而是「<span class="highlight">值得被照顾的、像小孩般纯真的存在</span>」。所有设计取舍，都围绕这一句展开。</p>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 22px;">
+            <div class="principle">
+              <div class="ico">🍼</div>
+              <div class="text">
+                <h5>值得被照顾</h5>
+                <p>玩家投放的不是控制欲，而是<strong>家长般的目光</strong>。</p>
+              </div>
+            </div>
+            <div class="principle">
+              <div class="ico">🌱</div>
+              <div class="text">
+                <h5>像小孩般纯真</h5>
+                <p>不机智、不毒舌，偶尔说出让人惊讶的<strong>大实话</strong>。</p>
+              </div>
+            </div>
+            <div class="principle">
+              <div class="ico">🎭</div>
+              <div class="text">
+                <h5>只装傻、不吐槽</h5>
+                <p>Mii 抛梗，吐槽留给<strong>玩家自己</strong>。</p>
+              </div>
+            </div>
+          </div>
+          <blockquote>
+            <p>「让人会忍不住想要照顾、值得爱护的对象——我们希望 Mii 依然是这样的存在（笑）。」</p>
+            <cite>大西（程式总监）</cite>
+          </blockquote>
+        </div>
+      </section>
+
+      <section id="slide-9">
+        <p class="slide-label">02.2 · 设计取舍</p>
+        <p class="eyebrow"><span class="dot"></span>性能提升 ≠ 视觉升级</p>
+        <h2>最大的难题：硬件变好了，<br/>怎么<span class="accent">「不变」</span>才正确</h2>
+        <div class="content">
+          <div class="compare" style="margin-top: 18px;">
+            <div class="col bad">
+              <h5>❌ 一开始尝试 <span class="pill-mini">却失败</span></h5>
+              <ul>
+                <li>提升 Mii 解析度、调整脸部部件让线条更精细</li>
+                <li>新的语音合成引擎做出真人感的写实声音</li>
+                <li>给动作加入流畅的预备动作、转身、过渡</li>
+                <li>结果：「这不太像 Mii 了。」</li>
+              </ul>
+            </div>
+            <div class="col good">
+              <h5>✅ 最终的方向 <span class="pill-mini">克制升级</span></h5>
+              <ul>
+                <li>保留脸部部件、手脚形状等「Mii 之所以是 Mii」的部分</li>
+                <li>对真人感语音<strong>反向加工</strong>，留一丝机械感</li>
+                <li>动作刻意省略圆润的预备帧，保留夸张关键动作</li>
+                <li>结果：「啊，这就是当年那只 Mii。」</li>
+              </ul>
+            </div>
+          </div>
+          <blockquote>
+            <p>「不能只因为<span class="highlight">『解析度提升了』</span>就草率改变 Mii 的设计。这些 Mii 里，装满了不同玩家深厚的情感。」</p>
+            <cite>蔭山 大介（美术总监）· 接下来三页会拆开讲</cite>
+          </blockquote>
+        </div>
+      </section>
+
+      <section id="slide-10">
+        <p class="slide-label">02.2 · 设计取舍 · ② 卡通风格</p>
+        <p class="eyebrow"><span class="dot"></span>形状不变，但每一个部件都重画</p>
+        <h2>素朴的<span class="accent">卡通风格</span>更新</h2>
+        <div class="content">
+          <p class="text-md text-muted">不改变「Mii 之所以是 Mii」的核心特征，但把每一个部件的结构与设计都从头审视一遍。</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 16px;">
+            <div class="card card-tint-sky">
+              <p class="tag">🔒 保留</p>
+              <h4>「Mii 之所以是 Mii」的核心</h4>
+              <p>· 脸部部件的<strong>形状</strong>与位置<br/>· 手脚的圆润形状<br/>· 整体身体比例</p>
+            </div>
+            <div class="card card-tint-mint">
+              <p class="tag">🎨 更新</p>
+              <h4>每个部件从头重画</h4>
+              <p>· 素朴 + <strong>动画风格的卡通调性</strong><br/>· 让 Mii 间的戏剧场景更易投入<br/>· 现代屏幕下不显得过时</p>
+            </div>
+          </div>
+          <div class="story" style="margin-top: 16px;">
+            <p class="label">🎁 一个意外的发现</p>
+            <h4>新风格 = 17 年前盒装上的<span class="accent">初代理想型</span></h4>
+            <p>验证过程中团队发现：这个「卡通风格」与坂本贺勇从初代就想呈现的形象<strong>不谋而合</strong>。初代盒装上的 Mii 与当年游戏内画风并不相同，反而更接近本作。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-11">
+        <p class="slide-label">02.2 · 设计取舍 · ③ 声音</p>
+        <p class="eyebrow"><span class="dot"></span>关于「原声」的反向调音</p>
+        <h2>真人感 → 故意<span class="accent">「退一步」</span></h2>
+        <div class="content">
+          <p class="text-md text-muted">峰岸音效总监在为 Mii 做声音时，最难的事不是让它更真实，而是知道<strong>在哪里收手</strong>。</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px;">
+            <div class="card">
+              <p class="tag">🎤 新的语音合成引擎</p>
+              <h4>「原声」更精准、更像真人</h4>
+              <p>Switch 时代的引擎，理论上 Mii 可以发出非常自然、接近真人的声音。</p>
+              <p style="margin-top: 10px; padding: 10px 14px; background: #FFE0E0; color: #B43E3E; border-radius: 12px; font-size: 11pt;">⚠️ 直接输出 → 「这不太像 Mii」</p>
+            </div>
+            <div class="card card-tint-mint">
+              <p class="tag">🛠 反向调音的工艺</p>
+              <h4>加工出「机械感」的余韵</h4>
+              <p>团队特意将真人感<strong>反向加工</strong>，让 Mii 的声音同时具备「时代感的清晰」<strong>与</strong>「Tomodachi 系列的卡通腔调」。</p>
+              <p style="margin-top: 10px; padding: 10px 14px; background: #DEF3E5; color: #2C7A4B; border-radius: 12px; font-size: 11pt;">✅ 一听就知道：「啊，是 Mii。」</p>
+            </div>
+          </div>
+          <blockquote>
+            <p>「希望同时保留过去 Tomodachi Collection 的感觉，又能适度地配合时代进行更新。要找到这个<span class="highlight">恰到好处</span>的平衡点，并不容易。」</p>
+            <cite>峰岸 透（音效总监）</cite>
+          </blockquote>
+        </div>
+      </section>
+
+      <section id="slide-12">
+        <p class="slide-label">02.2 · 设计取舍 · ④ 动作</p>
+        <p class="eyebrow"><span class="dot"></span>动画师与设计师的反复商讨</p>
+        <h2>圆润 → 刻意<span class="accent">「去掉」</span></h2>
+        <div class="content">
+          <p class="text-md text-muted">如果动作太流畅、太帅气，就不像 Mii。所以团队选择「反着设计」——动画师本能想加的过渡，全部砍掉。</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px;">
+            <div class="card card-tint-pink">
+              <p class="tag">❌ 删掉</p>
+              <h4>「预备帧」与过渡动作</h4>
+              <p>让动作看起来圆润、流畅的过渡帧，团队<strong>刻意省略</strong>。动作有点僵硬、像旧动画——但这正是 Mii 的味道。</p>
+            </div>
+            <div class="card card-tint-yellow">
+              <p class="tag">✅ 加强</p>
+              <h4>夸张、留下深刻印象的关键动作</h4>
+              <p>跳跃、惊吓、跑步姿势都刻意夸大：<strong>关键帧 over，过渡帧 under</strong>。记忆点反而更强。</p>
+            </div>
+          </div>
+          <blockquote>
+            <p>「我们经常与动画工作人员商量，像是『<span class="highlight">这会否太写实了</span>』之类的问题。」</p>
+            <cite>蔭山 大介（美术总监）</cite>
+          </blockquote>
+        </div>
+      </section>
+
+      <section id="slide-13">
+        <p class="slide-label">02.3 · 与 Mii 的交互 · 总览</p>
+        <p class="eyebrow"><span class="dot"></span>保持边界，为惊喜留出空间</p>
+        <h2>为<span class="accent">「保持边界」</span>而设计的 3 种交互方式</h2>
+        <div class="content">
+          <p class="text-md text-muted">不让玩家直接指挥 Mii——这是核心原则。玩家能做的，都是「轻轻种下种子」的动作。</p>
+          <blockquote style="margin-top: 14px;">
+            <p>「Mii 听从指示就<span class="highlight">没意思了</span>。抓起并放下，但之后做什么，<strong>交给 Mii 自己决定</strong>。」</p>
+            <cite>上野 隆臣（程式总监）</cite>
+          </blockquote>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px;">
+            <div class="card">
+              <p class="tag">① 抓起</p>
+              <h4>把 Mii 放到另一只旁边</h4>
+              <p>他俩会聊起来吗？打架吗？不知道。<br/>—— 留给意外</p>
+            </div>
+            <div class="card">
+              <p class="tag">② 送礼</p>
+              <h4>食物 / 衣服 / 书 / 个性</h4>
+              <p>Mii 收到后自己决定怎么用。<br/>—— 留给个性</p>
+            </div>
+            <div class="card">
+              <p class="tag">③ 教话</p>
+              <h4>教 Mii 说某句话</h4>
+              <p>这句话会在意想不到的时刻冒出来。<br/>—— 留给惊喜</p>
+            </div>
+          </div>
+        </div>
+        <p class="footnote">⚠️ 早期方案曾尝试「纸杯传声筒」让玩家给 Mii 提建议（4 选 1），被高桥否决：「这样意外的惊喜就消失了。」</p>
+      </section>
+
+      <section id="slide-14">
+        <p class="slide-label">02.3 · 与 Mii 的交互 · ① 抓起</p>
+        <p class="eyebrow"><span class="dot"></span>玩家唯一的"主动权"</p>
+        <h2>「抓起 Mii」<br/>—— 整作的<span class="accent">核心交互</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 30px; align-items: stretch;">
+            <div>
+              <p class="text-md text-muted">玩家可以抓起 Mii，搬到岛上任意角落。但这<strong>就是玩家能做的全部</strong>。</p>
+              <div style="display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 14px;">
+                <div class="principle">
+                  <div class="ico">🤏</div>
+                  <div class="text"><h5>抓起</h5><p>从家里、街上、海边⋯把 Mii 拎起来</p></div>
+                </div>
+                <div class="principle">
+                  <div class="ico">📦</div>
+                  <div class="text"><h5>放下</h5><p>放到任意位置：另一个 Mii 旁、店铺、房间</p></div>
+                </div>
+                <div class="principle">
+                  <div class="ico">👀</div>
+                  <div class="text"><h5>观察</h5><p>剩下的全部交给 Mii——他们决定要不要互动</p></div>
+                </div>
+              </div>
+            </div>
+            <div class="figure" style="align-self: center;">
+              <img src="assets/pickup-mii.png" alt="抓起 Mii 的核心交互"/>
+              <p class="caption">游戏内核心动作：玩家可以抓起 Mii，搬到任何位置</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-15">
+        <p class="slide-label">02.3 · 与 Mii 的交互 · ② 送礼</p>
+        <p class="eyebrow"><span class="dot"></span>送什么是你的，怎么用是 Mii 的</p>
+        <h2>同一份礼物，<span class="accent">不同 Mii</span> 给出不同反应</h2>
+        <div class="content">
+          <p class="text-md text-muted">玩家可以送 Mii 食物、衣服、书、游戏、宠物，甚至「微个性」——但反应、用法，由 Mii 自己的人格决定。</p>
+          <p class="text-center text-muted" style="margin-top: 14px; font-size: 12pt;">🍔 同一个汉堡，送给 3 只不同个性的 Mii →</p>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 8px;">
+            <div class="card card-tint-pink">
+              <p class="tag">🍴 大食量 个性</p>
+              <h4 style="color: #D85A75;">「太棒了！再来 10 个！」</h4>
+              <p>满意度直冲顶 · 立刻吃光 · 还想加餐</p>
+            </div>
+            <div class="card">
+              <p class="tag">😐 普通 个性</p>
+              <h4 class="text-muted">「谢谢⋯味道还可以。」</h4>
+              <p>满意度小幅上升 · 慢慢吃完 · 没特别反应</p>
+            </div>
+            <div class="card card-tint-sky">
+              <p class="tag">🙅 挑食 个性</p>
+              <h4 style="color: #3F8FB0;">「这个我不喜欢吃⋯」</h4>
+              <p>皱眉 · 悄悄放下 · 满意度反而下降</p>
+            </div>
+          </div>
+          <blockquote>
+            <p>「玩家可以将各种东西送给 Mii，但要<span class="highlight">怎么运用</span>，则取决于 Mii——并享受 Mii 的各种不同反应。」</p>
+            <cite>高桥 龙太郎（总监督）</cite>
+          </blockquote>
+        </div>
+      </section>
+
+      <section id="slide-16">
+        <p class="slide-label">02.3 · 与 Mii 的交互 · ③ 教话</p>
+        <p class="eyebrow"><span class="dot"></span>种下一句话，不写剧本</p>
+        <h2>你教的话，<span class="accent">何时何地</span>冒出来，由 Mii 自己决定</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 14px;">
+            <div class="story">
+              <p class="label">📖 真实例子 · 来自访谈</p>
+              <h4>「治好了四十肩」</h4>
+              <p>高桥说：Mii 问「最近有什么新闻？」我顺手回答「治好了四十肩」。<br/><br/>几天后我都已经忘了，看见 Mii 们凑在一起聊天，靠近一听——<strong style="color: var(--primary-color);">居然热烈讨论起『治好了四十肩』这件事。</strong></p>
+            </div>
+            <div>
+              <div class="card" style="padding: 18px;">
+                <p class="text-faint" style="font-size: 9pt; letter-spacing: 0.1em; margin-bottom: 10px;">📍 几天后，岛上 · 公园长椅</p>
+                <p style="margin-bottom: 8px;"><span class="bubble left"><span class="who">Mii A</span>你听说了吗？听说他治好了<strong>四十肩</strong>！</span></p>
+                <p style="text-align: right; margin-bottom: 8px;"><span class="bubble right" style="background: var(--secondary-color);"><span class="who">Mii B</span>哦哦哦，那真是太好了！</span></p>
+                <p style="margin-bottom: 8px;"><span class="bubble left"><span class="who">Mii C</span>最近天气也越来越暖和了呢。</span></p>
+                <p style="text-align: right;"><span class="bubble right" style="background: var(--secondary-color);"><span class="who">Mii A</span>说回那个四十肩⋯⋯</span></p>
+                <p class="text-center text-muted" style="margin-top: 12px; padding: 8px; background: var(--bg-2); border-radius: 10px; font-size: 10pt;">💭 玩家：「这是什么对话？！」 ← 圈内梗诞生</p>
+              </div>
+            </div>
+          </div>
+          <p class="text-md" style="margin-top: 14px; padding: 10px 14px; background: linear-gradient(135deg, #F1FFF6, #DFF5E5); border-radius: 12px; border: 1px dashed #B6E0C2;"><strong>设计原理：</strong>玩家输入 → 进入岛屿专属词库 → Mii 按自己的人格、当下场景<strong>随机引用</strong>。</p>
+        </div>
+      </section>
+
+      <section id="divider-3" class="section-divider c3" data-state="chapter-3">
+        <p class="ch-num">03</p>
+        <div class="ch-body">
+          <p class="slide-label">PART 03</p>
+          <p class="eyebrow"><span class="dot"></span>第三部分</p>
+          <h1>UGC 生态<br/>是如何长出来的</h1>
+          <p>「把开发团队准备的东西，与玩家自行制作的东西结合起来，<span class="highlight">乐趣就会无限扩大。</span>」</p>
+        </div>
+      </section>
+
+      <section id="slide-18">
+        <p class="slide-label">03.0 · 玩家做出了什么</p>
+        <p class="eyebrow"><span class="dot"></span>在拆解机制之前⋯</p>
+        <h2>先看看玩家真的<span class="accent">做出了什么</span></h2>
+        <div class="content">
+          <div class="figure" style="margin-top: 8px;">
+            <img src="assets/island-overview.png" alt="玩家创造的多样 UGC 内容"/>
+            <p class="caption">玩家用 UGC 工具搭出的偶像团体、主题岛屿、跨服恋爱、自制便当⋯⋯</p>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 14px;">
+            <p class="pill text-center">🎤 偶像团体</p>
+            <p class="pill text-center">🏝️ 主题岛屿</p>
+            <p class="pill text-center">💌 跨服恋爱</p>
+            <p class="pill text-center">🍱 自制便当</p>
+          </div>
+          <p class="text-md text-muted text-center" style="margin-top: 14px;">这些都是玩家用 UGC 机制做出来的内容 —— 接下来几页，我们来拆解他们<strong>如何</strong>做到。</p>
+        </div>
+      </section>
+
+      <section id="slide-19">
+        <p class="slide-label">03.0 · UGC 全景</p>
+        <p class="eyebrow"><span class="dot"></span>玩家创造一切，Mii 决定怎么用</p>
+        <h2>四条 UGC 主线，<br/>共同构成<span class="accent">「圈内梗」</span>生产系统</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 22px;">
+            <div class="principle">
+              <div class="ico">😀</div>
+              <div class="text"><h5>① Mii 自定义</h5><p>面容 / 肤色 / 涂鸦 / 声音 / 性别 / 取向</p></div>
+            </div>
+            <div class="principle">
+              <div class="ico">🎭</div>
+              <div class="text"><h5>② 性格 & 微个性</h5><p>16 主性格 + 可送的小习惯</p></div>
+            </div>
+            <div class="principle">
+              <div class="ico">🎁</div>
+              <div class="text"><h5>③ 礼物制作</h5><p>食物 / 衣服 / 书 / 游戏 / 宠物</p></div>
+            </div>
+            <div class="principle">
+              <div class="ico">🏝</div>
+              <div class="text"><h5>④ 造岛</h5><p>地砖 / 建筑外观 / 路径</p></div>
+            </div>
+          </div>
+          <blockquote>
+            <p>「Tomodachi Collection 的概念是『究极小圈子的圈内梗软体』。能让玩家自由制作喜欢东西的 UGC，与这款游戏<span class="highlight">非常契合</span>。」</p>
+            <cite>高桥 龙太郎（总监督）</cite>
+          </blockquote>
+        </div>
+      </section>
+
+      <section id="slide-20">
+        <p class="slide-label">03.1 · Mii 面容自定义</p>
+        <p class="eyebrow"><span class="dot"></span>① 面容</p>
+        <h2>从「像本人」到<br/>「想做<span class="accent">谁</span>就做谁」</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 16px; align-items: center;">
+            <div>
+              <p style="padding: 12px 16px; border-radius: 14px; background: linear-gradient(135deg, #F5FAFF, #E5F2FB); margin-bottom: 8px;">✨ <strong>更细的部件</strong>：睫毛、双眼皮、嘴巴可调角度</p>
+              <p style="padding: 12px 16px; border-radius: 14px; background: linear-gradient(135deg, #FFF5F5, #FFE9EC); margin-bottom: 8px;">🎨 <strong>头发双色</strong>：副色设定能做双色发型</p>
+              <p style="padding: 12px 16px; border-radius: 14px; background: linear-gradient(135deg, #F1FBF4, #DEF1E5); margin-bottom: 8px;">🌈 <strong>颜色全开</strong>：肤色 / 部件色不限——能做动物、外星人</p>
+              <p style="padding: 12px 16px; border-radius: 14px; background: linear-gradient(135deg, #FFFBEE, #FFF1D6);">🏳️‍🌈 <strong>无限制关系</strong>：性别 / 恋爱对象 / 婚礼服自由</p>
+            </div>
+            <div class="figure">
+              <img src="assets/mii-maker.png" alt="Mii Maker 自定义界面"/>
+              <p class="caption">Mii Maker：脸型、五官、发型、颜色全部可调</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-21">
+        <p class="slide-label">03.2 · 脸部彩绘</p>
+        <p class="eyebrow"><span class="dot"></span>② 脸部彩绘 · 本作最受好评的功能</p>
+        <h2>把<span class="accent">手绘自由度</span>开到最大</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1.05fr; gap: 28px; margin-top: 16px; align-items: center;">
+            <div class="figure">
+              <img src="assets/face-paint.png" alt="Face Paint 脸部彩绘功能"/>
+              <p class="caption">Face Paint：可在 Mii 脸上直接手绘任意图案</p>
+            </div>
+            <div>
+              <p class="text-md text-muted">不只是选择部件——还能在 Mii 脸上<strong>直接画</strong>。胡子、雀斑、纹身、彩妆、动物特征……</p>
+              <div class="story" style="margin-top: 18px;">
+                <p class="label">😻 真实彩蛋</p>
+                <h4>猫脸 Mii 生下的孩子，真的继承了猫的特征</h4>
+                <p>团队对 Mii 婴儿做了「特征遗传系统」调整。测试时一只画了猫脸的 Mii 真的生出了猫脸宝宝——<strong>把开发成员都吓了一跳</strong>。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-22">
+        <p class="slide-label">03.3 · 给「不擅长画画」的人</p>
+        <p class="eyebrow"><span class="dot"></span>自由度太高 = 新手会怕</p>
+        <h2>问答式 Mii<span class="accent">自动生成</span></h2>
+        <div class="content">
+          <p class="text-md text-muted">为不擅长制作 Mii 的玩家准备的全新功能——回答问题，「啪」的一声生成一只 Mii。</p>
+          <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; margin-top: 18px; align-items: center;">
+            <div class="card">
+              <p style="margin-bottom: 10px;"><span class="bubble left">头发长还是短？</span> &nbsp; <span class="bubble right" style="background: var(--secondary-color);">短</span></p>
+              <p style="margin-bottom: 10px;"><span class="bubble left">脸型偏圆还是偏方？</span> &nbsp; <span class="bubble right" style="background: var(--secondary-color);">偏圆</span></p>
+              <p style="margin-bottom: 10px;"><span class="bubble left">眼睛细长还是大？</span> &nbsp; <span class="bubble right" style="background: var(--secondary-color);">大</span></p>
+              <p class="text-center text-faint" style="font-size: 11pt; margin: 8px 0;">⋯⋯</p>
+              <p class="text-center" style="padding: 12px; background: linear-gradient(135deg, #FFE8DC, #FFD2D9); border-radius: 14px; font-weight: 700;">🎉 「啪！」 生成一只 Mii</p>
+            </div>
+            <p style="padding: 14px 18px; background: linear-gradient(135deg, #F1FBF4, #DEF1E5); border-radius: var(--radius-md); border: 1px dashed #B6E0C2;">💡 <strong>设计哲学</strong>：就算长得不像，吐槽「这是谁啊！」也能成为新的<span class="highlight">「圈内梗」</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-23">
+        <p class="slide-label">03.4 · 自定义的极限</p>
+        <p class="eyebrow"><span class="dot"></span>UGC 工具能做到什么程度</p>
+        <h2>动物、外星人、机器人、<br/>甚至<span class="accent">浮在空中</span>的 Mii</h2>
+        <div class="content">
+          <div class="figure" style="margin-top: 14px;">
+            <img src="assets/mii-variety.png" alt="多样化的 Mii 角色"/>
+            <p class="caption">从普通人类到动物、外星人、机器人——只要你想得到</p>
+          </div>
+          <p class="text-md text-muted" style="margin-top: 18px;">「除了本人、家人、朋友等真实人物之外，也会有玩家想制作原创角色。因此我们<strong>尽可能让玩家透过各种方式制作出任何样子的 Mii</strong>。」</p>
+          <p class="text-faint" style="font-size: 10pt; margin-top: 4px;">— 高桥 龙太郎</p>
+        </div>
+      </section>
+
+      <section id="slide-24">
+        <p class="slide-label">03.5 · 性格设计的两层结构</p>
+        <p class="eyebrow"><span class="dot"></span>③ 性格 × 微个性</p>
+        <h2>为什么 16 种性格<span class="accent">不够</span>？</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px;">
+            <div class="card">
+              <p class="tag">基础层 · 自初代延续</p>
+              <h4>16 种主性格</h4>
+              <p style="margin-bottom: 10px;">决定 Mii 的对话风格、行动倾向。覆盖大多数人格类型。</p>
+              <p>
+                <span class="pill">温柔</span><span class="pill">活泼</span><span class="pill">认真</span><span class="pill">冷静</span><span class="pill text-faint">… 共 16 种</span>
+              </p>
+            </div>
+            <div class="card card-tint-yellow">
+              <p class="tag" style="background: var(--accent-yellow); color: #6E4D14;">本作新增 · 一大发明</p>
+              <h4>「微个性」：玩家拼贴的细节</h4>
+              <p style="margin-bottom: 10px;">无法塞进 16 种主性格里的细节，做成<strong>可送给 Mii 的礼物</strong>。</p>
+              <p>
+                <span class="pill">独特步姿</span><span class="pill">大胃王</span><span class="pill">小鸟胃</span><span class="pill">说话很大声</span><span class="pill">睡相差</span><span class="pill">浮在空中</span><span class="pill" style="background: #FFD7DE;">⚠️ 放屁</span>
+              </p>
+            </div>
+          </div>
+          <blockquote>
+            <p>「『微个性』可以说是本作的<span class="highlight">一大发明</span>。你自己决定加什么，才能更像本人——而那就是『圈内梗』的起点。」</p>
+            <cite>高桥 龙太郎（总监督）</cite>
+          </blockquote>
+        </div>
+      </section>
+
+      <section id="slide-25">
+        <p class="slide-label">03.6 · 微个性背后的争论</p>
+        <p class="eyebrow"><span class="dot"></span>真实故事</p>
+        <h2>要不要让 Mii<span class="accent">「放屁」</span>？</h2>
+        <div class="content">
+          <p class="text-md text-muted">一个让团队意见两极分裂的微个性。</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px;">
+            <div class="card card-tint-pink text-center" style="padding: 22px;">
+              <p style="font-size: 36pt; line-height: 1;">😆</p>
+              <h4 style="margin-top: 10px;">「很有趣！」</h4>
+              <p>一派开发者支持加入</p>
+            </div>
+            <div class="card card-tint-sky text-center" style="padding: 22px;">
+              <p style="font-size: 36pt; line-height: 1;">😣</p>
+              <h4 style="margin-top: 10px;">「有点低俗、不太喜欢。」</h4>
+              <p>另一派觉得拉低品味</p>
+            </div>
+          </div>
+          <div class="story" style="margin-top: 18px;">
+            <p class="label">🎯 最终方案</p>
+            <h4>做成可选「微个性」</h4>
+            <p>喜欢的人送给 Mii，不喜欢的人不送就好。音效也反复重录——曾经做出过<strong>「砰！」一声爆炸式</strong>的版本（全员爆笑）。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-26">
+        <p class="slide-label">03.7 · 礼物制作</p>
+        <p class="eyebrow"><span class="dot"></span>⑤ 万物皆可手绘</p>
+        <h2>Palette House <span class="accent">「礼物作坊」</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 14px; align-items: center;">
+            <div class="figure">
+              <img src="assets/palette-house.png" alt="Palette House Workshop"/>
+              <p class="caption">Palette House Workshop：84 色调色板，万物皆可手绘</p>
+            </div>
+            <div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <p class="pill">🍔 食物</p>
+                <p class="pill">👕 衣服</p>
+                <p class="pill">📚 书籍</p>
+                <p class="pill">🎮 游戏</p>
+                <p class="pill">🐱 宠物</p>
+                <p class="pill">🪑 家具</p>
+                <p class="pill">🧱 地砖</p>
+                <p class="pill">🏠 建筑外观</p>
+              </div>
+              <p style="margin-top: 16px; padding: 12px 16px; background: linear-gradient(135deg, #FFFBEE, #FFF1D6); border-radius: 14px; border: 1px dashed #E5C988;">💡 不会画？可以用<strong>文字、贴 Mii 脸照</strong>、套范本，甚至完全不用 UGC 也能享受游戏。</p>
+              <blockquote style="margin-top: 14px;">
+                <p>「能送给 Mii 最大的东西，就是<strong>『岛』本身</strong>。」</p>
+                <cite>高桥 龙太郎</cite>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-27">
+        <p class="slide-label">03.8 · 造岛</p>
+        <p class="eyebrow"><span class="dot"></span>能送给 Mii 最大的礼物</p>
+        <h2>从一座岛，到<span class="accent">每一寸地砖</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 22px; margin-top: 16px; align-items: center;">
+            <div class="figure">
+              <img src="assets/island-overview.png" alt="Tomodachi 岛俯视图"/>
+              <p class="caption">从地砖到建筑外观——开发组连办公室都搬进了游戏</p>
+            </div>
+            <div class="story">
+              <p class="label">🏢 团队的「本社开发岛」</p>
+              <h4>开发组把任天堂办公室搬进了游戏</h4>
+              <p>团队成员用造岛功能<strong>重现了自己的办公室</strong>，让开发人员的 Mii 住在里面。每张桌子都是一只 Mii 的家——但大家都不坐桌前，到处聊天躺着（笑）。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-28">
+        <p class="slide-label">03.9 · 在地化</p>
+        <p class="eyebrow"><span class="dot"></span>本地化不是翻译</p>
+        <h2>让玩家觉得<span class="accent">「这是我熟悉的世界」</span></h2>
+        <div class="content">
+          <p class="text-md text-muted">为了让玩家相信「这就是我生活的小岛」，团队连物价和早餐都按地区改了。</p>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px;">
+            <div class="card">
+              <p class="tag">🍙 食物</p>
+              <h4>开局菜单不一样</h4>
+              <p>· 🇯🇵 日本：<strong>梅干、茶泡饭</strong><br/>· 🇺🇸 美国：<strong>S'more 棉花糖</strong><br/>· 后期所有食物都能买到</p>
+            </div>
+            <div class="card">
+              <p class="tag">💰 货币</p>
+              <h4>不用架空货币</h4>
+              <p>根据地区显示日元 / 美元 / 欧元，价格也跟着调整。<strong>避免「突然走进陌生世界」的疏离感。</strong></p>
+            </div>
+            <div class="card">
+              <p class="tag">🎵 BGM</p>
+              <h4>看似松散，内里复杂</h4>
+              <p>峰岸单独用钢琴弹奏初代主题曲后发现：<br/>这其实是<strong>带爵士风格</strong>的复杂乐曲。松散是表面，复杂是底色。</p>
+            </div>
+          </div>
+          <blockquote>
+            <p>「表面看起来略显憨拙、廉价，但内里其实有更复杂的东西。这<span class="highlight">或许不只适用于音乐</span>，也适用于整个 Tomodachi Collection。」</p>
+            <cite>峰岸 透（音效总监）</cite>
+          </blockquote>
+        </div>
+      </section>
+
+      <section id="divider-4" class="section-divider c4" data-state="chapter-4">
+        <p class="ch-num">04</p>
+        <div class="ch-body">
+          <p class="slide-label">PART 04</p>
+          <p class="eyebrow"><span class="dot"></span>第四部分</p>
+          <h1>幕后故事</h1>
+          <p>从 Debug 工具到核心玩法，<br/>从公告板到 Mii 新闻，<br/>还有<span class="highlight">藏在访谈里 9 年份的圈内梗</span>。</p>
+        </div>
+      </section>
+
+      <section id="slide-30">
+        <p class="slide-label">04.1 · 一个 Debug 工具的逆袭</p>
+        <p class="eyebrow"><span class="dot"></span>① 抓起的交互</p>
+        <h2>「抓起 Mii」原本只是<br/>程式组的 <span class="accent">Debug 工具</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px; margin-top: 14px; align-items: stretch;">
+            <div>
+              <div class="story">
+                <p class="label">📖 设计小故事</p>
+                <h4>岛屿变大 → 加入「强制搬运」用于测试</h4>
+                <p>岛屿规模做大后，验证用的 Mii 容易离得太远——程式组加入了「强制搬运」当作 Debug 工具。</p>
+                <p style="margin-top: 10px;">结果在测试过程中，开发者忍不住说出来：<br/><strong style="color: var(--primary-color);">「希望这个 Mii 和那个 Mii 能一起玩。」</strong><br/>—— 这个 Debug 功能，就这样成为了正式玩法。</p>
+              </div>
+              <p style="margin-top: 14px; padding: 12px 16px; background: linear-gradient(135deg, #F1FBF4, #DEF1E5); border-radius: 14px; border: 1px dashed #B6E0C2;">💡 <strong>启示：</strong>团队自己测试时冒出来的<strong>「我也想试试」</strong>，往往就是产品最该保留的核心动词。</p>
+            </div>
+            <div class="figure" style="align-self: center;">
+              <img src="assets/pickup-mii.png" alt="抓起 Mii"/>
+              <p class="caption">最终成为整作核心交互的「抓起」</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-31">
+        <p class="slide-label">04.2 · 团队协作秘诀</p>
+        <p class="eyebrow"><span class="dot"></span>② 构思公告板</p>
+        <h2>「<span class="accent">构思公告板</span>」<br/>把热情转换成产能</h2>
+        <div class="content">
+          <blockquote style="margin-top: 4px;">
+            <p>「让所有工作人员都能<span class="highlight">自由写下自己的想法</span>。当有人写下有趣的想法时，不同岗位的人就会记下，并把它实现。」</p>
+            <cite>蔭山 大介（美术总监）</cite>
+          </blockquote>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px;">
+            <div class="principle">
+              <div class="ico">📝</div>
+              <div class="text"><h5>任何人都能提案</h5><p>不分岗位 / 资历，都能贴到公告板上</p></div>
+            </div>
+            <div class="principle">
+              <div class="ico">🙋</div>
+              <div class="text"><h5>提案者可挂帅</h5><p>「由我来统筹负责！」主动推动落地</p></div>
+            </div>
+            <div class="principle">
+              <div class="ico">⚖️</div>
+              <div class="text"><h5>资深做平衡</h5><p>把热情调整到<strong>现实可行的程度</strong></p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-32">
+        <p class="slide-label">04.3 · 自下而上的力量</p>
+        <p class="eyebrow"><span class="dot"></span>③ Mii 新闻 · 差点被砍的功能</p>
+        <h2>「没有 Mii 新闻就不像<span class="accent">Tomodachi</span> 啊！」</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 14px; align-items: center;">
+            <div class="figure">
+              <img src="assets/mii-news.png" alt="Mii News 新闻播报"/>
+              <p class="caption">Mii 新闻：让岛上发生的事变成每日播报</p>
+            </div>
+            <div>
+              <div class="story">
+                <p class="label">⚡ 真实经过</p>
+                <h4>一位年轻设计师救回来的功能</h4>
+                <p>原计划因为时间不够要砍掉 Mii 新闻。一位<strong>年轻设计师</strong>站出来力争：<br/>「没有 Mii 新闻就不像是 Tomodachi Collection！」<br/><br/>她去找各组商量调整方案，把功能<strong>调整到现实可行的程度</strong>实装。</p>
+              </div>
+              <blockquote>
+                <p>「原本以玩家身份享受作品的人，如今成为了开发者，<strong>亲手将自身的回忆转化为具体的成果</strong>。」</p>
+                <cite>高桥 龙太郎</cite>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-33">
+        <p class="slide-label">04.4 · 不为人知的小故事</p>
+        <p class="eyebrow"><span class="dot"></span>④ 9 年份梗的彩蛋</p>
+        <h2>访谈里偷偷藏的<span class="accent">小故事</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 18px;">
+            <div class="card card-tint-mint">
+              <p class="tag" style="background: #BDE6CA; color: #2C7A4B;">🪴 Pikmin 当宠物</p>
+              <h4>「我们熟悉的生物，做成宠物吧」</h4>
+              <p>开发团队在 UGC 自定义宠物里<strong>亲手做了 Pikmin</strong>，让 Mii 一起散步玩耍。「我们做了很多这种内部的圈内梗。」 — 高桥</p>
+            </div>
+            <div class="card card-tint-sky">
+              <p class="tag" style="background: #BDE6F5; color: #2C5C7C;">💳 高桥的员工证</p>
+              <h4>道具系统里的内部梗</h4>
+              <p>UGC 道具中真的有<strong>「高桥龙太郎的员工证」</strong>与「薪水袋」。开发者自己玩得很嗨，希望玩家也能制造类似的圈内梗。</p>
+            </div>
+            <div class="card card-tint-yellow">
+              <p class="tag" style="background: var(--accent-yellow); color: #6E4D14;">💨 放屁的音效</p>
+              <h4>反复重录的「砰！」</h4>
+              <p>放屁音效重录过<strong>非常多次</strong>。曾做出过爆炸式的「砰！」——「这个太写实了」之类的意见层出不穷。</p>
+            </div>
+            <div class="card card-tint-pink">
+              <p class="tag" style="background: #FFC8D2; color: #8A3A4F;">🏢 本社开发岛</p>
+              <h4>把办公室搬进游戏</h4>
+              <p>团队成员重现了自己的<strong>任天堂办公室</strong>，让开发人员的 Mii 住在里面。每张桌子都是一只 Mii 的家。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-34">
+        <p class="slide-label">05 · 给设计师的启示</p>
+        <p class="eyebrow"><span class="dot"></span>如果只能带走 3 件事</p>
+        <h2>作为设计师，<br/>这款游戏让我学到的<span class="accent">3 件事</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 26px;">
+            <div class="card card-tint-pink">
+              <p class="tag" style="background: #FFC8D2; color: #8A3A4F;">01</p>
+              <h4 style="margin: 10px 0;">先回答<br/>「这是怎样的生物」</h4>
+              <p>硬件、引擎、画面可以升级——但<strong>是否升级</strong>取决于你的设计对象「应当是什么样子」。这个共识比任何 KPI 都重要。</p>
+            </div>
+            <div class="card card-tint-sky">
+              <p class="tag" style="background: #BDE6F5; color: #2C5C7C;">02</p>
+              <h4 style="margin: 10px 0;">不要把<br/>「意外」吃掉</h4>
+              <p>玩家完全指挥 Mii，乐趣就消失。类比到产品工作：<strong>不要替用户做所有决定</strong>。给系统留出「自然反应」的空间，故事才会发生。</p>
+            </div>
+            <div class="card card-tint-mint">
+              <p class="tag" style="background: #BDE6CA; color: #2C7A4B;">03</p>
+              <h4 style="margin: 10px 0;">UGC 不是功能，<br/>是<strong>一种自洽</strong></h4>
+              <p>玩家创造一切，但 Mii 决定怎么用——这两个动作之间的张力，才是 UGC 真正的引擎。<strong>设计 UGC，先设计「使用 UGC 的对象」。</strong></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="slide-35" class="ending">
+        <div class="floater f-tl">🌸</div>
+        <div class="floater f-tr">☁️</div>
+        <div class="floater f-bl">🌿</div>
+        <div class="floater f-br">⭐</div>
+        <h1>谢谢观看</h1>
+        <p>欢迎一起聊聊：你最想做成 Mii 的那个朋友，<br/>会拥有什么样的「微个性」？</p>
+        <p class="text-faint" style="margin-top: 36px; font-size: 9pt; letter-spacing: 0.1em; line-height: 1.9;">
+          资料来源 · Nintendo 官方开发者访谈 vol.21（Part 1 / 2 / 3）<br/>
+          Nintendo Life · Wccftech · Final Weapon · Eneba · IGN · GamesRadar+ 等评测<br/>
+          Wikipedia (Tomodachi Life: Living the Dream / Tomodachi Collection) · MiiWiki
+        </p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/chart/plugin.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      hash: true,
+      transition: 'slide',
+      center: false,
+      plugins: [ RevealChart ],
+      chart: {
+        defaults: Object.assign({
+          color: 'rgba(0, 0, 0, 0.8)',
+          borderColor: 'rgba(0, 0, 0, 0.8)',
+          devicePixelRatio: 2
+        }, window.location.search.includes('export') ? { animation: false } : {})
+      }
+    });
+  </script>
+</body>
+</html>

@@ -7,8 +7,8 @@
 <style>
   /* ============ Design Tokens ============ */
   :root {
-    --bg: #FFF6EC;
-    --bg-2: #FFE9DD;
+    --bg: #FDF4D9;
+    --bg-2: #fbecd0;
     --paper: #FFFFFF;
     --ink: #2F2520;
     --ink-soft: #6B5A56;
@@ -72,6 +72,9 @@
     pointer-events: auto;
     transform: translateY(0);
   }
+  .slide:not(.cover):not(.chapter-cover) {
+    background: var(--bg) url('images/background.png') center / cover no-repeat;
+  }
 
   /* Background decorations */
   .stage::before {
@@ -107,10 +110,12 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    padding-top: clamp(28px, 3.6vh, 48px);
+    padding-bottom: clamp(16px, 2vh, 28px);
   }
 
   .eyebrow {
-    display: inline-flex;
+    display: none;
     align-items: center;
     gap: 8px;
     padding: 7px 14px;
@@ -139,8 +144,8 @@
   h2.section-title {
     font-size: clamp(28px, 3vw, 42px);
     font-weight: 800;
-    line-height: 1.18;
-    margin-bottom: 12px;
+    line-height: 1.22;
+    margin-bottom: 18px;
     letter-spacing: -0.005em;
   }
   h3.sub-title {
@@ -249,7 +254,7 @@
     justify-content: center;
     position: relative;
     z-index: 2;
-    background: linear-gradient(135deg, rgba(255, 246, 236, 0.95), rgba(255, 233, 221, 0.95));
+    background: linear-gradient(135deg, rgba(253, 244, 217, 0.95), rgba(250, 230, 194, 0.95));
     backdrop-filter: blur(8px);
   }
   .cover-text .badge {
@@ -306,6 +311,11 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 18px;
     margin-top: 28px;
+  }
+  .agenda-slide .toc-grid {
+    margin-top: auto;
+    margin-bottom: auto;
+    transform: translateY(2vh);
   }
   .toc-card {
     background: var(--paper);
@@ -379,7 +389,7 @@
     -webkit-background-clip: text;
     color: transparent;
   }
-  .chapter-cover.c1 { background: linear-gradient(135deg, #FFF6EC, #FFE8E2); }
+  .chapter-cover.c1 { background: linear-gradient(135deg, #FDF4D9, #FFE8E2); }
   .chapter-cover.c1 .ch-num { background-image: linear-gradient(135deg, #FFB5BF, #FFDDE2); }
   .chapter-cover.c2 { background: linear-gradient(135deg, #F0F8FC, #E0F0F8); }
   .chapter-cover.c2 .ch-num { background-image: linear-gradient(135deg, #A4D4E8, #D5EAF4); }
@@ -889,6 +899,10 @@
   .highlight-box.yellow { background: #FFF1D6; color: #6E4D14; }
 
   /* ============ Overflow-safe slide variants ============ */
+  .fit-slide .slide-inner {
+    padding-top: clamp(20px, 2.6vh, 32px);
+    padding-bottom: clamp(10px, 1.4vh, 18px);
+  }
   .fit-slide .eyebrow {
     padding: 6px 12px;
     margin-bottom: 12px;
@@ -896,7 +910,7 @@
   .fit-slide h2.section-title {
     font-size: clamp(26px, 2.6vw, 38px);
     line-height: 1.14;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
   }
   .fit-slide p.lead {
     line-height: 1.6;
@@ -941,13 +955,23 @@
     margin: 0;
   }
   .fit-page-4 .image-hero img {
-    aspect-ratio: 16 / 5.4;
+    aspect-ratio: 16 / 5.2;
+    object-fit: contain;
+  }
+  .fit-page-4 .timeline-consoles-hero {
+    margin-bottom: clamp(14px, 2vh, 24px);
   }
   .fit-page-4 .timeline {
-    padding-top: 0;
+    padding: 12px 10px 0;
+    transform: translateY(-10px);
+  }
+  .fit-page-4 .timeline::before {
+    top: 21px;
+    left: 10%;
+    right: 10%;
   }
   .fit-page-4 .timeline-node .dot {
-    margin-bottom: 8px;
+    margin-bottom: 12px;
   }
   .fit-page-4 .timeline-node .year {
     font-size: 18px;
@@ -1073,21 +1097,47 @@
           <span>Nintendo Switch · 2026.4.16 发售</span>
         </div>
         <h1>朋友收集<br/>梦想生活</h1>
-        <p class="subtitle">一座小岛、一群 Mii，<br/>以及 9 年时间打磨出的「随心所欲」</p>
-        <div class="meta">
-          <span>设计组分享 · 约 15 分钟</span>
-          <span>Tomodachi Life: Living the Dream</span>
+        <p class="subtitle">一座小岛、一群 Mii,<br/>以及 9 年时间打磨出的「随心所欲」</p>
+      </div>
+    </section>
+
+    <!-- ============ Slide 2: 先认识 Mii ============ -->
+    <section class="slide">
+      <div class="slide-label">INTRO · 先认识 Mii</div>
+      <div class="slide-inner">
+        <div class="hero-split">
+          <div>
+            <h2 class="section-title">首先，<span class="accent">Mii 是什么？</span></h2>
+            <p class="lead" style="margin-top: 18px;">任天堂的虚拟人物系统：玩家可以用五官、发型、声音、性格等要素，做出任何想象中的角色。</p>
+
+            <div class="grid" style="grid-template-columns: 1fr; gap: 12px; margin-top: 22px;">
+              <div class="card" style="padding: 16px 18px;">
+                <div class="tag">你负责创造</div>
+                <h4 style="font-size: 16px;">捏脸、设定性格、送礼、教话、布置岛屿</h4>
+                <p>玩家把熟人关系、圈内梗和个人想象放进游戏。</p>
+              </div>
+              <div class="card" style="padding: 16px 18px;">
+                <div class="tag">Mii 负责生活</div>
+                <h4 style="font-size: 16px;">交朋友、恋爱、吵架、聊天、制造新闻</h4>
+                <p>它们不会完全听命于玩家，而是按照自己的个性在岛上行动。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-image-wrap">
+            <img class="hero-image" src="assets/mii-variety.png" alt="多样化的 Mii 角色" />
+            <div class="image-caption">Mii 可以是自己、朋友、家人，也可以是完全虚构的角色</div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ Slide 2: 目录 ============ -->
-    <section class="slide">
+    <!-- ============ Slide 3: 目录 ============ -->
+    <section class="slide agenda-slide">
       <div class="slide-label">AGENDA · 分享目录</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>今天会聊到</div>
-        <h2 class="section-title">从「<span class="accent">Mii 是怎样的生物</span>」出发，<br/>一次系统级的设计思考</h2>
-        <p class="lead">不直接控制 Mii，而是用尽办法去理解和照顾它们——下面四章我们会沿着这个内核展开。</p>
+        <h2 class="section-title">从「<span class="accent">Mii 是怎样的生物</span>」出发，<br/>看看为什么这款游戏让人上头</h2>
 
         <div class="toc-grid">
           <div class="toc-card c1">
@@ -1106,7 +1156,7 @@
             <div class="bar"></div>
             <div class="num">03</div>
             <h4>UGC 生态</h4>
-            <p>玩家创造一切，<br/>Mii 决定怎么用</p>
+            <p>玩家创造一切，<br/>Mii 来决定怎么用</p>
           </div>
           <div class="toc-card c4">
             <div class="bar"></div>
@@ -1118,7 +1168,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 3: Part 1 Cover ============ -->
+    <!-- ============ Slide 4: Part 1 Cover ============ -->
     <section class="slide chapter-cover c1">
       <div class="ch-side">
         <div class="slide-label">PART 01</div>
@@ -1130,18 +1180,18 @@
       <div class="ch-image" style="background-image: url('assets/cover-island.png');"></div>
     </section>
 
-    <!-- ============ Slide 4: 系列时间线 ============ -->
+    <!-- ============ Slide 5: 系列时间线 ============ -->
     <section class="slide fit-slide fit-page-4">
       <div class="slide-label">01.1 · 系列家谱</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>16 年血脉</div>
         <h2 class="section-title">一条<span class="accent">「观察 Mii」</span>的暗线，<br/>跨越四代主机</h2>
 
-        <div class="image-hero timeline-consoles-hero" style="margin-top: 10px;">
-          <img src="assets/timeline-consoles-clean.png" alt="Tomodachi 系列主机演变" />
+        <div class="image-hero timeline-consoles-hero" style="margin-top: 16px;">
+          <img src="images/p1.png" alt="Tomodachi 系列主机演变" />
         </div>
 
-        <div class="timeline" style="margin-top: -18px;">
+        <div class="timeline">
           <div class="timeline-row">
             <div class="timeline-node">
               <div class="dot"></div>
@@ -1175,7 +1225,7 @@
               <div class="dot"></div>
               <div class="year">2026</div>
               <div class="platform">Switch / Switch 2</div>
-              <div class="name" style="color: var(--coral);">朋友收集<br/>梦想生活</div>
+              <div class="name" style="color: var(--coral);">朋友收集梦想生活</div>
               <div class="desc">脱胎换骨重制</div>
             </div>
           </div>
@@ -1183,16 +1233,16 @@
       </div>
     </section>
 
-    <!-- ============ Slide 5: 重制的契机 - 我玩透了 ============ -->
+    <!-- ============ Slide 6: 重制的契机 - 我玩透了 ============ -->
     <section class="slide">
       <div class="slide-label">01.2 · 重制的契机</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>从一声叹息开始</div>
         <h2 class="section-title">从一声<span class="accent">叹息</span>，<br/>开启 6 年重制之路</h2>
 
-        <div class="key-quote" style="margin-top: 28px;">
-          「明明想让他们做更多事，<br/>可是我已经<span class="highlight">没有新东西</span><br/>可以让这些 Mii 做了……」
-          <span class="by">—— 制作人 坂本贺勇<br/>把前作《Tomodachi Life》玩了好几年之后</span>
+        <div class="quote" style="margin-top: 28px;">
+          <p>「明明想让他们做更多事，<br/>可是我已经<span class="highlight">没有新东西</span>可以让这些 Mii 做了……」</p>
+          <div class="who">制作人 坂本贺勇 · 把前作《Tomodachi Life》玩了好几年之后说道</div>
         </div>
 
         <div class="grid grid-3" style="margin-top: 36px;">
@@ -1214,7 +1264,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 6: 两个核心命题 ============ -->
+    <!-- ============ Slide 7: 两个核心命题 ============ -->
     <section class="slide">
       <div class="slide-label">01.3 · 核心命题</div>
       <div class="slide-inner">
@@ -1242,26 +1292,27 @@
       </div>
     </section>
 
-    <!-- ============ Slide 7: Part 2 Cover ============ -->
+    <!-- ============ Slide 8: Part 2 Cover ============ -->
     <section class="slide chapter-cover c2">
       <div class="ch-side">
         <div class="slide-label">PART 02</div>
         <div class="eyebrow"><span class="dot"></span>第二部分</div>
         <div class="ch-num">02</div>
         <h2>Mii 的设计哲学</h2>
-        <p>Mii 不是头像，不是分身。<br/>而是「<span class="highlight">值得被照顾的、像小孩般纯真的存在</span>」。<br/>所有设计取舍，都围绕这一句展开。</p>
+        <p>从「<span class="highlight">定义 Mii</span>」到「实现 Mii」，<br/>看团队如何把一个虚拟角色，<br/>设计成值得玩家持续牵挂的存在。</p>
       </div>
       <div class="ch-image" style="background-image: url('assets/mii-variety.png');"></div>
     </section>
 
-    <!-- ============ Slide 8: Mii 是怎样的生物 ============ -->
+    <!-- ============ Slide 9: Mii 是怎样的生物 ============ -->
     <section class="slide">
       <div class="slide-label">02.1 · 核心命题</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>整个团队反复讨论的一句话</div>
         <h2 class="section-title">Mii 不是分身，<br/>是<span class="accent">拥有人格</span>的「生物」</h2>
+        <p class="lead" style="max-width: 64ch;">Mii 不是头像，不是分身。<br/>而是「<span class="highlight">值得被照顾的、像小孩般纯真的存在</span>」。<br/>所有设计取舍，都围绕这一句展开。</p>
 
-        <div style="display: flex; gap: 18px; margin-top: 28px;">
+        <div style="display: flex; gap: 18px; margin-top: 24px;">
           <div class="principle pink" style="flex: 1;">
             <div class="icon">🍼</div>
             <h5>值得被照顾</h5>
@@ -1281,7 +1332,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 9: 设计取舍 ============ -->
+    <!-- ============ Slide 10: 设计取舍 ============ -->
     <section class="slide">
       <div class="slide-label">02.2 · 设计取舍</div>
       <div class="slide-inner">
@@ -1322,7 +1373,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 10: 卡通风格的重生 ============ -->
+    <!-- ============ Slide 11: 卡通风格的重生 ============ -->
     <section class="slide fit-slide">
       <div class="slide-label">02.2 · 设计取舍 · ② 卡通风格</div>
       <div class="slide-inner">
@@ -1359,7 +1410,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 11: 声音 - 反向工程 ============ -->
+    <!-- ============ Slide 12: 声音 - 反向工程 ============ -->
     <section class="slide">
       <div class="slide-label">02.2 · 设计取舍 · ③ 声音</div>
       <div class="slide-inner">
@@ -1401,7 +1452,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 12: 动作 - 反向设计 ============ -->
+    <!-- ============ Slide 13: 动作 - 反向设计 ============ -->
     <section class="slide fit-slide">
       <div class="slide-label">02.2 · 设计取舍 · ④ 动作</div>
       <div class="slide-inner">
@@ -1437,7 +1488,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 13: 与 Mii 的交互 · 总览 ============ -->
+    <!-- ============ Slide 14: 与 Mii 的交互 · 总览 ============ -->
     <section class="slide">
       <div class="slide-label">02.3 · 与 Mii 的交互 · 总览</div>
       <div class="slide-inner">
@@ -1474,7 +1525,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 14: 抓起 Mii ============ -->
+    <!-- ============ Slide 15: 抓起 Mii ============ -->
     <section class="slide">
       <div class="slide-label">02.3 · 与 Mii 的交互 · ① 抓起</div>
       <div class="slide-inner">
@@ -1516,7 +1567,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 15: 送礼 ============ -->
+    <!-- ============ Slide 16: 送礼 ============ -->
     <section class="slide">
       <div class="slide-label">02.3 · 与 Mii 的交互 · ② 送礼</div>
       <div class="slide-inner">
@@ -1556,7 +1607,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 16: 教话 ============ -->
+    <!-- ============ Slide 17: 教话 ============ -->
     <section class="slide">
       <div class="slide-label">02.3 · 与 Mii 的交互 · ③ 教话</div>
       <div class="slide-inner">
@@ -1614,7 +1665,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 13: Part 3 Cover ============ -->
+    <!-- ============ Slide 18: Part 3 Cover ============ -->
     <section class="slide chapter-cover c3">
       <div class="ch-side">
         <div class="slide-label">PART 03</div>
@@ -1626,7 +1677,7 @@
       <div class="ch-image" style="background-image: url('assets/palette-house.png');"></div>
     </section>
 
-    <!-- ============ Slide 14: UGC 真实内容预览 ============ -->
+    <!-- ============ Slide 19: UGC 真实内容预览 ============ -->
     <section class="slide">
       <div class="slide-label">03.0 · 玩家做出了什么</div>
       <div class="slide-inner">
@@ -1660,7 +1711,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 15: UGC 五条主线 ============ -->
+    <!-- ============ Slide 20: UGC 四条主线 ============ -->
     <section class="slide">
       <div class="slide-label">03.0 · UGC 全景</div>
       <div class="slide-inner">
@@ -1697,7 +1748,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 15: Mii Maker 自定义 ============ -->
+    <!-- ============ Slide 21: Mii Maker 自定义 ============ -->
     <section class="slide">
       <div class="slide-label">03.1 · Mii 面容自定义</div>
       <div class="slide-inner">
@@ -1730,7 +1781,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 16: Face Paint ============ -->
+    <!-- ============ Slide 22: Face Paint ============ -->
     <section class="slide">
       <div class="slide-label">03.2 · 脸部彩绘</div>
       <div class="slide-inner">
@@ -1756,7 +1807,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 17: 自动生成 Mii ============ -->
+    <!-- ============ Slide 23: 自动生成 Mii ============ -->
     <section class="slide">
       <div class="slide-label">03.3 · 给「不擅长画画」的人</div>
       <div class="slide-inner">
@@ -1791,7 +1842,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 18: Mii 多样性展示 ============ -->
+    <!-- ============ Slide 24: Mii 多样性展示 ============ -->
     <section class="slide">
       <div class="slide-label">03.4 · 自定义的极限</div>
       <div class="slide-inner">
@@ -1806,7 +1857,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 19: 性格系统 ============ -->
+    <!-- ============ Slide 25: 性格系统 ============ -->
     <section class="slide">
       <div class="slide-label">03.5 · 性格设计的两层结构</div>
       <div class="slide-inner">
@@ -1849,7 +1900,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 20: 放屁的故事 ============ -->
+    <!-- ============ Slide 26: 放屁的故事 ============ -->
     <section class="slide">
       <div class="slide-label">03.6 · 微个性背后的争论</div>
       <div class="slide-inner">
@@ -1878,7 +1929,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 22: Palette House ============ -->
+    <!-- ============ Slide 27: Palette House ============ -->
     <section class="slide">
       <div class="slide-label">03.8 · 礼物制作</div>
       <div class="slide-inner">
@@ -1916,7 +1967,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 23: 造岛 ============ -->
+    <!-- ============ Slide 28: 造岛 ============ -->
     <section class="slide fit-slide">
       <div class="slide-label">03.9 · 造岛</div>
       <div class="slide-inner">
@@ -1937,7 +1988,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 24: 在地化 ============ -->
+    <!-- ============ Slide 29: 在地化 ============ -->
     <section class="slide">
       <div class="slide-label">03.10 · 在地化</div>
       <div class="slide-inner">
@@ -1970,7 +2021,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 25: Part 4 Cover ============ -->
+    <!-- ============ Slide 30: Part 4 Cover ============ -->
     <section class="slide chapter-cover c4">
       <div class="ch-side">
         <div class="slide-label">PART 04</div>
@@ -1982,7 +2033,7 @@
       <div class="ch-image" style="background-image: url('assets/behind-scenes.png');"></div>
     </section>
 
-    <!-- ============ Slide 26: 抓起的交互 - Debug 工具的逆袭 ============ -->
+    <!-- ============ Slide 31: 抓起的交互 - Debug 工具的逆袭 ============ -->
     <section class="slide">
       <div class="slide-label">04.1 · 一个 Debug 工具的逆袭</div>
       <div class="slide-inner">
@@ -2011,7 +2062,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 27: 构思公告板 ============ -->
+    <!-- ============ Slide 32: 构思公告板 ============ -->
     <section class="slide fit-slide">
       <div class="slide-label">04.2 · 团队协作秘诀</div>
       <div class="slide-inner">
@@ -2043,7 +2094,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 28: Mii 新闻的故事 ============ -->
+    <!-- ============ Slide 33: Mii 新闻的故事 ============ -->
     <section class="slide">
       <div class="slide-label">04.3 · 自下而上的力量</div>
       <div class="slide-inner">
@@ -2072,7 +2123,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 29: 不为人知的小故事 ============ -->
+    <!-- ============ Slide 34: 不为人知的小故事 ============ -->
     <section class="slide">
       <div class="slide-label">04.4 · 不为人知的小故事</div>
       <div class="slide-inner">
@@ -2104,7 +2155,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 30: 设计师的 3 件事 ============ -->
+    <!-- ============ Slide 35: 设计师的 3 件事 ============ -->
     <section class="slide">
       <div class="slide-label">05 · 给设计师的启示</div>
       <div class="slide-inner">
@@ -2151,7 +2202,7 @@
 
 <div class="nav">
   <button id="prev" aria-label="上一页">←</button>
-  <div class="pages"><strong id="cur">1</strong> / <span id="total">35</span></div>
+  <div class="pages"><strong id="cur">1</strong> / <span id="total">36</span></div>
   <button id="next" aria-label="下一页">→</button>
 </div>
 
