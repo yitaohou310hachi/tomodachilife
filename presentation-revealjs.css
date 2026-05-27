@@ -293,8 +293,8 @@ html, body {
    =========================================== */
 
 .reveal blockquote {
-  background: linear-gradient(135deg, #FFF1ED, #FFE8E2);
-  border-left: 6px solid var(--primary-color);
+  background: linear-gradient(135deg, #FFF6D3, #FFEBB9);
+  border-left: 6px solid #E5A640;
   border-radius: var(--radius-md);
   padding: 18px 22px;
   margin: 18px 0 0 0;
@@ -309,15 +309,15 @@ html, body {
   position: absolute;
   top: -6px; left: 14px;
   font-size: 60pt;
-  color: var(--primary-color);
-  opacity: 0.18;
+  color: #E5A640;
+  opacity: 0.24;
   font-family: Georgia, serif;
   line-height: 1;
 }
 .reveal blockquote p {
   font-size: 14pt;
   line-height: 1.7;
-  color: var(--text-color);
+  color: #4A3A18;
   font-weight: 500;
   margin: 0;
 }
@@ -326,11 +326,11 @@ html, body {
   margin-top: 8px;
   font-style: normal;
   font-size: 10pt;
-  color: var(--muted-color);
+  color: #8A6B2E;
 }
 .reveal blockquote cite::before {
   content: '— ';
-  color: var(--faint-color);
+  color: #B89758;
 }
 
 /* Story / 灵感故事 */

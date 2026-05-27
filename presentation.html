@@ -35,7 +35,7 @@
   html, body {
     height: 100%;
     overflow: hidden;
-    background: var(--bg);
+    background: var(--bg) url('images/background.png') center / cover no-repeat fixed;
     color: var(--ink);
     font-family: 'PingFang SC', 'Hiragino Sans GB', 'Source Han Sans CN', 'Microsoft YaHei',
                  'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -73,7 +73,7 @@
     transform: translateY(0);
   }
   .slide:not(.cover):not(.chapter-cover) {
-    background: var(--bg) url('images/background.png') center / cover no-repeat;
+    background: transparent;
   }
 
   /* Background decorations */
@@ -475,41 +475,100 @@
     backdrop-filter: blur(4px);
     box-shadow: var(--shadow-sm);
   }
+  .hero-image-placeholder {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-lg);
+    border: 2px dashed rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+    background: linear-gradient(135deg, #FFF8F2, #FFEEE3);
+    box-shadow: var(--shadow-sm);
+  }
+  .hero-image-placeholder.pink {
+    background: linear-gradient(135deg, #FFF5F5, #FFE0E5);
+    border-color: rgba(216, 90, 117, 0.32);
+  }
+  .hero-image-placeholder.sky {
+    background: linear-gradient(135deg, #F7FBFF, #E2EEF7);
+    border-color: rgba(63, 143, 176, 0.32);
+  }
+  .hero-image-placeholder.mint {
+    background: linear-gradient(135deg, #F1FFF6, #DFF5E5);
+    border-color: rgba(79, 163, 120, 0.32);
+  }
+  .hero-image-placeholder .ph-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    opacity: 0.55;
+  }
+  .hero-image-placeholder .ph-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink-soft);
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .hero-image-placeholder .ph-desc {
+    font-size: 12.5px;
+    line-height: 1.8;
+    color: var(--ink-faint);
+    max-width: 28ch;
+  }
+  .hero-image-placeholder .ph-desc code {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 10.5px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-family: 'SF Mono', Menlo, monospace;
+    color: var(--ink-soft);
+  }
 
   /* ============ Quote ============ */
   .quote {
-    background: linear-gradient(135deg, #FFF1ED, #FFE8E2);
+    background: linear-gradient(135deg, #FFF6D3, #FFEBB9);
     border-radius: var(--radius-lg);
     padding: 24px 28px;
     position: relative;
-    border-left: 5px solid var(--coral);
+    border-left: 5px solid #E5A640;
   }
   .quote::before {
     content: '"';
     position: absolute;
     top: -10px; left: 14px;
     font-size: 80px;
-    color: var(--coral);
-    opacity: 0.18;
+    color: #E5A640;
+    opacity: 0.24;
     font-family: Georgia, serif;
     line-height: 1;
   }
   .quote p {
     font-size: 17px;
     line-height: 1.8;
-    color: var(--ink);
+    color: #4A3A18;
     font-weight: 500;
     margin-bottom: 8px;
   }
   .quote .who {
     font-size: 12px;
-    color: var(--ink-soft);
+    color: #8A6B2E;
   }
-  .quote .who::before { content: '— '; color: var(--ink-faint); }
-  .quote.sky { background: linear-gradient(135deg, #F0F8FC, #E0F0F8); border-left-color: var(--sky); }
-  .quote.sky::before { color: var(--sky); }
-  .quote.mint { background: linear-gradient(135deg, #F0FAF3, #DDF1E2); border-left-color: var(--mint); }
-  .quote.mint::before { color: var(--mint); }
+  .quote .who::before { content: '— '; color: #B89758; }
+  .quote.sky,
+  .quote.mint {
+    background: linear-gradient(135deg, #FFF6D3, #FFEBB9);
+    border-left-color: #E5A640;
+  }
+  .quote.sky::before,
+  .quote.mint::before { color: #E5A640; }
 
   /* ============ Compare table ============ */
   .compare {
@@ -1269,25 +1328,25 @@
       <div class="slide-label">01.3 · 核心命题</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>不是续作，是重生</div>
-        <h2 class="section-title">「<span class="accent">脱胎换骨</span>的全新 Tomodachi Collection」</h2>
-        <p class="lead">高桥监督的开发宣言：保留系列灵魂，但每一行代码、每一个部件，全部重做。</p>
-
-        <div class="grid grid-2" style="margin-top: 22px;">
-          <div class="card">
-            <div class="tag">命题一</div>
-            <h4>🏝 让大量 Mii 在岛上自由走动</h4>
-            <p>3DS 因机能限制只能用「公寓大楼」承载 Mii。Switch 终于能让大量 Mii 同时在岛上活动——<strong>行动空间的扩张，是一切设计自由度的起点</strong>。</p>
-          </div>
-          <div class="card">
-            <div class="tag">命题二</div>
-            <h4>🎨 用 UGC 重现更多「圈内梗」</h4>
-            <p>系列定位是「究极小圈子的圈内梗软体」。沿用旧路只能比道具数量，最终生厌。<strong>UGC 让玩家自己制造新梗，乐趣无限扩展</strong>。</p>
-          </div>
-        </div>
+        <h2 class="section-title"></span>全新的 Tomodachi Collection」</h2>
+        <p class="lead">高桥监督的开发宣言：保留系列灵魂，但每一行代码、每一个部件全部重做。</p>
 
         <div class="quote" style="margin-top: 22px;">
           <p>「Tomodachi Collection 的玩家不只是把 Mii 当成自己的分身，<br/>而是会对 Mii 这个『生物』<span class="highlight">投放情感</span>。」</p>
           <div class="who">蔭山 大介（美术总监）</div>
+        </div>
+
+        <div class="grid grid-2" style="margin-top: 22px;">
+          <div class="card">
+            <div class="tag">升级1</div>
+            <h4>更自由、自定义的 Mii</h4>
+            <p>3DS 因机能限制只能用「公寓大楼」承载 Mii,Switch 终于能让大量 Mii 同时在岛上活动,结合新的mii创作系统，<strong>你几乎可以实现你脑海中的所有画面</strong>。</p>
+          </div>
+          <div class="card">
+            <div class="tag">升级2</div>
+            <h4>用 UGC 重现更多「圈内梗」</h4>
+            <p>系列定位是「究极小圈子的圈内梗软体」。沿用旧路只能比道具数量，最终生厌。<strong>UGC 让玩家自己制造新梗，乐趣无限扩展</strong>。</p>
+          </div>
         </div>
       </div>
     </section>
@@ -1299,45 +1358,18 @@
         <div class="eyebrow"><span class="dot"></span>第二部分</div>
         <div class="ch-num">02</div>
         <h2>Mii 的设计哲学</h2>
-        <p>从「<span class="highlight">定义 Mii</span>」到「实现 Mii」，<br/>看团队如何把一个虚拟角色，<br/>设计成值得玩家持续牵挂的存在。</p>
+        <p>从「<span class="highlight">定义 Mii</span>」到「<span class="highlight">实现 Mii</span>」，<br/>看团队如何把一个虚拟角色，<br/>设计成值得玩家持续牵挂的存在。</p>
       </div>
-      <div class="ch-image" style="background-image: url('assets/mii-variety.png');"></div>
+      <div class="ch-image" style="background-image: url('images/mii.png');"></div>
     </section>
 
-    <!-- ============ Slide 9: Mii 是怎样的生物 ============ -->
+    <!-- ============ Slide 9: 硬件升级 - 设计取舍 ============ -->
     <section class="slide">
-      <div class="slide-label">02.1 · 核心命题</div>
-      <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>整个团队反复讨论的一句话</div>
-        <h2 class="section-title">Mii 不是分身，<br/>是<span class="accent">拥有人格</span>的「生物」</h2>
-        <p class="lead" style="max-width: 64ch;">Mii 不是头像，不是分身。<br/>而是「<span class="highlight">值得被照顾的、像小孩般纯真的存在</span>」。<br/>所有设计取舍，都围绕这一句展开。</p>
-
-        <div style="display: flex; gap: 18px; margin-top: 24px;">
-          <div class="principle pink" style="flex: 1;">
-            <div class="icon">🍼</div>
-            <h5>值得被照顾</h5>
-            <p>玩家投放的不是控制欲，<br/>而是<strong>家长般的目光</strong></p>
-          </div>
-          <div class="principle sky" style="flex: 1;">
-            <div class="icon">🌱</div>
-            <h5>像小孩般纯真</h5>
-            <p>不机智、不毒舌，<br/>偶尔说出让人惊讶的<strong>大实话</strong></p>
-          </div>
-          <div class="principle mint" style="flex: 1;">
-            <div class="icon">🎭</div>
-            <h5>只装傻、不吐槽</h5>
-            <p>Mii 抛梗，<br/>吐槽留给<strong>玩家自己</strong></p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ Slide 10: 设计取舍 ============ -->
-    <section class="slide">
-      <div class="slide-label">02.2 · 设计取舍</div>
+      <div class="slide-label">02.1 · 硬件升级 · 设计取舍</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>性能提升 ≠ 视觉升级</div>
-        <h2 class="section-title">最大的难题：硬件变好了，<br/>怎么<span class="accent">「不变」</span>才正确</h2>
+        <h2 class="section-title">硬件全部升级了，<br/>Mii 怎么<span class="accent">还是那只 Mii</span>？</h2>
+        <p class="lead">Switch 性能远超 3DS / DS —— 画面、声音、动作<strong>都能升级</strong>。<br/>但团队最大的难题反而是：<strong>怎么让 Mii 看起来、听起来、动起来，还是那只玩家熟悉的 Mii。</strong></p>
 
         <div class="compare" style="margin-top: 22px;">
           <div class="col bad">
@@ -1368,51 +1400,28 @@
 
         <div class="quote" style="margin-top: 20px;">
           <p>「不能只因为『解析度提升了』就草率改变 Mii 设计。<br/>这些 Mii 里，装满了不同玩家<span class="highlight">深厚的情感</span>。」</p>
-          <div class="who">蔭山 大介（美术总监）· 接下来三页会拆开讲 ②③④ 点</div>
+          <div class="who">蔭山 大介（美术总监）· 接下来两页会拆开讲 ②③ 点</div>
         </div>
       </div>
     </section>
 
-    <!-- ============ Slide 11: 卡通风格的重生 ============ -->
-    <section class="slide fit-slide">
-      <div class="slide-label">02.2 · 设计取舍 · ② 卡通风格</div>
+    <!-- ============ Slide 10: 硬件升级 - 卡通风格 ============ -->
+    <section class="slide">
+      <div class="slide-label">02.1 · 硬件升级 · ② 卡通风格</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>形状不变，但每一个部件都重画</div>
         <h2 class="section-title">素朴的<span class="accent">卡通风格</span>更新</h2>
-        <p class="lead">不改变「Mii 之所以是 Mii」的核心特征，但把每一个部件的结构与设计都从头审视一遍。</p>
+        <p class="lead">不改变 Mii 的核心特征，如：五官风格、手脚形状、身体比例，但把每一个部件的结构与设计都从头绘制。</p>
 
-        <div class="fit-hero-grid">
-          <div class="image-hero">
-            <img src="assets/mii-style-evolution.png" alt="Mii 风格的三代演变" style="aspect-ratio: 4 / 3;" />
-          </div>
-
-          <div>
-            <div class="grid" style="grid-template-columns: 1fr; gap: 12px;">
-              <div class="card">
-                <div class="tag" style="background: #E5F1F8; color: #2C5C7C;">🔒 保留</div>
-                <h4>「Mii 之所以是 Mii」的核心</h4>
-                <p>· 脸部部件的<strong>形状</strong>与位置<br/>· 手脚的圆润形状<br/>· 整体身体比例</p>
-              </div>
-              <div class="card" style="background: linear-gradient(135deg, #F1FFF6, #DFF5E5); border-color: #B6E0C2;">
-                <div class="tag" style="background: #BDE6CA; color: #2C7A4B;">🎨 更新</div>
-                <h4>每个部件从头重画</h4>
-                <p>· 素朴 +<strong>动画风格的卡通调性</strong><br/>· 让 Mii 间的戏剧场景<strong>更容易让人投入</strong><br/>· 在现代屏幕上看起来不显得过时</p>
-              </div>
-            </div>
-
-            <div class="story" style="margin-top: 12px;">
-              <span class="label">🎁 一个意外的发现</span>
-              <h4>新风格 = 17 年前盒装上的<span class="accent">初代理想型</span></h4>
-              <p>验证过程中团队发现：这个「卡通风格」与坂本贺勇从初代就想呈现的形象<strong>不谋而合</strong>。初代盒装上的 Mii 与当年游戏内画风并不相同，反而更接近本作。</p>
-            </div>
-          </div>
+        <div class="image-hero" style="margin: 22px auto 0; max-width: 760px;">
+          <img src="assets/mii-style-evolution.png" alt="Mii 风格的三代演变" style="aspect-ratio: 4 / 3;" />
         </div>
       </div>
     </section>
 
-    <!-- ============ Slide 12: 声音 - 反向工程 ============ -->
+    <!-- ============ Slide 11: 硬件升级 - 声音 ============ -->
     <section class="slide">
-      <div class="slide-label">02.2 · 设计取舍 · ③ 声音</div>
+      <div class="slide-label">02.1 · 硬件升级 · ③ 声音</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>关于「原声」的反向调音</div>
         <h2 class="section-title">真人感 → 故意<span class="accent">「退一步」</span></h2>
@@ -1444,44 +1453,119 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="quote" style="margin-top: 20px;">
-          <p>「希望同时保留过去 Tomodachi Collection 的感觉，又能适度地配合时代进行更新。<br/>要找到这个<span class="highlight">恰到好处</span>的平衡点，并不容易。」</p>
-          <div class="who">峰岸 透（音效总监）</div>
+    <!-- ============ Slide 12: Mii 是怎样的生物 ============ -->
+    <section class="slide">
+      <div class="slide-label">02.2 · Mii 的定位</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>整个团队反复讨论的一句话</div>
+        <h2 class="section-title">Mii 不是分身，<br/>是<span class="accent">拥有人格</span>的「生物」</h2>
+
+        <div style="display: flex; gap: 18px; margin-top: auto; margin-bottom: auto; transform: translateY(2vh);">
+          <div class="principle pink" style="flex: 1;">
+            <div class="icon">🍼</div>
+            <h5>值得被照顾</h5>
+            <p>玩家投放的不是控制欲，<br/>而是<strong>家长般的目光</strong></p>
+          </div>
+          <div class="principle sky" style="flex: 1;">
+            <div class="icon">🌱</div>
+            <h5>像小孩般纯真</h5>
+            <p>不机智、不毒舌，<br/>偶尔说出让人惊讶的<strong>大实话</strong></p>
+          </div>
+          <div class="principle mint" style="flex: 1;">
+            <div class="icon">🎭</div>
+            <h5>有梗的生活</h5>
+            <p>Mii 抛梗，<br/>吐槽留给<strong>玩家自己</strong></p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ Slide 13: 动作 - 反向设计 ============ -->
-    <section class="slide fit-slide">
-      <div class="slide-label">02.2 · 设计取舍 · ④ 动作</div>
+    <!-- ============ Slide 10: 值得被照顾 - 体现在哪 ============ -->
+    <section class="slide">
+      <div class="slide-label">02.2 · Mii 的定位 · ① 值得被照顾</div>
       <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>动画师与设计师的反复商讨</div>
-        <h2 class="section-title">圆润 → 刻意<span class="accent">「去掉」</span></h2>
-        <p class="lead">如果动作太流畅、太帅气，就不太像 Mii。所以团队选择「反着设计」——动画师本能想加的过渡，全部砍掉。</p>
+        <h2 class="section-title">「值得被照顾」<br/>玩家用<span class="accent-pink">家长般的目光</span>守着</h2>
+        <p class="lead">玩家不"控制" Mii，而是<strong>"等"它发出需要</strong> —— 这是 Tomodachi 系列最核心的关系。</p>
 
-        <div class="fit-hero-grid">
-          <div class="image-hero">
-            <img src="assets/mii-animation.png" alt="Mii 的夸张动作设计" style="aspect-ratio: 4 / 3;" />
+        <div class="hero-split" style="margin-top: 22px;">
+          <div>
+            <div class="card">
+              <div class="tag">🎯 典型场景</div>
+              <h4>Mii 头顶冒出诉求 → 你来响应</h4>
+              <p>· 肚子饿 → 你打开冰箱送食物<br/>· 心情不好 → 你陪它聊天 / 给礼物<br/>· 衣柜空了 → 你买衣服给它<br/>· Mii 之间吵架 → 你介入调解</p>
+            </div>
           </div>
 
-          <div>
-            <div class="grid" style="grid-template-columns: 1fr; gap: 12px;">
-              <div class="card">
-                <div class="tag" style="background: #FFE0E0; color: #B43E3E;">❌ 删掉</div>
-                <h4>「预备帧」与过渡动作</h4>
-                <p>让动作看起来圆润、流畅的过渡帧，团队<strong>刻意省略</strong>。动作有点僵硬、像旧动画——但这正是 Mii 的味道。</p>
-              </div>
-              <div class="card" style="background: linear-gradient(135deg, #FFFBEE, #FFF4DC); border-color: #E5C988;">
-                <div class="tag" style="background: var(--yellow); color: #6E4D14;">✅ 加强</div>
-                <h4>夸张、留下深刻印象的关键动作</h4>
-                <p>跳跃、惊吓、跑步姿势都刻意夸大：<strong>关键帧 over，过渡帧 under</strong>。记忆点反而更强。</p>
-              </div>
+          <div class="hero-image-wrap">
+            <div class="hero-image-placeholder pink" style="aspect-ratio: 3 / 4;">
+              <div class="ph-icon">🖼</div>
+              <div class="ph-title">图片占位</div>
+              <div class="ph-desc">建议：Mii 头顶冒出求救图标<br/>玩家手指点击照看的画面<br/><code>建议尺寸 540×720（3:4）</code></div>
             </div>
+          </div>
+        </div>
 
-            <div class="quote" style="margin-top: 12px;">
-              <p>「我们经常与动画工作人员商量，像是『<span class="highlight">这会否太写实了</span>』之类的问题。」</p>
-              <div class="who">蔭山 大介（美术总监）</div>
+        <div class="highlight-box pink" style="margin-top: 18px;">
+          💡 <strong>关键洞察：</strong>玩家给的<strong>不是指令，是关注</strong>。这是 Tomodachi 和一般生活模拟（动森、星露谷）最大的区别——你不"开店赚钱"，你只是看着它们过得好不好。
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 11: 像小孩般纯真 - 体现在哪 ============ -->
+    <section class="slide">
+      <div class="slide-label">02.2 · Mii 的定位 · ② 像小孩般纯真</div>
+      <div class="slide-inner">
+        <h2 class="section-title">「像小孩般纯真」<br/>Mii <span class="accent-sky">没有察言观色</span>的能力</h2>
+        <p class="lead">不机智、不毒舌——Mii 说话像 5 岁小孩，把刚学到的词到处认真地用。<strong>这是设计选择，不是 bug。</strong></p>
+
+        <div class="hero-split" style="margin-top: 22px;">
+          <div>
+            <div class="card">
+              <div class="tag">🎯 典型场景</div>
+              <h4>突然走来跟你说一些莫名其妙的小事</h4>
+              <p>「我今天打喷嚏了哦」「我刚才看到了一只猫」——<strong>认真到让人想笑</strong>。它对自己说的话毫无保留地相信。</p>
+            </div>
+          </div>
+
+          <div class="hero-image-wrap">
+            <div class="hero-image-placeholder sky" style="aspect-ratio: 3 / 4;">
+              <div class="ph-icon">🖼</div>
+              <div class="ph-title">图片占位</div>
+              <div class="ph-desc">建议：Mii 之间一本正经的对话气泡<br/>或 Mii 自我介绍说傻话的画面<br/><code>建议尺寸 540×720（3:4）</code></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="highlight-box sky" style="margin-top: 18px;">
+          💡 <strong>关键洞察：</strong>它们没有"我说这话合不合适"的滤镜。<strong>这种"无心"才是它可爱的源头</strong>——也是和成人化聊天 AI 最不一样的地方。
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 12: 只装傻不吐槽 - 体现在哪 ============ -->
+    <section class="slide">
+      <div class="slide-label">02.2 · Mii 的定位 · ③ 有梗的生活</div>
+      <div class="slide-inner">
+        <h2 class="section-title">「有梗的生活」<br/>笑点全在<span class="accent-mint">玩家心里</span></h2>
+        <p class="lead">Mii 像一个认真演荒诞剧的演员，<strong>用夸张的肢体动作和剧情演绎无厘头的生活。</strong></p>
+
+        <div class="hero-split" style="margin-top: 22px;">
+          <div>
+            <div class="card">
+              <div class="tag">🎯 典型场景</div>
+              <h4>玩家意想不到的反应</h4>
+              <p>两个mii之间经常会出现一些令人意向不到的互动剧情,比如把两个mii放在一起,一只mii偷偷吓唬另一只mii,导致对方的表情散落一地...</p>
+            </div>
+          </div>
+
+          <div class="hero-image-wrap">
+            <div class="hero-image-placeholder mint">
+              <div class="ph-icon">🖼</div>
+              <div class="ph-title">图片占位</div>
+              <div class="ph-desc">Mii 新闻播报截图<br/>一本正经报道荒诞小事的画面<br/><code>建议尺寸 720×540（4:3）</code></div>
             </div>
           </div>
         </div>
@@ -1518,10 +1602,6 @@
             <p>这句话会在意想不到的时刻冒出来。<br/>—— 留给惊喜</p>
           </div>
         </div>
-
-        <div class="highlight-box yellow" style="margin-top: 22px;">
-          ⚠️ 早期方案曾尝试「纸杯传声筒」让玩家给 Mii 提建议（4 选 1）—— <strong>被高桥否决</strong>：「这样意外的惊喜就消失了。」 接下来 3 页会拆开讲 ①②③。
-        </div>
       </div>
     </section>
 
@@ -1534,7 +1614,7 @@
             <div class="eyebrow"><span class="dot"></span>玩家唯一的"主动权"</div>
             <h2 class="section-title">「抓起 Mii」<br/>—— 整作的<span class="accent">核心交互</span></h2>
 
-            <p class="lead" style="margin-top: 16px;">玩家可以抓起 Mii，搬到岛上任意角落。<br/>但这<strong>就是玩家能做的全部</strong>。</p>
+            <p class="lead" style="margin-top: 16px;">玩家可以抓起 Mii 放到岛上任意角落。<br/><strong>具体做什么交给mii来决定。</strong>。</p>
 
             <div class="grid grid-3" style="margin-top: 18px;">
               <div class="principle pink">
@@ -1552,10 +1632,6 @@
                 <h5>观察</h5>
                 <p>剩下的全部交给 Mii——<br/>他们决定要不要互动</p>
               </div>
-            </div>
-
-            <div class="highlight-box mint" style="margin-top: 16px;">
-              ✅ 抓起 + 放下 = 玩家能做的全部。<br/>之后<strong>是否相处</strong>、<strong>谈什么</strong>——交给 Mii。
             </div>
           </div>
 
@@ -1781,7 +1857,7 @@
       </div>
     </section>
 
-    <!-- ============ Slide 22: Face Paint ============ -->
+    <!-- ============ Slide: Face Paint · 手绘自由度 ============ -->
     <section class="slide">
       <div class="slide-label">03.2 · 脸部彩绘</div>
       <div class="slide-inner">
@@ -1796,12 +1872,30 @@
             <h2 class="section-title">把<span class="accent">手绘自由度</span><br/>开到最大</h2>
 
             <p class="lead" style="margin-top: 14px;">不只是选择部件——还能在 Mii 脸上<strong>直接画</strong>。<br/>胡子、雀斑、纹身、彩妆、动物特征……</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            <div class="story" style="margin-top: 20px;">
-              <span class="label">😻 真实彩蛋</span>
-              <h4>猫脸 Mii 生下的孩子，<br/>真的继承了猫的特征</h4>
-              <p>团队对 Mii 婴儿做了「特征遗传系统」调整。<br/>测试时一只画了猫脸的 Mii 真的生出了猫脸宝宝——<strong>把开发成员都吓了一跳</strong>。</p>
+    <!-- ============ Slide: Face Paint · 真实彩蛋 ============ -->
+    <section class="slide">
+      <div class="slide-label">03.2 · 脸部彩绘 · 真实彩蛋</div>
+      <div class="slide-inner">
+        <div class="hero-split">
+          <div>
+            <div class="eyebrow"><span class="dot"></span>😻 测试中的意外发现</div>
+            <h2 class="section-title">猫脸 Mii 生下的孩子，<br/>真的继承了<span class="accent">猫的特征</span></h2>
+
+            <div class="story" style="margin-top: 22px;">
+              <span class="label">📖 设计小故事</span>
+              <h4>「特征遗传系统」遇上玩家手绘</h4>
+              <p>团队对 Mii 婴儿做了「特征遗传系统」调整。<br/>测试时，一只画了猫脸的 Mii 真的生出了<strong>猫脸宝宝</strong>——<strong style="color: var(--coral);">把开发成员都吓了一跳</strong>。</p>
             </div>
+          </div>
+
+          <div class="hero-image-wrap">
+            <img class="hero-image" src="assets/face-paint.png" alt="Face Paint 彩蛋示意" />
+            <div class="image-caption">手绘 × 遗传系统 = 意外的喜悦</div>
           </div>
         </div>
       </div>
@@ -1967,27 +2061,6 @@
       </div>
     </section>
 
-    <!-- ============ Slide 28: 造岛 ============ -->
-    <section class="slide fit-slide">
-      <div class="slide-label">03.9 · 造岛</div>
-      <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>能送给 Mii 最大的礼物</div>
-        <h2 class="section-title">从一座岛，<br/>到<span class="accent">每一寸地砖</span></h2>
-
-        <div class="fit-hero-grid" style="grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);">
-          <div class="image-hero">
-            <img src="assets/island-overview.png" alt="Tomodachi 岛俯视图" style="aspect-ratio: 16 / 9;" />
-          </div>
-
-          <div class="story">
-            <span class="label">🏢 团队的「本社开发岛」</span>
-            <h4>开发组把任天堂办公室搬进了游戏</h4>
-            <p>团队成员用造岛功能<strong>重现了自己的办公室</strong>，让开发人员的 Mii 住在里面。每张桌子都是一只 Mii 的家——但大家都不坐桌前，到处聊天躺着（笑）。</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- ============ Slide 29: 在地化 ============ -->
     <section class="slide">
       <div class="slide-label">03.10 · 在地化</div>
@@ -2006,12 +2079,7 @@
             <div class="tag">💰 货币</div>
             <h4>不用架空货币</h4>
             <p>根据地区显示日元 / 美元 / 欧元，价格也跟着调整。<br/><strong>避免「突然走进陌生世界」的疏离感。</strong></p>
-          </div>
-          <div class="card">
-            <div class="tag">🎵 BGM</div>
-            <h4>看似松散，内里复杂</h4>
-            <p>峰岸用钢琴单独弹奏初代主题曲后发现：<br/>这其实是一首<strong>带爵士风格的复杂乐曲</strong>。<br/>松散是表面，复杂是底色。</p>
-          </div>
+          </div> 
         </div>
 
         <div class="quote" style="margin-top: 22px;">
@@ -2202,7 +2270,7 @@
 
 <div class="nav">
   <button id="prev" aria-label="上一页">←</button>
-  <div class="pages"><strong id="cur">1</strong> / <span id="total">36</span></div>
+  <div class="pages"><strong id="cur">1</strong> / <span id="total">38</span></div>
   <button id="next" aria-label="下一页">→</button>
 </div>
 
