@@ -237,7 +237,7 @@
   .cover-image-wrap {
     flex: 1;
     height: 100%;
-    background: url('assets/cover-island.png') center/cover no-repeat;
+    background: url('images/cover.jpg') center/cover no-repeat;
     position: relative;
   }
   .cover-image-wrap::after {
@@ -1137,6 +1137,90 @@
     line-height: 1.7;
   }
 
+  /* ============ Mii Showcase Media Grid ============ */
+  .media-grid {
+    display: grid;
+    gap: 16px;
+    margin-top: 22px;
+  }
+  .media-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .media-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .media-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .media-grid.featured {
+    grid-template-columns: 1.4fr 1fr 1fr;
+    grid-auto-rows: 1fr;
+  }
+  .media-grid.featured .media-slot.feature {
+    grid-row: span 2;
+    aspect-ratio: auto;
+  }
+
+  .media-slot {
+    position: relative;
+    background: var(--paper);
+    border-radius: var(--radius-md);
+    border: 1.5px dashed rgba(58, 45, 42, 0.22);
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-sm);
+    transition: transform 240ms ease, box-shadow 240ms ease;
+  }
+  .media-slot.square { aspect-ratio: 1 / 1; }
+  .media-slot.wide { aspect-ratio: 16 / 9; }
+  .media-slot.tall { aspect-ratio: 3 / 4; }
+  .media-slot:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .media-slot > img,
+  .media-slot > video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .media-slot:has(> img),
+  .media-slot:has(> video) {
+    border-style: solid;
+    border-color: var(--line);
+    background: var(--ink);
+  }
+  .media-slot .media-placeholder-inner {
+    text-align: center;
+    color: var(--ink-faint);
+    padding: 14px 18px;
+  }
+  .media-slot .media-placeholder-inner .icon {
+    font-size: 30px;
+    margin-bottom: 6px;
+    opacity: 0.7;
+  }
+  .media-slot .media-placeholder-inner .label {
+    font-size: 12.5px;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+  .media-slot .media-placeholder-inner .label-sub {
+    font-size: 10.5px;
+    margin-top: 4px;
+    opacity: 0.7;
+    font-family: 'SF Mono', Menlo, monospace;
+  }
+  .media-slot .slot-tag {
+    position: absolute;
+    top: 10px; left: 10px;
+    background: rgba(255, 255, 255, 0.92);
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    letter-spacing: 0.04em;
+    font-weight: 600;
+    box-shadow: var(--shadow-sm);
+    z-index: 2;
+  }
+
 </style>
 </head>
 <body>
@@ -1162,12 +1246,12 @@
 
     <!-- ============ Slide 2: 先认识 Mii ============ -->
     <section class="slide">
-      <div class="slide-label">INTRO · 先认识 Mii</div>
+      <div class="slide-label">INTRO · 一句话讲清楚玩法</div>
       <div class="slide-inner">
         <div class="hero-split">
           <div>
-            <h2 class="section-title">首先，<span class="accent">Mii 是什么？</span></h2>
-            <p class="lead" style="margin-top: 18px;">任天堂的虚拟人物系统：玩家可以用五官、发型、声音、性格等要素，做出任何想象中的角色。</p>
+            <h2 class="section-title">「朋友收集 梦想生活」<br/><span class="accent">怎么玩</span>？</h2>
+            <p class="lead" style="margin-top: 18px;">你住进一座小岛，把现实里的朋友、家人、自己变成 Mii ——<br/>然后<strong>看着他们在岛上自己生活</strong>。</p>
 
             <div class="grid" style="grid-template-columns: 1fr; gap: 12px; margin-top: 22px;">
               <div class="card" style="padding: 16px 18px;">
@@ -1184,8 +1268,7 @@
           </div>
 
           <div class="hero-image-wrap">
-            <img class="hero-image" src="assets/mii-variety.png" alt="多样化的 Mii 角色" />
-            <div class="image-caption">Mii 可以是自己、朋友、家人，也可以是完全虚构的角色</div>
+            <img src="images/miis.jpg" alt="多样化的 Mii 角色" style="display: block; width: 100%; height: auto;" />
           </div>
         </div>
       </div>
@@ -1236,7 +1319,7 @@
         <h2>前世今生</h2>
         <p>朋友收集系列 16 年的进化与等待。<br/>一个被任天堂自己称为<span class="highlight">「究极小圈子的圈内梗软体」</span>的奇特血脉。</p>
       </div>
-      <div class="ch-image" style="background-image: url('assets/cover-island.png');"></div>
+      <div class="ch-image" style="background-image: url('images/tomodachilife.jpg');"></div>
     </section>
 
     <!-- ============ Slide 5: 系列时间线 ============ -->
@@ -1297,7 +1380,7 @@
       <div class="slide-label">01.2 · 重制的契机</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>从一声叹息开始</div>
-        <h2 class="section-title">从一声<span class="accent">叹息</span>，<br/>开启 6 年重制之路</h2>
+        <h2 class="section-title">从一声<span class="accent">叹息</span>，<br/>开启重制之路</h2>
 
         <div class="quote" style="margin-top: 28px;">
           <p>「明明想让他们做更多事，<br/>可是我已经<span class="highlight">没有新东西</span>可以让这些 Mii 做了……」</p>
@@ -1413,9 +1496,7 @@
         <h2 class="section-title">素朴的<span class="accent">卡通风格</span>更新</h2>
         <p class="lead">不改变 Mii 的核心特征，如：五官风格、手脚形状、身体比例，但把每一个部件的结构与设计都从头绘制。</p>
 
-        <div class="image-hero" style="margin: 22px auto 0; max-width: 760px;">
-          <img src="assets/mii-style-evolution.png" alt="Mii 风格的三代演变" style="aspect-ratio: 4 / 3;" />
-        </div>
+        <img src="images/mii collection.png" alt="Mii 风格的三代演变" style="display: block; margin: 22px auto 0; max-width: 100%; max-height: 56vh; width: auto; height: auto;" />
       </div>
     </section>
 
@@ -1428,27 +1509,22 @@
         <p class="lead">峰岸音效总监在为 Mii 做声音时最难的事，不是让它更真实，而是知道<strong>在哪里收手</strong>。</p>
 
         <div class="hero-split" style="margin-top: 18px; flex: 0; gap: 30px;">
-          <div class="hero-image-wrap">
-            <img class="hero-image" src="assets/voice-processing.png" alt="Mii 声音的反向工程流程" style="aspect-ratio: 3 / 2;" />
-            <div class="image-caption">原声 → 滤波 → Mii 声音的三步走</div>
+          <div style="display: flex; align-items: center; justify-content: center;">
+            <img src="images/voice.png" alt="Mii 声音处理补充说明" style="display: block; max-width: 100%; max-height: 54vh; width: auto; height: auto;" />
           </div>
 
-          <div style="display: flex; flex-direction: column; gap: 14px; justify-content: center;">
-            <div class="card" style="padding: 18px 20px;">
-              <div class="tag">🎤 引擎升级</div>
-              <h4 style="font-size: 16px;">新的语音合成引擎</h4>
-              <p style="font-size: 13px;">Switch 时代的引擎，理论上 Mii 可以发出非常自然、接近真人的声音。</p>
-              <div class="highlight-box pink" style="margin-top: 10px; font-size: 12px; padding: 10px 14px;">
-                ⚠️ 直接输出 → 「这不太像 Mii」
-              </div>
-            </div>
+          <div style="display: flex; align-items: center;">
+            <div class="card" style="padding: 20px 22px;">
+              <div class="tag">🎤 语音引擎的选择</div>
+              <h4 style="font-size: 17px;">Mii 的声音处理：真实语调合成（True TTS）</h4>
+              <p style="font-size: 13px;">玩家输入名字、歌词或奇怪的句子时，算法会根据目标语言的语法、断句和发音规则，<strong>实时生成连续语音</strong>。玩家可以通过滑块直接调节音调、速度、音质、口音和抑扬顿挫。</p>
 
-            <div class="card" style="padding: 18px 20px; background: linear-gradient(135deg, #F1FFF6, #DFF5E5); border-color: #B6E0C2;">
-              <div class="tag" style="background: #BDE6CA; color: #2C7A4B;">🛠 反向加工</div>
-              <h4 style="font-size: 16px;">把真人感往回压</h4>
-              <p style="font-size: 13px;">提取频率特征、量化重塑——加回<strong>颗粒感与机械余韵</strong>，下了苦工做细微调整。</p>
+              <div class="highlight-box yellow" style="margin-top: 12px; font-size: 12px; padding: 10px 14px;">
+                <strong>动森的语音实现方式：音素密码本（Animalese）</strong>。动森的声音是可爱咕哝声，系统抓取「音块」并以倍速极其紧凑的连在一起播放。小动物说外星语会增强“室外桃源”的感觉，而Mii 的声音则要把玩家写下的真实内容 <strong>准确说出来甚至唱出来</strong>，UGC 的冲击力更强。
+              </div>
+
               <div class="highlight-box mint" style="margin-top: 10px; font-size: 12px; padding: 10px 14px;">
-                ✅ 一听就知道：「啊，是 Mii。」
+                ✅ 设计取舍：不是追求完美真人声，而是保留一点电子感和机械余韵，让它一听就还是「Mii」。
               </div>
             </div>
           </div>
@@ -1470,9 +1546,9 @@
             <p>玩家投放的不是控制欲，<br/>而是<strong>家长般的目光</strong></p>
           </div>
           <div class="principle sky" style="flex: 1;">
-            <div class="icon">🌱</div>
-            <h5>像小孩般纯真</h5>
-            <p>不机智、不毒舌，<br/>偶尔说出让人惊讶的<strong>大实话</strong></p>
+            <div class="icon">🧩</div>
+            <h5>拥有鲜明性格</h5>
+            <p>同一件事、同一句话，<br/>不同 Mii 会有<strong>不同反应</strong></p>
           </div>
           <div class="principle mint" style="flex: 1;">
             <div class="icon">🎭</div>
@@ -1488,45 +1564,27 @@
       <div class="slide-label">02.2 · Mii 的定位 · ① 值得被照顾</div>
       <div class="slide-inner">
         <h2 class="section-title">「值得被照顾」<br/>玩家用<span class="accent-pink">家长般的目光</span>守着</h2>
-        <p class="lead">玩家不"控制" Mii，而是<strong>"等"它发出需要</strong> —— 这是 Tomodachi 系列最核心的关系。</p>
+        <p class="lead">玩家不"控制" Mii，而是<strong>它发出需求，玩家来响应</strong> —— 这是 Tomodachi 系列最核心的关系。和一般生活模拟（动森、星露谷）不同，你不需要打工赚钱，只需要看着它们过得好不好。</p>
 
-        <div class="hero-split" style="margin-top: 22px;">
-          <div>
-            <div class="card">
-              <div class="tag">🎯 典型场景</div>
-              <h4>Mii 头顶冒出诉求 → 你来响应</h4>
-              <p>· 肚子饿 → 你打开冰箱送食物<br/>· 心情不好 → 你陪它聊天 / 给礼物<br/>· 衣柜空了 → 你买衣服给它<br/>· Mii 之间吵架 → 你介入调解</p>
-            </div>
-          </div>
-
-          <div class="hero-image-wrap">
-            <div class="hero-image-placeholder pink" style="aspect-ratio: 3 / 4;">
-              <div class="ph-icon">🖼</div>
-              <div class="ph-title">图片占位</div>
-              <div class="ph-desc">建议：Mii 头顶冒出求救图标<br/>玩家手指点击照看的画面<br/><code>建议尺寸 540×720（3:4）</code></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="highlight-box pink" style="margin-top: 18px;">
-          💡 <strong>关键洞察：</strong>玩家给的<strong>不是指令，是关注</strong>。这是 Tomodachi 和一般生活模拟（动森、星露谷）最大的区别——你不"开店赚钱"，你只是看着它们过得好不好。
+        <div style="display: flex; justify-content: center; align-items: center; margin-top: 18px;">
+          <img src="images/xuqiu.png" alt="Mii 发出需求的场景" style="display: block; max-width: 100%; max-height: 54vh; width: auto; height: auto;" />
         </div>
       </div>
     </section>
 
-    <!-- ============ Slide 11: 像小孩般纯真 - 体现在哪 ============ -->
+    <!-- ============ Slide 11: 拥有鲜明性格 - 体现在哪 ============ -->
     <section class="slide">
-      <div class="slide-label">02.2 · Mii 的定位 · ② 像小孩般纯真</div>
+      <div class="slide-label">02.2 · Mii 的定位 · ② 拥有鲜明性格</div>
       <div class="slide-inner">
-        <h2 class="section-title">「像小孩般纯真」<br/>Mii <span class="accent-sky">没有察言观色</span>的能力</h2>
-        <p class="lead">不机智、不毒舌——Mii 说话像 5 岁小孩，把刚学到的词到处认真地用。<strong>这是设计选择，不是 bug。</strong></p>
+        <h2 class="section-title">「拥有鲜明性格」<br/>Mii 不是同一种<span class="accent-sky">可爱模板</span></h2>
+        <p class="lead">每只 Mii 都有自己的性格、喜好与行动倾向。玩家输入同样的内容，最后会因为 Mii 的个性不同，长出完全不同的反应。</p>
 
         <div class="hero-split" style="margin-top: 22px;">
           <div>
             <div class="card">
               <div class="tag">🎯 典型场景</div>
-              <h4>突然走来跟你说一些莫名其妙的小事</h4>
-              <p>「我今天打喷嚏了哦」「我刚才看到了一只猫」——<strong>认真到让人想笑</strong>。它对自己说的话毫无保留地相信。</p>
+              <h4>同一份礼物，不同 Mii 给出不同反应</h4>
+              <p>有的 Mii 会开心收下，有的 Mii 会皱眉拒绝；有的主动交朋友，有的更容易害羞或闹别扭。<strong>性格让 Mii 不再只是换了脸的同一个 NPC。</strong></p>
             </div>
           </div>
 
@@ -1534,13 +1592,13 @@
             <div class="hero-image-placeholder sky" style="aspect-ratio: 3 / 4;">
               <div class="ph-icon">🖼</div>
               <div class="ph-title">图片占位</div>
-              <div class="ph-desc">建议：Mii 之间一本正经的对话气泡<br/>或 Mii 自我介绍说傻话的画面<br/><code>建议尺寸 540×720（3:4）</code></div>
+              <div class="ph-desc">建议：展示不同性格 Mii 的反应差异<br/>例如送礼、聊天、交友场景<br/><code>建议尺寸 540×720（3:4）</code></div>
             </div>
           </div>
         </div>
 
         <div class="highlight-box sky" style="margin-top: 18px;">
-          💡 <strong>关键洞察：</strong>它们没有"我说这话合不合适"的滤镜。<strong>这种"无心"才是它可爱的源头</strong>——也是和成人化聊天 AI 最不一样的地方。
+          💡 <strong>关键洞察：</strong>性格系统不是一组数值，而是在制造<strong>可预期的差异</strong>：玩家知道它们有个性，但永远不知道下一次会怎么表现。
         </div>
       </div>
     </section>
@@ -1580,27 +1638,24 @@
         <h2 class="section-title">为<span class="accent">「保持边界」</span>而设计的<br/>3 种交互方式</h2>
         <p class="lead">不让玩家直接指挥 Mii——这是核心原则。<br/>玩家能做的，都是「轻轻种下种子」的动作。</p>
 
-        <div class="quote" style="margin-top: 22px;">
-          <p>「Mii 听从指示就<span class="highlight">没意思了</span>。<br/>抓起并放下，但之后做什么，<strong>交给 Mii 自己决定</strong>。」</p>
-          <div class="who">上野 隆臣（程式总监）</div>
-        </div>
-
         <div class="grid grid-3" style="margin-top: 22px;">
           <div class="card">
-            <div class="tag">① 抓起</div>
-            <h4>把 Mii 放到另一只旁边</h4>
+            <h4>抓起</h4>
             <p>他俩会聊起来吗？打架吗？不知道。<br/>—— 留给意外</p>
           </div>
           <div class="card">
-            <div class="tag">② 送礼</div>
-            <h4>食物 / 衣服 / 书籍 / 个性</h4>
+            <h4>送礼物</h4>
             <p>Mii 收到后自己决定怎么用。<br/>—— 留给个性</p>
           </div>
           <div class="card">
-            <div class="tag">③ 教话</div>
-            <h4>教 Mii 说某句话</h4>
+            <h4>回答mii的话</h4>
             <p>这句话会在意想不到的时刻冒出来。<br/>—— 留给惊喜</p>
           </div>
+        </div>
+
+        <div class="quote" style="margin-top: 22px;">
+          <p>「Mii 听从指示就<span class="highlight">没意思了</span>。<br/>抓起并放下，但之后做什么，<strong>交给 Mii 自己决定</strong>。」</p>
+          <div class="who">上野 隆臣（程式总监）</div>
         </div>
       </div>
     </section>
@@ -2061,34 +2116,6 @@
       </div>
     </section>
 
-    <!-- ============ Slide 29: 在地化 ============ -->
-    <section class="slide">
-      <div class="slide-label">03.10 · 在地化</div>
-      <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>本地化不是翻译</div>
-        <h2 class="section-title">让玩家觉得<span class="accent">「这是我熟悉的世界」</span></h2>
-        <p class="lead">为了让玩家相信「这就是我生活的小岛」，团队连物价和早餐都按地区改了。</p>
-
-        <div class="grid grid-3" style="margin-top: 24px;">
-          <div class="card">
-            <div class="tag">🍙 食物</div>
-            <h4>开局菜单不一样</h4>
-            <p>· 🇯🇵 日本：<strong>梅干、茶泡饭</strong><br/>· 🇺🇸 美国：<strong>S'more 棉花糖夹心饼</strong><br/>· 后期所有食物都能买到，但开场印象很重要</p>
-          </div>
-          <div class="card">
-            <div class="tag">💰 货币</div>
-            <h4>不用架空货币</h4>
-            <p>根据地区显示日元 / 美元 / 欧元，价格也跟着调整。<br/><strong>避免「突然走进陌生世界」的疏离感。</strong></p>
-          </div> 
-        </div>
-
-        <div class="quote" style="margin-top: 22px;">
-          <p>「表面看起来略显憨拙、廉价，但内里其实有更复杂的东西。<br/>这<span class="highlight">或许不只适用于音乐</span>，也适用于整个 Tomodachi Collection。」</p>
-          <div class="who">峰岸 透（音效总监）</div>
-        </div>
-      </div>
-    </section>
-
     <!-- ============ Slide 30: Part 4 Cover ============ -->
     <section class="slide chapter-cover c4">
       <div class="ch-side">
@@ -2125,6 +2152,147 @@
           <div class="hero-image-wrap">
             <img class="hero-image" src="assets/pickup-mii.png" alt="抓起 Mii" />
             <div class="image-caption">最终成为整作核心交互的「抓起」</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide: 我的 Mii 展示 ============ -->
+    <section class="slide">
+      <div class="slide-label">03.X · 我的 Mii</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>玩家手记</div>
+        <h2 class="section-title">我捏的<span class="accent"> Mii</span></h2>
+        <p class="lead">把家人朋友、还有自己，都搬进了岛上。</p>
+
+        <div class="media-grid featured">
+          <div class="media-slot feature">
+            <span class="slot-tag">主角 / 视频</span>
+            <div class="media-placeholder-inner">
+              <div class="icon">🎬</div>
+              <div class="label">主图 / 视频占位</div>
+              <div class="label-sub">替换为 &lt;img&gt; 或 &lt;video controls&gt;</div>
+            </div>
+          </div>
+          <div class="media-slot square">
+            <span class="slot-tag">01</span>
+            <div class="media-placeholder-inner">
+              <div class="icon">🖼</div>
+              <div class="label">图片占位</div>
+            </div>
+          </div>
+          <div class="media-slot square">
+            <span class="slot-tag">02</span>
+            <div class="media-placeholder-inner">
+              <div class="icon">🖼</div>
+              <div class="label">图片占位</div>
+            </div>
+          </div>
+          <div class="media-slot square">
+            <span class="slot-tag">03</span>
+            <div class="media-placeholder-inner">
+              <div class="icon">🖼</div>
+              <div class="label">图片占位</div>
+            </div>
+          </div>
+          <div class="media-slot square">
+            <span class="slot-tag">04</span>
+            <div class="media-placeholder-inner">
+              <div class="icon">🖼</div>
+              <div class="label">图片占位</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide: 别人的 Mii (1/2) ============ -->
+    <section class="slide">
+      <div class="slide-label">03.X · 别人的 Mii · 1 / 2</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>来自玩家社群</div>
+        <h2 class="section-title">别人捏的<span class="accent"> Mii</span></h2>
+        <p class="lead">看看大家的脑洞——明星、二次元、宠物、神话角色都能塞进岛上。</p>
+
+        <div class="media-grid cols-3">
+          <div class="media-slot">
+            <span class="slot-tag">作品 01</span>
+            <div class="media-placeholder-inner">
+              <div class="icon">🖼</div>
+              <div class="label">图片 / 视频占位</div>
+            </div>
+          </div>
+          <div class="media-slot">
+            <span class="slot-tag">作品 02</span>
+            <div class="media-placeholder-inner">
+              <div class="icon">🖼</div>
+              <div class="label">图片 / 视频占位</div>
+            </div>
+          </div>
+          <div class="media-slot">
+            <span class="slot-tag">作品 03</span>
+            <div class="media-placeholder-inner">
+              <div class="icon">🖼</div>
+              <div class="label">图片 / 视频占位</div>
+            </div>
+          </div>
+          <div class="media-slot">
+            <span class="slot-tag">作品 04</span>
+            <div class="media-placeholder-inner">
+              <div class="icon">🖼</div>
+              <div class="label">图片 / 视频占位</div>
+            </div>
+          </div>
+          <div class="media-slot">
+            <span class="slot-tag">作品 05</span>
+            <div class="media-placeholder-inner">
+              <div class="icon">🖼</div>
+              <div class="label">图片 / 视频占位</div>
+            </div>
+          </div>
+          <div class="media-slot">
+            <span class="slot-tag">作品 06</span>
+            <div class="media-placeholder-inner">
+              <div class="icon">🖼</div>
+              <div class="label">图片 / 视频占位</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide: 别人的 Mii (2/2) ============ -->
+    <section class="slide">
+      <div class="slide-label">03.X · 别人的 Mii · 2 / 2</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>视频精选</div>
+        <h2 class="section-title">玩家自制<span class="accent">短片 & 名场面</span></h2>
+        <p class="lead">从婚礼现场、偶像演唱会到深夜动物园：UGC 把岛屿变成开放剧本。</p>
+
+        <div class="media-grid" style="grid-template-columns: 1.6fr 1fr; gap: 18px;">
+          <div class="media-slot wide">
+            <span class="slot-tag">主视频</span>
+            <div class="media-placeholder-inner">
+              <div class="icon">▶</div>
+              <div class="label">视频占位（16:9）</div>
+              <div class="label-sub">替换为 &lt;video src="..." controls&gt;</div>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-rows: 1fr 1fr; gap: 18px;">
+            <div class="media-slot wide">
+              <span class="slot-tag">短片 01</span>
+              <div class="media-placeholder-inner">
+                <div class="icon">🎬</div>
+                <div class="label">视频 / 图片占位</div>
+              </div>
+            </div>
+            <div class="media-slot wide">
+              <span class="slot-tag">短片 02</span>
+              <div class="media-placeholder-inner">
+                <div class="icon">🎬</div>
+                <div class="label">视频 / 图片占位</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -2270,7 +2438,7 @@
 
 <div class="nav">
   <button id="prev" aria-label="上一页">←</button>
-  <div class="pages"><strong id="cur">1</strong> / <span id="total">38</span></div>
+  <div class="pages"><strong id="cur">1</strong> / <span id="total">40</span></div>
   <button id="next" aria-label="下一页">→</button>
 </div>
 
