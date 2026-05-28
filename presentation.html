@@ -943,6 +943,117 @@
   .video-deco-tags.t3 { bottom: 22px; left: 22px; }
   .video-deco-tags.t4 { bottom: 22px; right: 22px; }
 
+  .mii-video-carousel {
+    position: relative;
+    width: min(980px, 100%);
+    margin: 24px auto 0;
+  }
+  .mii-video-frame {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 25% 20%, rgba(166, 216, 184, 0.55), transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(255, 210, 122, 0.6), transparent 52%),
+      linear-gradient(135deg, #F7FFF9, #FFF6DC);
+    border: 1px solid rgba(166, 216, 184, 0.48);
+    box-shadow: var(--shadow-lg);
+  }
+  .mii-video-card {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 280ms ease;
+  }
+  .mii-video-card.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .mii-video-card video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    background: rgba(255, 255, 255, 0.35);
+  }
+  .mii-video-play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(41, 62, 47, 0.18));
+    color: #4FA378;
+    cursor: pointer;
+  }
+  .mii-video-play span {
+    width: 82px;
+    height: 82px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    padding-left: 5px;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 12px 34px rgba(44, 94, 69, 0.22);
+    font-size: 34px;
+  }
+  .mii-video-card.is-playing .mii-video-play {
+    display: none;
+  }
+  .mii-video-meta {
+    position: absolute;
+    left: 18px;
+    bottom: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #2C5E45;
+    font-size: 12px;
+    font-weight: 700;
+    box-shadow: var(--shadow-sm);
+  }
+  .mii-video-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 14px;
+  }
+  .mii-video-nav button {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid rgba(166, 216, 184, 0.7);
+    background: var(--paper);
+    color: #2C5E45;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    font-size: 20px;
+  }
+  .mii-video-dots {
+    display: inline-flex;
+    gap: 7px;
+  }
+  .mii-video-dots button {
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    padding: 0;
+    border: 0;
+    background: rgba(79, 163, 120, 0.28);
+    box-shadow: none;
+  }
+  .mii-video-dots button.active {
+    width: 24px;
+    background: #4FA378;
+  }
+
   /* ============ Highlight Box ============ */
   .highlight-box {
     padding: 14px 18px;
@@ -1480,11 +1591,6 @@
             </div>
           </div>
         </div>
-
-        <div class="quote" style="margin-top: 20px;">
-          <p>「不能只因为『解析度提升了』就草率改变 Mii 设计。<br/>这些 Mii 里，装满了不同玩家<span class="highlight">深厚的情感</span>。」</p>
-          <div class="who">蔭山 大介（美术总监）· 接下来两页会拆开讲 ②③ 点</div>
-        </div>
       </div>
     </section>
 
@@ -1537,7 +1643,7 @@
       <div class="slide-label">02.2 · Mii 的定位</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>整个团队反复讨论的一句话</div>
-        <h2 class="section-title">Mii 不是分身，<br/>是<span class="accent">拥有人格</span>的「生物」</h2>
+        <h2 class="section-title">Mii 不是分身，<br/>是<span class="accent">「拥有人格」</span>的生物</h2>
 
         <div style="display: flex; gap: 18px; margin-top: auto; margin-bottom: auto; transform: translateY(2vh);">
           <div class="principle pink" style="flex: 1;">
@@ -1579,26 +1685,12 @@
         <h2 class="section-title">「拥有鲜明性格」<br/>Mii 不是同一种<span class="accent-sky">可爱模板</span></h2>
         <p class="lead">每只 Mii 都有自己的性格、喜好与行动倾向。玩家输入同样的内容，最后会因为 Mii 的个性不同，长出完全不同的反应。</p>
 
-        <div class="hero-split" style="margin-top: 22px;">
-          <div>
-            <div class="card">
-              <div class="tag">🎯 典型场景</div>
-              <h4>同一份礼物，不同 Mii 给出不同反应</h4>
-              <p>有的 Mii 会开心收下，有的 Mii 会皱眉拒绝；有的主动交朋友，有的更容易害羞或闹别扭。<strong>性格让 Mii 不再只是换了脸的同一个 NPC。</strong></p>
-            </div>
-          </div>
-
-          <div class="hero-image-wrap">
-            <div class="hero-image-placeholder sky" style="aspect-ratio: 3 / 4;">
-              <div class="ph-icon">🖼</div>
-              <div class="ph-title">图片占位</div>
-              <div class="ph-desc">建议：展示不同性格 Mii 的反应差异<br/>例如送礼、聊天、交友场景<br/><code>建议尺寸 540×720（3:4）</code></div>
-            </div>
-          </div>
+        <div style="display: flex; justify-content: center; align-items: center; margin-top: 18px;">
+          <img src="images/xingge.png" alt="Mii 性格差异示意" style="display: block; max-width: 100%; max-height: 54vh; width: auto; height: auto;" />
         </div>
 
         <div class="highlight-box sky" style="margin-top: 18px;">
-          💡 <strong>关键洞察：</strong>性格系统不是一组数值，而是在制造<strong>可预期的差异</strong>：玩家知道它们有个性，但永远不知道下一次会怎么表现。
+          💡 <strong>关键洞察：制造<strong>可预期的差异</strong>：玩家知道它们有个性，但永远不知道下一次会怎么表现。
         </div>
       </div>
     </section>
@@ -1608,23 +1700,40 @@
       <div class="slide-label">02.2 · Mii 的定位 · ③ 有梗的生活</div>
       <div class="slide-inner">
         <h2 class="section-title">「有梗的生活」<br/>笑点全在<span class="accent-mint">玩家心里</span></h2>
-        <p class="lead">Mii 像一个认真演荒诞剧的演员，<strong>用夸张的肢体动作和剧情演绎无厘头的生活。</strong></p>
+        <p class="lead">Mii 像一个认真演荒诞剧的演员，<strong>用夸张的肢体动作和剧情演绎无厘头的生活。</strong>比如：新闻播报，互相惊吓....</p>
 
-        <div class="hero-split" style="margin-top: 22px;">
-          <div>
-            <div class="card">
-              <div class="tag">🎯 典型场景</div>
-              <h4>玩家意想不到的反应</h4>
-              <p>两个mii之间经常会出现一些令人意向不到的互动剧情,比如把两个mii放在一起,一只mii偷偷吓唬另一只mii,导致对方的表情散落一地...</p>
+        <div class="mii-video-carousel" data-carousel="mii-gag">
+          <div class="mii-video-frame">
+            <div class="mii-video-card active">
+              <video preload="metadata" playsinline>
+                <source src="images/gag-01.mp4" type="video/mp4">
+              </video>
+              <button class="mii-video-play" type="button" aria-label="播放视频 1"><span>▶</span></button>
+              <div class="mii-video-meta">视频 1 · 惊吓 / 表情散落</div>
+            </div>
+            <div class="mii-video-card">
+              <video preload="metadata" playsinline>
+                <source src="images/gag-02.mp4" type="video/mp4">
+              </video>
+              <button class="mii-video-play" type="button" aria-label="播放视频 2"><span>▶</span></button>
+              <div class="mii-video-meta">视频 2 · 一本正经的荒诞事件</div>
+            </div>
+            <div class="mii-video-card">
+              <video preload="metadata" playsinline>
+                <source src="images/gag-03.mp4" type="video/mp4">
+              </video>
+              <button class="mii-video-play" type="button" aria-label="播放视频 3"><span>▶</span></button>
+              <div class="mii-video-meta">视频 3 · 玩家意想不到的反应</div>
             </div>
           </div>
-
-          <div class="hero-image-wrap">
-            <div class="hero-image-placeholder mint">
-              <div class="ph-icon">🖼</div>
-              <div class="ph-title">图片占位</div>
-              <div class="ph-desc">Mii 新闻播报截图<br/>一本正经报道荒诞小事的画面<br/><code>建议尺寸 720×540（4:3）</code></div>
+          <div class="mii-video-nav" aria-label="有梗生活视频轮播">
+            <button class="mii-video-prev" type="button" aria-label="上一个视频">‹</button>
+            <div class="mii-video-dots" aria-hidden="true">
+              <button class="active" type="button"></button>
+              <button type="button"></button>
+              <button type="button"></button>
             </div>
+            <button class="mii-video-next" type="button" aria-label="下一个视频">›</button>
           </div>
         </div>
       </div>
@@ -1635,21 +1744,21 @@
       <div class="slide-label">02.3 · 与 Mii 的交互 · 总览</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>保持边界，为惊喜留出空间</div>
-        <h2 class="section-title">为<span class="accent">「保持边界」</span>而设计的<br/>3 种交互方式</h2>
+        <h2 class="section-title">与 Mii 的互动原则：<span class="accent">「保持边界」</h2>
         <p class="lead">不让玩家直接指挥 Mii——这是核心原则。<br/>玩家能做的，都是「轻轻种下种子」的动作。</p>
 
         <div class="grid grid-3" style="margin-top: 22px;">
           <div class="card">
             <h4>抓起</h4>
-            <p>他俩会聊起来吗？打架吗？不知道。<br/>—— 留给意外</p>
+            <p>玩家只负责抓起和放下，具体怎么互动交给 Mii 自己决定。<br/>—— 留给意外</p>
           </div>
           <div class="card">
             <h4>送礼物</h4>
-            <p>Mii 收到后自己决定怎么用。<br/>—— 留给个性</p>
+            <p>可以给 Mii 送礼物，但收到后自己决定怎么用。<br/>—— 留给个性</p>
           </div>
           <div class="card">
-            <h4>回答mii的话</h4>
-            <p>这句话会在意想不到的时刻冒出来。<br/>—— 留给惊喜</p>
+            <h4>回答 Mii 的话</h4>
+            <p> Mii 会向你提问，征求你的意见。而回答的这句话会在意想不到的时刻冒出来。<br/>—— 留给惊喜</p>
           </div>
         </div>
 
@@ -1691,8 +1800,7 @@
           </div>
 
           <div class="hero-image-wrap">
-            <img class="hero-image" src="assets/pickup-mii.png" alt="抓起 Mii 的核心交互" />
-            <div class="image-caption">游戏内核心动作：玩家可以抓起 Mii，搬到任何位置</div>
+            <img src="assets/pickup-mii.png" alt="抓起 Mii 的核心交互" style="display: block; max-width: 100%; width: auto; height: auto;" />
           </div>
         </div>
       </div>
@@ -2503,6 +2611,45 @@
     ugcVideo.addEventListener('loadeddata', () => ugcWrap.classList.add('has-video'));
     ugcVideo.addEventListener('canplay', () => ugcWrap.classList.add('has-video'));
   }
+
+  document.querySelectorAll('.mii-video-carousel').forEach(carousel => {
+    const cards = Array.from(carousel.querySelectorAll('.mii-video-card'));
+    const dots = Array.from(carousel.querySelectorAll('.mii-video-dots button'));
+    const prev = carousel.querySelector('.mii-video-prev');
+    const next = carousel.querySelector('.mii-video-next');
+    let activeIndex = 0;
+
+    function pauseAll() {
+      cards.forEach(card => {
+        const video = card.querySelector('video');
+        card.classList.remove('is-playing');
+        if (video) video.pause();
+      });
+    }
+
+    function showCard(index) {
+      pauseAll();
+      activeIndex = (index + cards.length) % cards.length;
+      cards.forEach((card, i) => card.classList.toggle('active', i === activeIndex));
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === activeIndex));
+    }
+
+    prev?.addEventListener('click', () => showCard(activeIndex - 1));
+    next?.addEventListener('click', () => showCard(activeIndex + 1));
+    dots.forEach((dot, i) => dot.addEventListener('click', () => showCard(i)));
+
+    cards.forEach(card => {
+      const video = card.querySelector('video');
+      const play = card.querySelector('.mii-video-play');
+      play?.addEventListener('click', () => {
+        pauseAll();
+        card.classList.add('is-playing');
+        video?.play().catch(() => card.classList.remove('is-playing'));
+      });
+      video?.addEventListener('pause', () => card.classList.remove('is-playing'));
+      video?.addEventListener('ended', () => card.classList.remove('is-playing'));
+    });
+  });
 </script>
 
 </body>
