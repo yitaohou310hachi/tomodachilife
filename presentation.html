@@ -943,117 +943,6 @@
   .video-deco-tags.t3 { bottom: 22px; left: 22px; }
   .video-deco-tags.t4 { bottom: 22px; right: 22px; }
 
-  .mii-video-carousel {
-    position: relative;
-    width: min(980px, 100%);
-    margin: 24px auto 0;
-  }
-  .mii-video-frame {
-    position: relative;
-    aspect-ratio: 16 / 9;
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    background:
-      radial-gradient(ellipse at 25% 20%, rgba(166, 216, 184, 0.55), transparent 50%),
-      radial-gradient(ellipse at 80% 80%, rgba(255, 210, 122, 0.6), transparent 52%),
-      linear-gradient(135deg, #F7FFF9, #FFF6DC);
-    border: 1px solid rgba(166, 216, 184, 0.48);
-    box-shadow: var(--shadow-lg);
-  }
-  .mii-video-card {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 280ms ease;
-  }
-  .mii-video-card.active {
-    opacity: 1;
-    pointer-events: auto;
-  }
-  .mii-video-card video {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: contain;
-    background: rgba(255, 255, 255, 0.35);
-  }
-  .mii-video-play {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 0;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(41, 62, 47, 0.18));
-    color: #4FA378;
-    cursor: pointer;
-  }
-  .mii-video-play span {
-    width: 82px;
-    height: 82px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    padding-left: 5px;
-    background: rgba(255, 255, 255, 0.92);
-    box-shadow: 0 12px 34px rgba(44, 94, 69, 0.22);
-    font-size: 34px;
-  }
-  .mii-video-card.is-playing .mii-video-play {
-    display: none;
-  }
-  .mii-video-meta {
-    position: absolute;
-    left: 18px;
-    bottom: 16px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 7px 12px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.9);
-    color: #2C5E45;
-    font-size: 12px;
-    font-weight: 700;
-    box-shadow: var(--shadow-sm);
-  }
-  .mii-video-nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    margin-top: 14px;
-  }
-  .mii-video-nav button {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: 1px solid rgba(166, 216, 184, 0.7);
-    background: var(--paper);
-    color: #2C5E45;
-    box-shadow: var(--shadow-sm);
-    cursor: pointer;
-    font-size: 20px;
-  }
-  .mii-video-dots {
-    display: inline-flex;
-    gap: 7px;
-  }
-  .mii-video-dots button {
-    width: 9px;
-    height: 9px;
-    border-radius: 999px;
-    padding: 0;
-    border: 0;
-    background: rgba(79, 163, 120, 0.28);
-    box-shadow: none;
-  }
-  .mii-video-dots button.active {
-    width: 24px;
-    background: #4FA378;
-  }
-
   /* ============ Highlight Box ============ */
   .highlight-box {
     padding: 14px 18px;
@@ -1563,11 +1452,11 @@
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>性能提升 ≠ 视觉升级</div>
         <h2 class="section-title">硬件全部升级了，<br/>Mii 怎么<span class="accent">还是那只 Mii</span>？</h2>
-        <p class="lead">Switch 性能远超 3DS / DS —— 画面、声音、动作<strong>都能升级</strong>。<br/>但团队最大的难题反而是：<strong>怎么让 Mii 看起来、听起来、动起来，还是那只玩家熟悉的 Mii。</strong></p>
+        <p class="lead">Switch 性能远超 3DS —— 画面、声音、动作都能升级。<br/>但团队最大的难题反而是怎么让 Mii 看起来、听起来、动起来，还是那只玩家熟悉的 Mii。答案在于<strong>「克制的升级」。</strong></p>
 
         <div class="compare" style="margin-top: 22px;">
           <div class="col bad">
-            <h5>一开始尝试 <span class="pill" style="background: #FFE0E0; color: #B43E3E;">却失败</span></h5>
+            <h5>一开始尝试</h5>
             <ul>
               <li>提升解析度、让脸部部件更精细</li>
               <li>让 Mii 看起来更<strong>「成熟」</strong>、更精致</li>
@@ -1579,7 +1468,7 @@
             </div>
           </div>
           <div class="col good">
-            <h5>最终的方向 <span class="pill" style="background: #DEF3E5; color: #2C7A4B;">克制升级</span></h5>
+            <h5>最终的方向</h5>
             <ul>
               <li><strong>保留</strong>脸部部件、手脚形状等核心特征</li>
               <li>素朴<strong>卡通风格</strong>更新（与初代盒装画风暗合）</li>
@@ -1596,7 +1485,7 @@
 
     <!-- ============ Slide 10: 硬件升级 - 卡通风格 ============ -->
     <section class="slide">
-      <div class="slide-label">02.1 · 硬件升级 · ② 卡通风格</div>
+      <div class="slide-label">02.1 · 看起来像：卡通风格</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>形状不变，但每一个部件都重画</div>
         <h2 class="section-title">素朴的<span class="accent">卡通风格</span>更新</h2>
@@ -1608,7 +1497,7 @@
 
     <!-- ============ Slide 11: 硬件升级 - 声音 ============ -->
     <section class="slide">
-      <div class="slide-label">02.1 · 硬件升级 · ③ 声音</div>
+      <div class="slide-label">02.1 · 听起来像：声音</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>关于「原声」的反向调音</div>
         <h2 class="section-title">真人感 → 故意<span class="accent">「退一步」</span></h2>
@@ -1702,203 +1591,51 @@
         <h2 class="section-title">「有梗的生活」<br/>笑点全在<span class="accent-mint">玩家心里</span></h2>
         <p class="lead">Mii 像一个认真演荒诞剧的演员，<strong>用夸张的肢体动作和剧情演绎无厘头的生活。</strong>比如：新闻播报，互相惊吓....</p>
 
-        <div class="mii-video-carousel" data-carousel="mii-gag">
-          <div class="mii-video-frame">
-            <div class="mii-video-card active">
-              <video preload="metadata" playsinline>
-                <source src="images/gag-01.mp4" type="video/mp4">
-              </video>
-              <button class="mii-video-play" type="button" aria-label="播放视频 1"><span>▶</span></button>
-              <div class="mii-video-meta">视频 1 · 惊吓 / 表情散落</div>
+        <div class="video-wrap" style="margin-top: 22px;">
+          <div class="video-placeholder">
+            <div class="play-icon">▶</div>
+            <div class="placeholder-title">有梗生活视频占位</div>
+            <div class="placeholder-hint">
+              后续可替换为「新闻播报 / 互相惊吓 / 荒诞反应」等真实游戏片段
             </div>
-            <div class="mii-video-card">
-              <video preload="metadata" playsinline>
-                <source src="images/gag-02.mp4" type="video/mp4">
-              </video>
-              <button class="mii-video-play" type="button" aria-label="播放视频 2"><span>▶</span></button>
-              <div class="mii-video-meta">视频 2 · 一本正经的荒诞事件</div>
-            </div>
-            <div class="mii-video-card">
-              <video preload="metadata" playsinline>
-                <source src="images/gag-03.mp4" type="video/mp4">
-              </video>
-              <button class="mii-video-play" type="button" aria-label="播放视频 3"><span>▶</span></button>
-              <div class="mii-video-meta">视频 3 · 玩家意想不到的反应</div>
-            </div>
-          </div>
-          <div class="mii-video-nav" aria-label="有梗生活视频轮播">
-            <button class="mii-video-prev" type="button" aria-label="上一个视频">‹</button>
-            <div class="mii-video-dots" aria-hidden="true">
-              <button class="active" type="button"></button>
-              <button type="button"></button>
-              <button type="button"></button>
-            </div>
-            <button class="mii-video-next" type="button" aria-label="下一个视频">›</button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ Slide 14: 与 Mii 的交互 · 总览 ============ -->
+    <!-- ============ Slide 16: 与 Mii 的交互 · 总览 ============ -->
     <section class="slide">
-      <div class="slide-label">02.3 · 与 Mii 的交互 · 总览</div>
-      <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>保持边界，为惊喜留出空间</div>
-        <h2 class="section-title">与 Mii 的互动原则：<span class="accent">「保持边界」</h2>
-        <p class="lead">不让玩家直接指挥 Mii——这是核心原则。<br/>玩家能做的，都是「轻轻种下种子」的动作。</p>
-
-        <div class="grid grid-3" style="margin-top: 22px;">
-          <div class="card">
-            <h4>抓起</h4>
-            <p>玩家只负责抓起和放下，具体怎么互动交给 Mii 自己决定。<br/>—— 留给意外</p>
-          </div>
-          <div class="card">
-            <h4>送礼物</h4>
-            <p>可以给 Mii 送礼物，但收到后自己决定怎么用。<br/>—— 留给个性</p>
-          </div>
-          <div class="card">
-            <h4>回答 Mii 的话</h4>
-            <p> Mii 会向你提问，征求你的意见。而回答的这句话会在意想不到的时刻冒出来。<br/>—— 留给惊喜</p>
-          </div>
-        </div>
-
-        <div class="quote" style="margin-top: 22px;">
-          <p>「Mii 听从指示就<span class="highlight">没意思了</span>。<br/>抓起并放下，但之后做什么，<strong>交给 Mii 自己决定</strong>。」</p>
-          <div class="who">上野 隆臣（程式总监）</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ Slide 15: 抓起 Mii ============ -->
-    <section class="slide">
-      <div class="slide-label">02.3 · 与 Mii 的交互 · ① 抓起</div>
+      <div class="slide-label">02.3 · 与 Mii 的交互</div>
       <div class="slide-inner">
         <div class="hero-split">
           <div>
-            <div class="eyebrow"><span class="dot"></span>玩家唯一的"主动权"</div>
-            <h2 class="section-title">「抓起 Mii」<br/>—— 整作的<span class="accent">核心交互</span></h2>
+            <div class="eyebrow"><span class="dot"></span>保持边界，为惊喜留出空间</div>
+            <h2 class="section-title">与 Mii 的互动原则：<br/><span class="accent">「保持边界」</span></h2>
+            <p class="lead" style="margin-top: 14px;">不直接指挥 Mii——玩家能做的，都是「轻轻种下种子」的动作，剩下的交给 Mii。</p>
 
-            <p class="lead" style="margin-top: 16px;">玩家可以抓起 Mii 放到岛上任意角落。<br/><strong>具体做什么交给mii来决定。</strong>。</p>
+            <div class="grid" style="grid-template-columns: 1fr; gap: 10px; margin-top: 18px;">
+              <div class="card" style="padding: 13px 16px;">
+                <h4 style="font-size: 15px;">🤏 抓起 · 放下 <span style="color: var(--coral);">— 留给意外</span></h4>
+                <p>只负责搬动，会不会互动由 Mii 决定。</p>
+              </div>
+              <div class="card" style="padding: 13px 16px;">
+                <h4 style="font-size: 15px;">🎁 送礼物 <span style="color: var(--coral);">— 留给个性</span></h4>
+                <p>送什么是你的，怎么用是 Mii 的。</p>
+              </div>
+              <div class="card" style="padding: 13px 16px;">
+                <h4 style="font-size: 15px;">💬 回答 Mii 的话 <span style="color: var(--coral);">— 留给惊喜</span></h4>
+                <p>你的回答会在意想不到的时刻冒出来。</p>
+              </div>
+            </div>
 
-            <div class="grid grid-3" style="margin-top: 18px;">
-              <div class="principle pink">
-                <div class="icon">🤏</div>
-                <h5>抓起</h5>
-                <p>从家里、街上、海边⋯<br/>把 Mii 拎起来</p>
-              </div>
-              <div class="principle sky">
-                <div class="icon">📦</div>
-                <h5>放下</h5>
-                <p>放到任意位置：<br/>另一个 Mii 旁、店铺、房间</p>
-              </div>
-              <div class="principle mint">
-                <div class="icon">👀</div>
-                <h5>观察</h5>
-                <p>剩下的全部交给 Mii——<br/>他们决定要不要互动</p>
-              </div>
+            <div class="quote" style="margin-top: 16px; padding: 14px 18px;">
+              <p style="font-size: 14px;">「Mii 听从指示就<span class="highlight">没意思了</span>。抓起放下，之后做什么<strong>交给 Mii</strong>。」</p>
+              <div class="who">上野 隆臣（程式总监）</div>
             </div>
           </div>
 
           <div class="hero-image-wrap">
             <img src="assets/pickup-mii.png" alt="抓起 Mii 的核心交互" style="display: block; max-width: 100%; width: auto; height: auto;" />
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ Slide 16: 送礼 ============ -->
-    <section class="slide">
-      <div class="slide-label">02.3 · 与 Mii 的交互 · ② 送礼</div>
-      <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>送什么是你的，怎么用是 Mii 的</div>
-        <h2 class="section-title">同一份礼物，<br/><span class="accent">不同 Mii</span> 给出不同反应</h2>
-        <p class="lead">玩家可以送 Mii 食物、衣服、书、游戏、宠物，甚至「微个性」——<br/>但反应、用法，由 Mii 自己的人格决定。</p>
-
-        <div style="text-align: center; margin: 26px 0 16px;">
-          <div style="display: inline-flex; align-items: center; gap: 14px; padding: 12px 22px; background: var(--paper); border-radius: 999px; box-shadow: var(--shadow); border: 1px solid var(--line);">
-            <span style="font-size: 30px;">🍔</span>
-            <span style="font-size: 14px; color: var(--ink-soft);">同一个汉堡，送给 3 只不同个性的 Mii  →</span>
-          </div>
-        </div>
-
-        <div class="grid grid-3">
-          <div class="card" style="background: linear-gradient(135deg, #FFF5F5, #FFE9EC); border-color: #FFB8C5;">
-            <div class="tag" style="background: #FFC8D2; color: #8A3A4F;">🍴 大食量 个性</div>
-            <h4 style="color: #D85A75; margin-top: 8px; font-size: 17px;">「太棒了！再来 10 个！」</h4>
-            <p>满意度直冲顶 · 立刻吃光 · 还想加餐</p>
-          </div>
-          <div class="card">
-            <div class="tag">😐 普通 个性</div>
-            <h4 style="color: var(--ink-soft); margin-top: 8px; font-size: 17px;">「谢谢⋯味道还可以。」</h4>
-            <p>满意度小幅上升 · 慢慢吃完 · 没特别反应</p>
-          </div>
-          <div class="card" style="background: linear-gradient(135deg, #F7FBFF, #EAF4FF); border-color: #B6D8EC;">
-            <div class="tag" style="background: #BDE6F5; color: #2C5C7C;">🙅 挑食 个性</div>
-            <h4 style="color: #3F8FB0; margin-top: 8px; font-size: 17px;">「这个我不喜欢吃⋯」</h4>
-            <p>皱眉 · 悄悄放下 · 满意度反而下降</p>
-          </div>
-        </div>
-
-        <div class="quote" style="margin-top: 22px;">
-          <p>「玩家可以将各种东西送给 Mii，<br/>但要<span class="highlight">怎么运用</span>，则取决于 Mii——并享受 Mii 的各种不同反应。」</p>
-          <div class="who">高桥 龙太郎（总监督）</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ Slide 17: 教话 ============ -->
-    <section class="slide">
-      <div class="slide-label">02.3 · 与 Mii 的交互 · ③ 教话</div>
-      <div class="slide-inner">
-        <div class="hero-split">
-          <div>
-            <div class="eyebrow"><span class="dot"></span>种下一句话，不写剧本</div>
-            <h2 class="section-title">你教的话，<br/><span class="accent">何时何地</span>冒出来，<br/>由 Mii 自己决定</h2>
-
-            <div class="story" style="margin-top: 20px;">
-              <span class="label">📖 真实例子 · 来自访谈</span>
-              <h4>「治好了四十肩」</h4>
-              <p>高桥说：Mii 问「最近有什么新闻？」<br/>我顺手回答「治好了四十肩」。<br/><br/>几天后我都已经忘了，<br/>看见 Mii 们凑在一起聊天，靠近一听——<br/><strong style="color: var(--coral);">居然热烈讨论起『治好了四十肩』这件事。</strong></p>
-            </div>
-          </div>
-
-          <div>
-            <div style="background: var(--paper); border-radius: 24px; padding: 22px 24px; border: 1px solid var(--line); box-shadow: var(--shadow);">
-              <div style="font-size: 11px; color: var(--ink-faint); margin-bottom: 14px; letter-spacing: 0.1em;">📍 几天后，岛上 · 公园长椅</div>
-
-              <div style="display: flex; margin-bottom: 10px;">
-                <div class="bubble left">
-                  <div class="who">Mii A</div>
-                  你听说了吗？听说他治好了<strong>四十肩</strong>！
-                </div>
-              </div>
-              <div style="display: flex; justify-content: flex-end; margin-bottom: 10px;">
-                <div class="bubble right" style="background: var(--pink-soft);">
-                  <div class="who">Mii B</div>
-                  哦哦哦，那真是太好了！
-                </div>
-              </div>
-              <div style="display: flex; margin-bottom: 10px;">
-                <div class="bubble left">
-                  <div class="who">Mii C</div>
-                  最近天气也越来越暖和了呢。
-                </div>
-              </div>
-              <div style="display: flex; justify-content: flex-end;">
-                <div class="bubble right" style="background: var(--pink-soft);">
-                  <div class="who">Mii A</div>
-                  说回那个四十肩⋯⋯
-                </div>
-              </div>
-
-              <div style="text-align: center; margin-top: 16px; padding: 9px; background: var(--bg-2); border-radius: 10px; font-size: 12px; color: var(--ink-soft);">
-                💭 玩家：「这是什么对话？！」 ← 圈内梗诞生
-              </div>
-            </div>
-
-            <div class="highlight-box mint" style="margin-top: 14px; font-size: 13px;">
-              <strong>设计原理：</strong>玩家输入 → 进入岛屿专属词库 →<br/>Mii 按自己的人格、当下场景<strong>随机引用</strong>。
-            </div>
           </div>
         </div>
       </div>
@@ -1914,40 +1651,6 @@
         <p>「把开发团队准备的东西，<br/>与玩家自行制作的东西结合起来，<br/><span class="highlight">乐趣就会无限扩大。</span>」</p>
       </div>
       <div class="ch-image" style="background-image: url('assets/palette-house.png');"></div>
-    </section>
-
-    <!-- ============ Slide 19: UGC 真实内容预览 ============ -->
-    <section class="slide">
-      <div class="slide-label">03.0 · 玩家做出了什么</div>
-      <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>在拆解机制之前⋯</div>
-        <h2 class="section-title">先看看玩家<br/>真的<span class="accent">做出了什么</span></h2>
-
-        <div class="video-wrap" id="ugc-video-wrap">
-          <video id="ugc-video" controls preload="metadata" playsinline>
-            <source src="images/ugc-showcase.mp4" type="video/mp4">
-          </video>
-
-          <div class="video-deco-tags t1">🎤 偶像团体</div>
-          <div class="video-deco-tags t2">🏝️ 主题岛屿</div>
-          <div class="video-deco-tags t3">💌 跨服恋爱</div>
-          <div class="video-deco-tags t4">🍱 自制便当</div>
-
-          <div class="video-placeholder">
-            <div class="play-icon">▶</div>
-            <div class="placeholder-title">真实 UGC 视频展示位</div>
-            <div class="placeholder-hint">
-              把视频命名为 <code>ugc-showcase.mp4</code><br/>
-              放入项目根目录的 <code>images/</code> 文件夹即可自动加载
-            </div>
-          </div>
-        </div>
-
-        <p class="lead" style="margin: 20px auto 0; text-align: center;">
-          这些都是玩家用 UGC 机制做出来的内容 —— 接下来几页，
-          我们来拆解他们<strong>如何</strong>做到。
-        </p>
-      </div>
     </section>
 
     <!-- ============ Slide 20: UGC 四条主线 ============ -->
@@ -1974,9 +1677,9 @@
             <p>食物 / 衣服 / 书 / 游戏 / 宠物</p>
           </div>
           <div class="principle" style="background: linear-gradient(180deg, #FFFBEE, #FFF4DC);">
-            <div class="icon" style="background: var(--yellow);">🏝</div>
-            <h5>④ 造岛</h5>
-            <p>地砖 / 建筑外观 / 路径</p>
+            <div class="icon" style="background: var(--yellow);">🎬</div>
+            <h5>④ 小剧场</h5>
+            <p>丰富的小剧场模板，不同组合带来不同惊喜</p>
           </div>
         </div>
 
@@ -2106,11 +1809,24 @@
         <div class="eyebrow"><span class="dot"></span>UGC 工具能做到什么程度</div>
         <h2 class="section-title">动物、外星人、机器人、<br/>甚至<span class="accent">浮在空中</span>的 Mii</h2>
 
+        <p class="lead" style="margin-top: 18px; max-width: none;">「除了本人、家人、朋友等真实人物之外，也会有玩家想制作原创角色。<br/>因此我们<strong>尽可能让玩家透过各种方式制作出任何样子的 Mii</strong>。」<span style="font-size: 12px; color: var(--ink-faint);">—— 高桥 龙太郎</span></p>
+
         <div class="image-hero" style="margin-top: 18px;">
           <img src="assets/mii-variety.png" alt="多样化的 Mii 角色" />
         </div>
 
-        <p class="lead" style="margin-top: 18px; max-width: none;">「除了本人、家人、朋友等真实人物之外，也会有玩家想制作原创角色。<br/>因此我们<strong>尽可能让玩家透过各种方式制作出任何样子的 Mii</strong>。」<span style="font-size: 12px; color: var(--ink-faint);">—— 高桥 龙太郎</span></p>
+      </div>
+    </section>
+
+    <!-- ============ Slide 25: Mii 多样性展示 · 标题页 ============ -->
+    <section class="slide">
+      <div class="slide-label">03.4 · 自定义的极限</div>
+      <div class="slide-inner">
+        <h2 class="section-title">我的 Mii 们</h2>
+        <p class="lead">把我的猫、oc、自己和大学老师都搬进了岛上。</p>
+        <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+          <img src="images/居民.png" alt="我的 Mii 居民" style="display: block; max-width: 100%; max-height: 58vh; width: auto; height: auto;" />
+        </div>
       </div>
     </section>
 
@@ -2157,35 +1873,6 @@
       </div>
     </section>
 
-    <!-- ============ Slide 26: 放屁的故事 ============ -->
-    <section class="slide">
-      <div class="slide-label">03.6 · 微个性背后的争论</div>
-      <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>真实故事</div>
-        <h2 class="section-title">要不要让 Mii<span class="accent">「放屁」</span>？</h2>
-        <p class="lead">一个让团队意见两极分裂的微个性。</p>
-
-        <div class="grid grid-2" style="margin-top: 22px;">
-          <div class="highlight-box pink" style="padding: 18px;">
-            <div style="font-size: 36px; margin-bottom: 8px;">😆</div>
-            <strong>「很有趣！」</strong>
-            <p style="margin-top: 6px; font-size: 12px; color: var(--ink-soft);">一派开发者支持加入</p>
-          </div>
-          <div class="highlight-box sky" style="padding: 18px;">
-            <div style="font-size: 36px; margin-bottom: 8px;">😣</div>
-            <strong>「有点低俗、不太喜欢。」</strong>
-            <p style="margin-top: 6px; font-size: 12px; color: var(--ink-soft);">另一派觉得拉低品味</p>
-          </div>
-        </div>
-
-        <div class="story" style="margin-top: 22px;">
-          <span class="label">🎯 最终方案</span>
-          <h4>做成可选「微个性」</h4>
-          <p>喜欢的人送给 Mii，不喜欢的人不送就好。<br/>音效也反复重录——曾经做出过<strong>「砰！」一声爆炸式</strong>的版本（全员爆笑）。</p>
-        </div>
-      </div>
-    </section>
-
     <!-- ============ Slide 27: Palette House ============ -->
     <section class="slide">
       <div class="slide-label">03.8 · 礼物制作</div>
@@ -2220,6 +1907,70 @@
               <div class="who">高桥 龙太郎</div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 32: 构思公告板 ============ -->
+    <section class="slide fit-slide">
+      <div class="slide-label">04.2 · 团队协作秘诀</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>② 构思公告板</div>
+        <h2 class="section-title">「<span class="accent">构思公告板</span>」<br/>把热情转换成产能</h2>
+
+        <div class="quote" style="margin-top: 16px;">
+          <p>「让所有工作人员都能<span class="highlight">自由写下自己的想法</span>。<br/>当有人写下有趣的想法时，不同岗位的人就会记下，并把它实现。」</p>
+          <div class="who">蔭山 大介（美术总监）</div>
+        </div>
+
+        <div class="grid grid-3" style="margin-top: 16px;">
+          <div class="principle pink">
+            <div class="icon">📝</div>
+            <h5>任何人都能提案</h5>
+            <p>不分岗位 / 资历，<br/>都能贴到公告板上</p>
+          </div>
+          <div class="principle sky">
+            <div class="icon">🙋</div>
+            <h5>提案者可挂帅</h5>
+            <p>「由我来统筹负责！」<br/>主动推动落地</p>
+          </div>
+          <div class="principle mint">
+            <div class="icon">⚖️</div>
+            <h5>资深做平衡</h5>
+            <p>把热情调整到<br/><strong>现实可行的程度</strong></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 31: 小剧场 - 模板化拼装剧场 ============ -->
+    <section class="slide">
+      <div class="slide-label">03.9 · 小剧场</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>🎬 永远不重样的「绝版狗血连续剧」</div>
+        <h2 class="section-title">小剧场：<span class="accent">「模板化拼装剧场」</span></h2>
+        <p class="lead">任天堂其实是做了一套剧情版的 <strong>Figma 组件库</strong>——把"剧情"拆成可复用的外壳 + 可替换的变量。</p>
+
+        <div class="grid grid-3" style="margin-top: 22px;">
+          <div class="card">
+            <div class="tag" style="background: #E5F1F8; color: #2C5C7C;">① 固定外壳</div>
+            <h4>精雕 100+ 个动画「容器」</h4>
+            <p>不为每个人量身定制电影，只做完全固定的<strong>纯动画外壳</strong>：<br/>· 【A 冲向 B 告白，B 满脸通红答应】<br/>· 【吃到绝顶美味，背景瞬间飞向宇宙】</p>
+          </div>
+          <div class="card" style="background: linear-gradient(135deg, #FFFBEE, #FFF4DC); border-color: #E5C988;">
+            <div class="tag" style="background: var(--yellow); color: #6E4D14;">② 配置项</div>
+            <h4>核心元素全部「下发」</h4>
+            <p>外壳里能变的地方都留成槽位：<br/>· <strong>下发角色</strong>：随机塞进【你的老板】【你的前任】<br/>· <strong>下发台词</strong>：自动读取你输入的恶搞文本</p>
+          </div>
+          <div class="card" style="background: linear-gradient(135deg, #F1FFF6, #DFF5E5); border-color: #B6E0C2;">
+            <div class="tag" style="background: #BDE6CA; color: #2C7A4B;">③ 随机拼装</div>
+            <h4>像拼乐高一样组合</h4>
+            <p>运行时，算法把<strong>固定外壳</strong>和<strong>玩家输入的变量</strong>随机拼在一起——同一个舞台，永远是不同的演员和台词。</p>
+          </div>
+        </div>
+
+        <div class="highlight-box mint" style="margin-top: 20px;">
+          💡 <strong>一句话总结：</strong>任天堂不是在讲故事，而是在做<strong>「故事的生产线」</strong>。他们只打造了 100 多个高表现力的公式化舞台，但台上的演员、台词、声音都是玩家亲手设计的变量；当它们被随机排列组合丢上台，玩家看到的就是永远不重样的「绝版狗血连续剧」——这就是<strong>低成本创造海量有趣内容</strong>的终极巧思。
         </div>
       </div>
     </section>
@@ -2406,67 +2157,6 @@
       </div>
     </section>
 
-    <!-- ============ Slide 32: 构思公告板 ============ -->
-    <section class="slide fit-slide">
-      <div class="slide-label">04.2 · 团队协作秘诀</div>
-      <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>② 构思公告板</div>
-        <h2 class="section-title">「<span class="accent">构思公告板</span>」<br/>把热情转换成产能</h2>
-
-        <div class="quote" style="margin-top: 16px;">
-          <p>「让所有工作人员都能<span class="highlight">自由写下自己的想法</span>。<br/>当有人写下有趣的想法时，不同岗位的人就会记下，并把它实现。」</p>
-          <div class="who">蔭山 大介（美术总监）</div>
-        </div>
-
-        <div class="grid grid-3" style="margin-top: 16px;">
-          <div class="principle pink">
-            <div class="icon">📝</div>
-            <h5>任何人都能提案</h5>
-            <p>不分岗位 / 资历，<br/>都能贴到公告板上</p>
-          </div>
-          <div class="principle sky">
-            <div class="icon">🙋</div>
-            <h5>提案者可挂帅</h5>
-            <p>「由我来统筹负责！」<br/>主动推动落地</p>
-          </div>
-          <div class="principle mint">
-            <div class="icon">⚖️</div>
-            <h5>资深做平衡</h5>
-            <p>把热情调整到<br/><strong>现实可行的程度</strong></p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ Slide 33: Mii 新闻的故事 ============ -->
-    <section class="slide">
-      <div class="slide-label">04.3 · 自下而上的力量</div>
-      <div class="slide-inner">
-        <div class="hero-split reverse">
-          <div class="hero-image-wrap">
-            <img class="hero-image" src="assets/mii-news.png" alt="Mii News 新闻播报" />
-            <div class="image-caption">Mii 新闻：让岛上发生的事变成每日播报</div>
-          </div>
-
-          <div>
-            <div class="eyebrow"><span class="dot"></span>③ Mii 新闻 · 差点被砍的功能</div>
-            <h2 class="section-title">「没有 Mii 新闻就<br/>不像<span class="accent">Tomodachi</span> 啊！」</h2>
-
-            <div class="story" style="margin-top: 18px;">
-              <span class="label">⚡ 真实经过</span>
-              <h4>一位年轻设计师救回来的功能</h4>
-              <p>原计划因为时间不够要砍掉 Mii 新闻。<br/>一位<strong>年轻设计师</strong>站出来力争：<br/>「没有 Mii 新闻就不像是 Tomodachi Collection！」<br/><br/>她去找各组商量调整方案，把功能<strong>调整到现实可行的程度</strong>实装。</p>
-            </div>
-
-            <div class="quote mint" style="margin-top: 18px; padding: 16px 20px;">
-              <p style="font-size: 14px;">「原本以玩家身份享受作品的人，如今成为了开发者，<br/><strong>亲手将自身的回忆转化为具体的成果</strong>。」</p>
-              <div class="who">高桥 龙太郎</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- ============ Slide 34: 不为人知的小故事 ============ -->
     <section class="slide">
       <div class="slide-label">04.4 · 不为人知的小故事</div>
@@ -2546,7 +2236,7 @@
 
 <div class="nav">
   <button id="prev" aria-label="上一页">←</button>
-  <div class="pages"><strong id="cur">1</strong> / <span id="total">40</span></div>
+  <div class="pages"><strong id="cur">1</strong> / <span id="total">36</span></div>
   <button id="next" aria-label="下一页">→</button>
 </div>
 
@@ -2603,53 +2293,6 @@
   }, { passive: true });
 
   $progress.style.width = (1 / total * 100) + '%';
-
-  // UGC video: 当视频成功加载时，隐藏占位、显示视频
-  const ugcVideo = document.getElementById('ugc-video');
-  const ugcWrap = document.getElementById('ugc-video-wrap');
-  if (ugcVideo && ugcWrap) {
-    ugcVideo.addEventListener('loadeddata', () => ugcWrap.classList.add('has-video'));
-    ugcVideo.addEventListener('canplay', () => ugcWrap.classList.add('has-video'));
-  }
-
-  document.querySelectorAll('.mii-video-carousel').forEach(carousel => {
-    const cards = Array.from(carousel.querySelectorAll('.mii-video-card'));
-    const dots = Array.from(carousel.querySelectorAll('.mii-video-dots button'));
-    const prev = carousel.querySelector('.mii-video-prev');
-    const next = carousel.querySelector('.mii-video-next');
-    let activeIndex = 0;
-
-    function pauseAll() {
-      cards.forEach(card => {
-        const video = card.querySelector('video');
-        card.classList.remove('is-playing');
-        if (video) video.pause();
-      });
-    }
-
-    function showCard(index) {
-      pauseAll();
-      activeIndex = (index + cards.length) % cards.length;
-      cards.forEach((card, i) => card.classList.toggle('active', i === activeIndex));
-      dots.forEach((dot, i) => dot.classList.toggle('active', i === activeIndex));
-    }
-
-    prev?.addEventListener('click', () => showCard(activeIndex - 1));
-    next?.addEventListener('click', () => showCard(activeIndex + 1));
-    dots.forEach((dot, i) => dot.addEventListener('click', () => showCard(i)));
-
-    cards.forEach(card => {
-      const video = card.querySelector('video');
-      const play = card.querySelector('.mii-video-play');
-      play?.addEventListener('click', () => {
-        pauseAll();
-        card.classList.add('is-playing');
-        video?.play().catch(() => card.classList.remove('is-playing'));
-      });
-      video?.addEventListener('pause', () => card.classList.remove('is-playing'));
-      video?.addEventListener('ended', () => card.classList.remove('is-playing'));
-    });
-  });
 </script>
 
 </body>
