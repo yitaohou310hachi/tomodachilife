@@ -943,6 +943,139 @@
   .video-deco-tags.t3 { bottom: 22px; left: 22px; }
   .video-deco-tags.t4 { bottom: 22px; right: 22px; }
 
+  /* ============ Drag Image Carousel ============ */
+  .paint-carousel {
+    width: min(760px, 100%);
+    margin: 16px auto 0;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .paint-carousel.paint-carousel-small {
+    width: min(620px, 100%);
+  }
+  .paint-carousel-viewport {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border-radius: calc(var(--radius-lg) / 2);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-lg);
+    background: var(--paper);
+    cursor: grab;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .paint-carousel-viewport.is-dragging {
+    cursor: grabbing;
+  }
+  .paint-carousel-track {
+    display: flex;
+    height: 100%;
+    transform: translateX(calc(var(--paint-track-index, 1) * -100%));
+    transition: transform 260ms ease;
+  }
+  .paint-carousel-track.no-transition {
+    transition: none;
+  }
+  .paint-carousel-viewport.is-dragging .paint-carousel-track {
+    transition: none;
+  }
+  .paint-carousel-slide {
+    flex: 0 0 100%;
+    height: 100%;
+  }
+  .paint-carousel-slide img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    background: #fff;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+  }
+  .paint-carousel-video {
+    position: relative;
+    height: 100%;
+    background: #000;
+  }
+  .paint-carousel-slide video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    background: #000;
+    pointer-events: none;
+  }
+  .paint-carousel-video-play {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    border: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(41, 62, 47, 0.18));
+    color: var(--coral);
+    cursor: pointer;
+  }
+  .paint-carousel-video-play span {
+    width: 78px;
+    height: 78px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    padding-left: 5px;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 12px 34px rgba(44, 94, 69, 0.22);
+    font-size: 32px;
+  }
+  .paint-carousel-slide.is-playing .paint-carousel-video-play {
+    display: none;
+  }
+  .paint-carousel-placeholder {
+    height: 100%;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    background:
+      radial-gradient(ellipse at 28% 18%, rgba(255, 196, 188, 0.65), transparent 55%),
+      radial-gradient(ellipse at 76% 82%, rgba(255, 223, 188, 0.65), transparent 55%),
+      linear-gradient(135deg, #FFF8F4, #FFF1ED);
+    color: var(--ink-soft);
+    font-size: 13px;
+    line-height: 1.8;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .paint-carousel-placeholder strong {
+    display: block;
+    color: var(--ink);
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+  .paint-carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .paint-carousel-dots button {
+    width: 9px;
+    height: 9px;
+    border: 0;
+    border-radius: 999px;
+    padding: 0;
+    background: rgba(255, 126, 107, 0.28);
+    cursor: pointer;
+    transition: width 180ms ease, background 180ms ease;
+  }
+  .paint-carousel-dots button.active {
+    width: 24px;
+    background: var(--coral);
+  }
+
   /* ============ Highlight Box ============ */
   .highlight-box {
     padding: 14px 18px;
@@ -1589,16 +1722,12 @@
       <div class="slide-label">02.2 · Mii 的定位 · ③ 有梗的生活</div>
       <div class="slide-inner">
         <h2 class="section-title">「有梗的生活」<br/>笑点全在<span class="accent-mint">玩家心里</span></h2>
-        <p class="lead">Mii 像一个认真演荒诞剧的演员，<strong>用夸张的肢体动作和剧情演绎无厘头的生活。</strong>比如：新闻播报，互相惊吓....</p>
+        <p class="lead">Mii 像一个认真演荒诞剧的演员，<strong>用夸张的肢体动作和剧情演绎无厘头的小岛生活。</strong></p>
 
-        <div class="video-wrap" style="margin-top: 22px;">
-          <div class="video-placeholder">
-            <div class="play-icon">▶</div>
-            <div class="placeholder-title">有梗生活视频占位</div>
-            <div class="placeholder-hint">
-              后续可替换为「新闻播报 / 互相惊吓 / 荒诞反应」等真实游戏片段
-            </div>
-          </div>
+        <div class="video-wrap has-video" style="margin-top: 22px; aspect-ratio: 1206 / 678; max-width: min(980px, 100%); border-radius: calc(var(--radius-lg) / 2);">
+          <video controls preload="auto" playsinline style="object-fit: contain;">
+            <source src="images/小剧场1.mp4" type="video/mp4">
+          </video>
         </div>
       </div>
     </section>
@@ -1610,12 +1739,12 @@
         <div class="hero-split">
           <div>
             <div class="eyebrow"><span class="dot"></span>保持边界，为惊喜留出空间</div>
-            <h2 class="section-title">与 Mii 的互动原则：<br/><span class="accent">「保持边界」</span></h2>
-            <p class="lead" style="margin-top: 14px;">不直接指挥 Mii——玩家能做的，都是「轻轻种下种子」的动作，剩下的交给 Mii。</p>
+            <h2 class="section-title">与 Mii 的互动原则：<br/><span class="accent">「保持边界,尊重 Mii 的意愿」</span></h2>
+            <p class="lead" style="margin-top: 14px;"> Mii 如果只是听从指挥就没意思了。玩家能做的，都是「轻轻种下种子」的动作，剩下的交给 Mii 自己决定。</p>
 
             <div class="grid" style="grid-template-columns: 1fr; gap: 10px; margin-top: 18px;">
               <div class="card" style="padding: 13px 16px;">
-                <h4 style="font-size: 15px;">🤏 抓起 · 放下 <span style="color: var(--coral);">— 留给意外</span></h4>
+                <h4 style="font-size: 15px;">🤏 抓起 <span style="color: var(--coral);">— 留给意外</span></h4>
                 <p>只负责搬动，会不会互动由 Mii 决定。</p>
               </div>
               <div class="card" style="padding: 13px 16px;">
@@ -1623,19 +1752,14 @@
                 <p>送什么是你的，怎么用是 Mii 的。</p>
               </div>
               <div class="card" style="padding: 13px 16px;">
-                <h4 style="font-size: 15px;">💬 回答 Mii 的话 <span style="color: var(--coral);">— 留给惊喜</span></h4>
-                <p>你的回答会在意想不到的时刻冒出来。</p>
+                <h4 style="font-size: 15px;">💬 回答 <span style="color: var(--coral);">— 留给惊喜</span></h4>
+                <p>mii有时会问你一些问题，你的回答会在意想不到的时刻冒出来。</p>
               </div>
-            </div>
-
-            <div class="quote" style="margin-top: 16px; padding: 14px 18px;">
-              <p style="font-size: 14px;">「Mii 听从指示就<span class="highlight">没意思了</span>。抓起放下，之后做什么<strong>交给 Mii</strong>。」</p>
-              <div class="who">上野 隆臣（程式总监）</div>
             </div>
           </div>
 
           <div class="hero-image-wrap">
-            <img src="assets/pickup-mii.png" alt="抓起 Mii 的核心交互" style="display: block; max-width: 100%; width: auto; height: auto;" />
+            <img src="images/捏起.png" alt="抓起 Mii 的核心交互" style="display: block; max-width: 100%; width: auto; height: auto;" />
           </div>
         </div>
       </div>
@@ -1676,15 +1800,15 @@
             <h5>③ 礼物制作</h5>
             <p>食物 / 衣服 / 书 / 游戏 / 宠物</p>
           </div>
-          <div class="principle" style="background: linear-gradient(180deg, #FFFBEE, #FFF4DC);">
-            <div class="icon" style="background: var(--yellow);">🎬</div>
+          <div class="principle">
+            <div class="icon" style="background: var(--pink-soft);">🎬</div>
             <h5>④ 小剧场</h5>
             <p>丰富的小剧场模板，不同组合带来不同惊喜</p>
           </div>
         </div>
 
         <div class="quote" style="margin-top: 26px;">
-          <p>「Tomodachi Collection 的概念是『究极小圈子的圈内梗软体』。<br/>能让玩家自由制作喜欢东西的 UGC，与这款游戏<span class="highlight">非常契合</span>。」</p>
+          <p>「Tomodachi Collection 的概念是『究极小圈子的圈内梗软体』。<br/>能让玩家自由制作喜欢的东西，是这款游戏的<span class="highlight">核心理念</span>」。</p>
           <div class="who">高桥 龙太郎（总监督）</div>
         </div>
       </div>
@@ -1693,32 +1817,29 @@
     <!-- ============ Slide 21: Mii Maker 自定义 ============ -->
     <section class="slide">
       <div class="slide-label">03.1 · Mii 面容自定义</div>
-      <div class="slide-inner">
-        <div class="hero-split">
-          <div>
-            <div class="eyebrow"><span class="dot"></span>① 面容</div>
-            <h2 class="section-title">从「像本人」到<br/>「想做<span class="accent">谁</span>就做谁」</h2>
+      <div class="slide-inner" style="transform: translateY(-2vh);">
+        <div class="eyebrow"><span class="dot"></span>① 面容</div>
+        <h2 class="section-title">从「像本人」到<br/>「想做<span class="accent">谁</span>就做谁」</h2>
 
-            <div class="grid" style="grid-template-columns: 1fr; gap: 12px; margin-top: 18px;">
-              <div class="highlight-box sky">
-                ✨ <strong>更细的部件</strong>：睫毛、双眼皮、嘴巴可调角度
-              </div>
-              <div class="highlight-box pink">
-                🎨 <strong>头发双色</strong>：副色设定能做双色发型
-              </div>
-              <div class="highlight-box mint">
-                🌈 <strong>颜色全开</strong>：肤色 / 部件色不限——能做动物、外星人
-              </div>
-              <div class="highlight-box yellow">
-                🏳️‍🌈 <strong>无限制关系</strong>：性别 / 恋爱对象 / 婚礼服自由
-              </div>
-            </div>
+        <div class="grid grid-4" style="gap: 12px; margin-top: 18px;">
+          <div class="highlight-box sky" style="padding: 14px 16px; font-size: 13px;">
+            ✨ <strong>更细致的部件</strong><br/><span style="color: var(--ink-soft);">睫毛、双眼皮、嘴巴可调角度</span>
           </div>
+          <div class="highlight-box pink" style="padding: 14px 16px; font-size: 13px;">
+            🎨 <strong>头发双色</strong><br/><span style="color: var(--ink-soft);">副色设定能做双色发型</span>
+          </div>
+          <div class="highlight-box mint" style="padding: 14px 16px; font-size: 13px;">
+            🌈 <strong>颜色全开</strong><br/><span style="color: var(--ink-soft);">肤色 / 部件色不限</span>
+          </div>
+          <div class="highlight-box yellow" style="padding: 14px 16px; font-size: 13px;">
+            🏳️‍🌈 <strong>无限制关系</strong><br/><span style="color: var(--ink-soft);">性别 / 恋爱对象 / 婚礼服自由</span>
+          </div>
+        </div>
 
-          <div class="hero-image-wrap">
-            <img class="hero-image" src="assets/mii-maker.png" alt="Mii Maker 自定义界面" />
-            <div class="image-caption">Mii Maker：脸型、五官、发型、颜色全部可调</div>
-          </div>
+        <div class="video-wrap has-video" style="margin-top: 22px; aspect-ratio: 16 / 9; max-width: min(980px, 100%); border-radius: calc(var(--radius-lg) / 2);">
+          <video autoplay loop muted playsinline preload="auto" style="object-fit: contain;">
+            <source src="images/捏人UI.mp4" type="video/mp4">
+          </video>
         </div>
       </div>
     </section>
@@ -1727,17 +1848,35 @@
     <section class="slide">
       <div class="slide-label">03.2 · 脸部彩绘</div>
       <div class="slide-inner">
-        <div class="hero-split reverse">
-          <div class="hero-image-wrap">
-            <img class="hero-image" src="assets/face-paint.png" alt="Face Paint 脸部彩绘功能" />
-            <div class="image-caption">Face Paint：可在 Mii 脸上直接手绘任意图案</div>
-          </div>
-
+        <div class="hero-split reverse" style="display: block;">
           <div>
             <div class="eyebrow"><span class="dot"></span>② 脸部彩绘 · 本作最受好评的功能</div>
             <h2 class="section-title">把<span class="accent">手绘自由度</span><br/>开到最大</h2>
 
-            <p class="lead" style="margin-top: 14px;">不只是选择部件——还能在 Mii 脸上<strong>直接画</strong>。<br/>胡子、雀斑、纹身、彩妆、动物特征……</p>
+            <p class="lead" style="margin-top: 14px;">不只是选择部件——还能在 Mii 脸上<strong>直接画</strong>。<br/>胡子、雀斑、纹身、彩妆、动物特征……任何你想绘制的细节都可以实现。</p>
+
+            <div class="paint-carousel paint-carousel-small" data-paint-carousel>
+              <div class="paint-carousel-viewport">
+                <div class="paint-carousel-track">
+                  <div class="paint-carousel-slide" aria-hidden="true">
+                    <img src="images/手绘2.jpg" alt="" />
+                  </div>
+                  <div class="paint-carousel-slide">
+                    <img src="images/手绘1.jpg" alt="脸部手绘示例 1" />
+                  </div>
+                  <div class="paint-carousel-slide">
+                    <img src="images/手绘2.jpg" alt="脸部手绘示例 2" />
+                  </div>
+                  <div class="paint-carousel-slide" aria-hidden="true">
+                    <img src="images/手绘1.jpg" alt="" />
+                  </div>
+                </div>
+              </div>
+              <div class="paint-carousel-dots" aria-label="脸部手绘示例轮播">
+                <button class="active" type="button" aria-label="显示手绘示例 1"></button>
+                <button type="button" aria-label="显示手绘示例 2"></button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1747,21 +1886,29 @@
     <section class="slide">
       <div class="slide-label">03.2 · 脸部彩绘 · 真实彩蛋</div>
       <div class="slide-inner">
-        <div class="hero-split">
-          <div>
-            <div class="eyebrow"><span class="dot"></span>😻 测试中的意外发现</div>
-            <h2 class="section-title">猫脸 Mii 生下的孩子，<br/>真的继承了<span class="accent">猫的特征</span></h2>
+        <h2 class="section-title">把<span class="accent">手绘自由度</span><br/>开到最大</h2>
+        <p class="lead" style="margin-top: 14px;">「特征遗传系统」遇上玩家手绘：画了猫脸的mii真的生出了带有猫脸的宝宝，因此有了圈内梗：“这孩子从出生就带着面部彩绘”</p>
 
-            <div class="story" style="margin-top: 22px;">
-              <span class="label">📖 设计小故事</span>
-              <h4>「特征遗传系统」遇上玩家手绘</h4>
-              <p>团队对 Mii 婴儿做了「特征遗传系统」调整。<br/>测试时，一只画了猫脸的 Mii 真的生出了<strong>猫脸宝宝</strong>——<strong style="color: var(--coral);">把开发成员都吓了一跳</strong>。</p>
+        <div class="paint-carousel paint-carousel-small" data-paint-carousel>
+          <div class="paint-carousel-viewport">
+            <div class="paint-carousel-track">
+              <div class="paint-carousel-slide" aria-hidden="true">
+                <img src="images/彩绘2.jpg" alt="" />
+              </div>
+              <div class="paint-carousel-slide">
+                <img src="images/彩绘1.jpg" alt="脸部彩绘示例 1" />
+              </div>
+              <div class="paint-carousel-slide">
+                <img src="images/彩绘2.jpg" alt="脸部彩绘示例 2" />
+              </div>
+              <div class="paint-carousel-slide" aria-hidden="true">
+                <img src="images/彩绘1.jpg" alt="" />
+              </div>
             </div>
           </div>
-
-          <div class="hero-image-wrap">
-            <img class="hero-image" src="assets/face-paint.png" alt="Face Paint 彩蛋示意" />
-            <div class="image-caption">手绘 × 遗传系统 = 意外的喜悦</div>
+          <div class="paint-carousel-dots" aria-label="脸部彩绘示例轮播">
+            <button class="active" type="button" aria-label="显示彩绘示例 1"></button>
+            <button type="button" aria-label="显示彩绘示例 2"></button>
           </div>
         </div>
       </div>
@@ -1775,28 +1922,330 @@
         <h2 class="section-title">问答式 Mii<span class="accent">自动生成</span></h2>
         <p class="lead">为不擅长制作 Mii 的玩家准备的全新功能——回答问题，「啪」的一声生成一只 Mii。</p>
 
-        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; margin-top: 24px; align-items: start;">
-          <div style="background: var(--paper); border-radius: 24px; padding: 24px; border: 1px solid var(--line); box-shadow: var(--shadow);">
-            <div style="display: flex; gap: 14px; margin-bottom: 14px;">
-              <div class="bubble left" style="background: var(--bg-2);">头发长还是短？</div>
-              <div class="bubble right" style="background: var(--pink-soft);">短</div>
-            </div>
-            <div style="display: flex; gap: 14px; margin-bottom: 14px;">
-              <div class="bubble left" style="background: var(--bg-2);">脸型偏圆还是偏方？</div>
-              <div class="bubble right" style="background: var(--pink-soft);">偏圆</div>
-            </div>
-            <div style="display: flex; gap: 14px; margin-bottom: 14px; align-items: center;">
-              <div class="bubble left" style="background: var(--bg-2);">眼睛细长还是大？</div>
-              <div class="bubble right" style="background: var(--pink-soft);">大</div>
-            </div>
-            <div style="text-align: center; padding: 12px 0; color: var(--ink-faint); font-size: 12px;">⋯⋯</div>
-            <div style="text-align: center; padding: 12px; background: linear-gradient(135deg, #FFE8DC, #FFD2D9); border-radius: 14px; font-size: 14px; font-weight: 600;">
-              🎉 「啪！」 生成一只 Mii
+        <div class="paint-carousel paint-carousel-small" data-paint-carousel>
+          <div class="paint-carousel-viewport">
+            <div class="paint-carousel-track">
+              <div class="paint-carousel-slide" aria-hidden="true">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 2</strong>后续替换为自动生成 Mii 相关图片</div>
+                </div>
+              </div>
+              <div class="paint-carousel-slide">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 1</strong>后续替换为自动生成 Mii 相关图片</div>
+                </div>
+              </div>
+              <div class="paint-carousel-slide">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 2</strong>后续替换为自动生成 Mii 相关图片</div>
+                </div>
+              </div>
+              <div class="paint-carousel-slide" aria-hidden="true">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 1</strong>后续替换为自动生成 Mii 相关图片</div>
+                </div>
+              </div>
             </div>
           </div>
+          <div class="paint-carousel-dots" aria-label="自动生成 Mii 图片轮播">
+            <button class="active" type="button" aria-label="显示自动生成 Mii 图片 1"></button>
+            <button type="button" aria-label="显示自动生成 Mii 图片 2"></button>
+          </div>
+        </div>
+      </div>
+    </section>
 
-          <div class="highlight-box mint" style="align-self: center;">
-            💡 <strong>设计哲学</strong>：就算长得不像，吐槽「这是谁啊！」也能成为新的<span class="highlight">「圈内梗」</span>
+    <!-- ============ Slide 22+1: 占位页 ============ -->
+    <section class="slide">
+      <div class="slide-label">03.4 · 声音的自定义</div>
+      <div class="slide-inner">
+        <h2 class="section-title">声音的<span class="accent">可玩性</span></h2>
+        <p class="lead" style="margin-top: 14px;">速度、音调、嗓音、起伏...甚至可以通过参数的调配实现一些讲方言的效果。</p>
+
+        <div class="paint-carousel paint-carousel-small" data-paint-carousel>
+          <div class="paint-carousel-viewport">
+            <div class="paint-carousel-track">
+              <div class="paint-carousel-slide" aria-hidden="true">
+                <div class="paint-carousel-video">
+                  <video preload="metadata" playsinline>
+                    <source src="images/口音2.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+              <div class="paint-carousel-slide">
+                <div class="paint-carousel-video">
+                  <video preload="metadata" playsinline>
+                    <source src="images/口音1.MP4" type="video/mp4">
+                  </video>
+                  <button class="paint-carousel-video-play" type="button" aria-label="播放口音视频 1"><span>▶</span></button>
+                </div>
+              </div>
+              <div class="paint-carousel-slide">
+                <div class="paint-carousel-video">
+                  <video preload="metadata" playsinline>
+                    <source src="images/口音2.mp4" type="video/mp4">
+                  </video>
+                  <button class="paint-carousel-video-play" type="button" aria-label="播放口音视频 2"><span>▶</span></button>
+                </div>
+              </div>
+              <div class="paint-carousel-slide" aria-hidden="true">
+                <div class="paint-carousel-video">
+                  <video preload="metadata" playsinline>
+                    <source src="images/口音1.MP4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="paint-carousel-dots" aria-label="口音视频轮播">
+            <button class="active" type="button" aria-label="显示口音视频 1"></button>
+            <button type="button" aria-label="显示口音视频 2"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 22+2: 占位页 ============ -->
+    <section class="slide">
+      <div class="slide-label">03.X · 待补充内容</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>待补充模块</div>
+        <h2 class="section-title">占位标题<br/><span class="accent">后续修改</span></h2>
+        <p class="lead" style="margin-top: 14px;">这里先保留和 slide 20 一致的版式，后续可直接替换标题、说明和图片内容。</p>
+
+        <div class="paint-carousel paint-carousel-small" data-paint-carousel>
+          <div class="paint-carousel-viewport">
+            <div class="paint-carousel-track">
+              <div class="paint-carousel-slide" aria-hidden="true">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+              <div class="paint-carousel-slide">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+              <div class="paint-carousel-slide">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+              <div class="paint-carousel-slide" aria-hidden="true">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="paint-carousel-dots" aria-label="占位图片轮播">
+            <button class="active" type="button" aria-label="显示占位图片 1"></button>
+            <button type="button" aria-label="显示占位图片 2"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 22+3: 占位页 ============ -->
+    <section class="slide">
+      <div class="slide-label">03.X · 待补充内容</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>待补充模块</div>
+        <h2 class="section-title">占位标题<br/><span class="accent">后续修改</span></h2>
+        <p class="lead" style="margin-top: 14px;">这里先保留和 slide 20 一致的版式，后续可直接替换标题、说明和图片内容。</p>
+
+        <div class="paint-carousel paint-carousel-small" data-paint-carousel>
+          <div class="paint-carousel-viewport">
+            <div class="paint-carousel-track">
+              <div class="paint-carousel-slide" aria-hidden="true">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+              <div class="paint-carousel-slide">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+              <div class="paint-carousel-slide">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+              <div class="paint-carousel-slide" aria-hidden="true">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="paint-carousel-dots" aria-label="占位图片轮播">
+            <button class="active" type="button" aria-label="显示占位图片 1"></button>
+            <button type="button" aria-label="显示占位图片 2"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 22+4: 占位页 ============ -->
+    <section class="slide">
+      <div class="slide-label">03.X · 待补充内容</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>待补充模块</div>
+        <h2 class="section-title">占位标题<br/><span class="accent">后续修改</span></h2>
+        <p class="lead" style="margin-top: 14px;">这里先保留和 slide 20 一致的版式，后续可直接替换标题、说明和图片内容。</p>
+
+        <div class="paint-carousel paint-carousel-small" data-paint-carousel>
+          <div class="paint-carousel-viewport">
+            <div class="paint-carousel-track">
+              <div class="paint-carousel-slide" aria-hidden="true">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+              <div class="paint-carousel-slide">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+              <div class="paint-carousel-slide">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+              <div class="paint-carousel-slide" aria-hidden="true">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="paint-carousel-dots" aria-label="占位图片轮播">
+            <button class="active" type="button" aria-label="显示占位图片 1"></button>
+            <button type="button" aria-label="显示占位图片 2"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 22+5: 占位页 ============ -->
+    <section class="slide">
+      <div class="slide-label">03.X · 待补充内容</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>待补充模块</div>
+        <h2 class="section-title">占位标题<br/><span class="accent">后续修改</span></h2>
+        <p class="lead" style="margin-top: 14px;">这里先保留和 slide 20 一致的版式，后续可直接替换标题、说明和图片内容。</p>
+
+        <div class="paint-carousel paint-carousel-small" data-paint-carousel>
+          <div class="paint-carousel-viewport">
+            <div class="paint-carousel-track">
+              <div class="paint-carousel-slide" aria-hidden="true">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+              <div class="paint-carousel-slide">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+              <div class="paint-carousel-slide">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+              <div class="paint-carousel-slide" aria-hidden="true">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="paint-carousel-dots" aria-label="占位图片轮播">
+            <button class="active" type="button" aria-label="显示占位图片 1"></button>
+            <button type="button" aria-label="显示占位图片 2"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 22+6: 占位页 ============ -->
+    <section class="slide">
+      <div class="slide-label">03.X · 待补充内容</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>待补充模块</div>
+        <h2 class="section-title">占位标题<br/><span class="accent">后续修改</span></h2>
+        <p class="lead" style="margin-top: 14px;">这里先保留和 slide 20 一致的版式，后续可直接替换标题、说明和图片内容。</p>
+
+        <div class="paint-carousel paint-carousel-small" data-paint-carousel>
+          <div class="paint-carousel-viewport">
+            <div class="paint-carousel-track">
+              <div class="paint-carousel-slide" aria-hidden="true">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+              <div class="paint-carousel-slide">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+              <div class="paint-carousel-slide">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+              <div class="paint-carousel-slide" aria-hidden="true">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="paint-carousel-dots" aria-label="占位图片轮播">
+            <button class="active" type="button" aria-label="显示占位图片 1"></button>
+            <button type="button" aria-label="显示占位图片 2"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Slide 22+7: 占位页 ============ -->
+    <section class="slide">
+      <div class="slide-label">03.X · 待补充内容</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>待补充模块</div>
+        <h2 class="section-title">占位标题<br/><span class="accent">后续修改</span></h2>
+        <p class="lead" style="margin-top: 14px;">这里先保留和 slide 20 一致的版式，后续可直接替换标题、说明和图片内容。</p>
+
+        <div class="paint-carousel paint-carousel-small" data-paint-carousel>
+          <div class="paint-carousel-viewport">
+            <div class="paint-carousel-track">
+              <div class="paint-carousel-slide" aria-hidden="true">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+              <div class="paint-carousel-slide">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+              <div class="paint-carousel-slide">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+              <div class="paint-carousel-slide" aria-hidden="true">
+                <div class="paint-carousel-placeholder">
+                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="paint-carousel-dots" aria-label="占位图片轮播">
+            <button class="active" type="button" aria-label="显示占位图片 1"></button>
+            <button type="button" aria-label="显示占位图片 2"></button>
           </div>
         </div>
       </div>
@@ -2236,7 +2685,7 @@
 
 <div class="nav">
   <button id="prev" aria-label="上一页">←</button>
-  <div class="pages"><strong id="cur">1</strong> / <span id="total">36</span></div>
+  <div class="pages"><strong id="cur">1</strong> / <span id="total">43</span></div>
   <button id="next" aria-label="下一页">→</button>
 </div>
 
@@ -2293,6 +2742,109 @@
   }, { passive: true });
 
   $progress.style.width = (1 / total * 100) + '%';
+
+  document.querySelectorAll('[data-paint-carousel]').forEach(carousel => {
+    const viewport = carousel.querySelector('.paint-carousel-viewport');
+    const track = carousel.querySelector('.paint-carousel-track');
+    const dots = Array.from(carousel.querySelectorAll('.paint-carousel-dots button'));
+    const slideCount = dots.length;
+    let activeIndex = 0;
+    let trackIndex = 1;
+    let startX = 0;
+    let deltaX = 0;
+    let isDragging = false;
+
+    function pauseCarouselVideos() {
+      carousel.querySelectorAll('.paint-carousel-slide').forEach(slide => {
+        const video = slide.querySelector('video');
+        slide.classList.remove('is-playing');
+        if (video) {
+          video.pause();
+        }
+      });
+    }
+
+    function updateDots() {
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === activeIndex));
+    }
+
+    function setTrackIndex(index, animate = true) {
+      if (!track) return;
+      trackIndex = index;
+      track.classList.toggle('no-transition', !animate);
+      carousel.style.setProperty('--paint-track-index', trackIndex);
+      if (track) track.style.transform = '';
+      if (!animate) {
+        track.getBoundingClientRect();
+        track.classList.remove('no-transition');
+      }
+    }
+
+    function showSlide(index) {
+      pauseCarouselVideos();
+      activeIndex = (index + slideCount) % slideCount;
+      updateDots();
+      setTrackIndex(index + 1);
+    }
+
+    viewport?.addEventListener('pointerdown', e => {
+      isDragging = true;
+      startX = e.clientX;
+      deltaX = 0;
+      viewport.classList.add('is-dragging');
+      viewport.setPointerCapture(e.pointerId);
+    });
+
+    viewport?.addEventListener('pointermove', e => {
+      if (!isDragging || !track) return;
+      deltaX = e.clientX - startX;
+      track.style.transform = `translateX(calc(${-trackIndex * 100}% + ${deltaX}px))`;
+    });
+
+    function endDrag() {
+      if (!isDragging || !viewport) return;
+      const threshold = viewport.clientWidth * 0.16;
+      viewport.classList.remove('is-dragging');
+      if (Math.abs(deltaX) > threshold) {
+        showSlide(activeIndex + (deltaX < 0 ? 1 : -1));
+      } else {
+        showSlide(activeIndex);
+      }
+      isDragging = false;
+    }
+
+    viewport?.addEventListener('pointerup', endDrag);
+    viewport?.addEventListener('pointercancel', endDrag);
+    track?.addEventListener('transitionend', () => {
+      if (trackIndex === 0) {
+        activeIndex = slideCount - 1;
+        updateDots();
+        setTrackIndex(slideCount, false);
+      } else if (trackIndex === slideCount + 1) {
+        activeIndex = 0;
+        updateDots();
+        setTrackIndex(1, false);
+      }
+    });
+    dots.forEach((dot, i) => dot.addEventListener('click', () => showSlide(i)));
+    carousel.querySelectorAll('.paint-carousel-video-play').forEach(button => {
+      button.addEventListener('pointerdown', e => e.stopPropagation());
+      button.addEventListener('click', e => {
+        e.stopPropagation();
+        pauseCarouselVideos();
+        const slide = button.closest('.paint-carousel-slide');
+        const video = slide?.querySelector('video');
+        if (!slide || !video) return;
+        slide.classList.add('is-playing');
+        video.play().catch(() => slide.classList.remove('is-playing'));
+      });
+    });
+    carousel.querySelectorAll('video').forEach(video => {
+      video.addEventListener('pause', () => video.closest('.paint-carousel-slide')?.classList.remove('is-playing'));
+      video.addEventListener('ended', () => video.closest('.paint-carousel-slide')?.classList.remove('is-playing'));
+    });
+  });
+
 </script>
 
 </body>
