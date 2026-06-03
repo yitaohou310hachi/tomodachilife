@@ -1076,6 +1076,86 @@
     background: var(--coral);
   }
 
+  /* ============ Formula Diagram ============ */
+  .formula-diagram {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 28px;
+    flex-wrap: nowrap;
+  }
+  .formula-term {
+    flex: 1 1 0;
+    min-width: 0;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--line);
+    background: var(--paper);
+    box-shadow: var(--shadow);
+    padding: 20px 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .formula-term.sky { background: linear-gradient(160deg, #F4FAFF, #E5F1F8); border-color: #B6D8EC; }
+  .formula-term.yellow { background: linear-gradient(160deg, #FFFBEE, #FFF4DC); border-color: #E5C988; }
+  .formula-term.mint { background: linear-gradient(160deg, #F1FFF6, #DFF5E5); border-color: #B6E0C2; }
+  .formula-term.result { box-shadow: 0 16px 40px rgba(79, 163, 120, 0.22); }
+  .formula-badge {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .formula-sub {
+    display: inline-block;
+    align-self: flex-start;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ink-soft);
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--line);
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+  .formula-term p {
+    font-size: 13px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+  .formula-term .pill-row {
+    margin-top: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .formula-term .pill {
+    font-size: 11px;
+    padding: 4px 10px;
+  }
+  .formula-result-tag {
+    margin-top: auto;
+    background: var(--coral);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    padding: 8px 12px;
+    border-radius: 12px;
+    box-shadow: 0 8px 22px rgba(255, 126, 107, 0.32);
+  }
+  .formula-op {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    font-size: 38px;
+    font-weight: 800;
+    color: var(--coral);
+    line-height: 1;
+  }
+
   /* ============ Highlight Box ============ */
   .highlight-box {
     padding: 14px 18px;
@@ -1926,30 +2006,26 @@
           <div class="paint-carousel-viewport">
             <div class="paint-carousel-track">
               <div class="paint-carousel-slide" aria-hidden="true">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 2</strong>后续替换为自动生成 Mii 相关图片</div>
-                </div>
+                <img src="images/口令捏人3.jpg" alt="" />
               </div>
               <div class="paint-carousel-slide">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 1</strong>后续替换为自动生成 Mii 相关图片</div>
-                </div>
+                <img src="images/口令捏人1.jpg" alt="口令捏人示例 1" />
               </div>
               <div class="paint-carousel-slide">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 2</strong>后续替换为自动生成 Mii 相关图片</div>
-                </div>
+                <img src="images/口令捏人2.jpg" alt="口令捏人示例 2" />
+              </div>
+              <div class="paint-carousel-slide">
+                <img src="images/口令捏人3.jpg" alt="口令捏人示例 3" />
               </div>
               <div class="paint-carousel-slide" aria-hidden="true">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 1</strong>后续替换为自动生成 Mii 相关图片</div>
-                </div>
+                <img src="images/口令捏人1.jpg" alt="" />
               </div>
             </div>
           </div>
           <div class="paint-carousel-dots" aria-label="自动生成 Mii 图片轮播">
             <button class="active" type="button" aria-label="显示自动生成 Mii 图片 1"></button>
             <button type="button" aria-label="显示自动生成 Mii 图片 2"></button>
+            <button type="button" aria-label="显示自动生成 Mii 图片 3"></button>
           </div>
         </div>
       </div>
@@ -2007,40 +2083,48 @@
 
     <!-- ============ Slide 22+2: 占位页 ============ -->
     <section class="slide">
-      <div class="slide-label">03.X · 待补充内容</div>
+      <div class="slide-label">03.5 · 性格的设计</div>
       <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>待补充模块</div>
-        <h2 class="section-title">占位标题<br/><span class="accent">后续修改</span></h2>
-        <p class="lead" style="margin-top: 14px;">这里先保留和 slide 20 一致的版式，后续可直接替换标题、说明和图片内容。</p>
+        <h2 class="section-title">16种性格之外的<br/><span class="accent">微个性</span></h2>
+        <p class="lead" style="margin-top: 14px;">主性格可以覆盖大多数人格，但总有一些细节无法还原。“微个性”可以称之为本作的一大发明，你自己决定加些什么才更像本人，这也是「圈内梗」的起点。</p>
 
         <div class="paint-carousel paint-carousel-small" data-paint-carousel>
           <div class="paint-carousel-viewport">
             <div class="paint-carousel-track">
               <div class="paint-carousel-slide" aria-hidden="true">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
+                <img src="images/性格5.jpg" alt="" />
+              </div>
+              <div class="paint-carousel-slide">
+                <img src="images/性格1.jpg" alt="微个性示例 1" />
+              </div>
+              <div class="paint-carousel-slide">
+                <img src="images/性格2.jpg" alt="微个性示例 2" />
+              </div>
+              <div class="paint-carousel-slide">
+                <div class="paint-carousel-video">
+                  <video preload="metadata" playsinline>
+                    <source src="images/性格3.mp4" type="video/mp4">
+                  </video>
+                  <button class="paint-carousel-video-play" type="button" aria-label="播放微个性示例 3"><span>▶</span></button>
                 </div>
               </div>
               <div class="paint-carousel-slide">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
-                </div>
+                <img src="images/性格4.jpg" alt="微个性示例 4" />
               </div>
               <div class="paint-carousel-slide">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
-                </div>
+                <img src="images/性格5.jpg" alt="微个性示例 5" />
               </div>
               <div class="paint-carousel-slide" aria-hidden="true">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
-                </div>
+                <img src="images/性格1.jpg" alt="" />
               </div>
             </div>
           </div>
-          <div class="paint-carousel-dots" aria-label="占位图片轮播">
-            <button class="active" type="button" aria-label="显示占位图片 1"></button>
-            <button type="button" aria-label="显示占位图片 2"></button>
+          <div class="paint-carousel-dots" aria-label="微个性示例轮播">
+            <button class="active" type="button" aria-label="显示微个性示例 1"></button>
+            <button type="button" aria-label="显示微个性示例 2"></button>
+            <button type="button" aria-label="显示微个性示例 3"></button>
+            <button type="button" aria-label="显示微个性示例 4"></button>
+            <button type="button" aria-label="显示微个性示例 5"></button>
           </div>
         </div>
       </div>
@@ -2048,345 +2132,31 @@
 
     <!-- ============ Slide 22+3: 占位页 ============ -->
     <section class="slide">
-      <div class="slide-label">03.X · 待补充内容</div>
+      <div class="slide-label">03.6 · 礼物制作</div>
       <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>待补充模块</div>
-        <h2 class="section-title">占位标题<br/><span class="accent">后续修改</span></h2>
-        <p class="lead" style="margin-top: 14px;">这里先保留和 slide 20 一致的版式，后续可直接替换标题、说明和图片内容。</p>
+        <h2 class="section-title">Palette House Workshop<br/><span class="accent">礼物作坊</span></h2>
+        <p class="lead" style="margin-top: 14px;">食物、衣服、宠物、音乐、家具...你可以将任何东西制作成礼物送给你的mii。</p>
 
         <div class="paint-carousel paint-carousel-small" data-paint-carousel>
           <div class="paint-carousel-viewport">
             <div class="paint-carousel-track">
               <div class="paint-carousel-slide" aria-hidden="true">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
-                </div>
+                <img src="images/礼物2.png" alt="" />
               </div>
               <div class="paint-carousel-slide">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
-                </div>
+                <img src="images/礼物1.png" alt="礼物作坊示例 1" />
               </div>
               <div class="paint-carousel-slide">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
-                </div>
+                <img src="images/礼物2.png" alt="礼物作坊示例 2" />
               </div>
               <div class="paint-carousel-slide" aria-hidden="true">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
-                </div>
+                <img src="images/礼物1.png" alt="" />
               </div>
             </div>
           </div>
-          <div class="paint-carousel-dots" aria-label="占位图片轮播">
-            <button class="active" type="button" aria-label="显示占位图片 1"></button>
-            <button type="button" aria-label="显示占位图片 2"></button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ Slide 22+4: 占位页 ============ -->
-    <section class="slide">
-      <div class="slide-label">03.X · 待补充内容</div>
-      <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>待补充模块</div>
-        <h2 class="section-title">占位标题<br/><span class="accent">后续修改</span></h2>
-        <p class="lead" style="margin-top: 14px;">这里先保留和 slide 20 一致的版式，后续可直接替换标题、说明和图片内容。</p>
-
-        <div class="paint-carousel paint-carousel-small" data-paint-carousel>
-          <div class="paint-carousel-viewport">
-            <div class="paint-carousel-track">
-              <div class="paint-carousel-slide" aria-hidden="true">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
-                </div>
-              </div>
-              <div class="paint-carousel-slide">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
-                </div>
-              </div>
-              <div class="paint-carousel-slide">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
-                </div>
-              </div>
-              <div class="paint-carousel-slide" aria-hidden="true">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="paint-carousel-dots" aria-label="占位图片轮播">
-            <button class="active" type="button" aria-label="显示占位图片 1"></button>
-            <button type="button" aria-label="显示占位图片 2"></button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ Slide 22+5: 占位页 ============ -->
-    <section class="slide">
-      <div class="slide-label">03.X · 待补充内容</div>
-      <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>待补充模块</div>
-        <h2 class="section-title">占位标题<br/><span class="accent">后续修改</span></h2>
-        <p class="lead" style="margin-top: 14px;">这里先保留和 slide 20 一致的版式，后续可直接替换标题、说明和图片内容。</p>
-
-        <div class="paint-carousel paint-carousel-small" data-paint-carousel>
-          <div class="paint-carousel-viewport">
-            <div class="paint-carousel-track">
-              <div class="paint-carousel-slide" aria-hidden="true">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
-                </div>
-              </div>
-              <div class="paint-carousel-slide">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
-                </div>
-              </div>
-              <div class="paint-carousel-slide">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
-                </div>
-              </div>
-              <div class="paint-carousel-slide" aria-hidden="true">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="paint-carousel-dots" aria-label="占位图片轮播">
-            <button class="active" type="button" aria-label="显示占位图片 1"></button>
-            <button type="button" aria-label="显示占位图片 2"></button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ Slide 22+6: 占位页 ============ -->
-    <section class="slide">
-      <div class="slide-label">03.X · 待补充内容</div>
-      <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>待补充模块</div>
-        <h2 class="section-title">占位标题<br/><span class="accent">后续修改</span></h2>
-        <p class="lead" style="margin-top: 14px;">这里先保留和 slide 20 一致的版式，后续可直接替换标题、说明和图片内容。</p>
-
-        <div class="paint-carousel paint-carousel-small" data-paint-carousel>
-          <div class="paint-carousel-viewport">
-            <div class="paint-carousel-track">
-              <div class="paint-carousel-slide" aria-hidden="true">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
-                </div>
-              </div>
-              <div class="paint-carousel-slide">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
-                </div>
-              </div>
-              <div class="paint-carousel-slide">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
-                </div>
-              </div>
-              <div class="paint-carousel-slide" aria-hidden="true">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="paint-carousel-dots" aria-label="占位图片轮播">
-            <button class="active" type="button" aria-label="显示占位图片 1"></button>
-            <button type="button" aria-label="显示占位图片 2"></button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ Slide 22+7: 占位页 ============ -->
-    <section class="slide">
-      <div class="slide-label">03.X · 待补充内容</div>
-      <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>待补充模块</div>
-        <h2 class="section-title">占位标题<br/><span class="accent">后续修改</span></h2>
-        <p class="lead" style="margin-top: 14px;">这里先保留和 slide 20 一致的版式，后续可直接替换标题、说明和图片内容。</p>
-
-        <div class="paint-carousel paint-carousel-small" data-paint-carousel>
-          <div class="paint-carousel-viewport">
-            <div class="paint-carousel-track">
-              <div class="paint-carousel-slide" aria-hidden="true">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
-                </div>
-              </div>
-              <div class="paint-carousel-slide">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
-                </div>
-              </div>
-              <div class="paint-carousel-slide">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 2</strong>后续替换为正式图片</div>
-                </div>
-              </div>
-              <div class="paint-carousel-slide" aria-hidden="true">
-                <div class="paint-carousel-placeholder">
-                  <div><strong>图片占位 1</strong>后续替换为正式图片</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="paint-carousel-dots" aria-label="占位图片轮播">
-            <button class="active" type="button" aria-label="显示占位图片 1"></button>
-            <button type="button" aria-label="显示占位图片 2"></button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ Slide 24: Mii 多样性展示 ============ -->
-    <section class="slide">
-      <div class="slide-label">03.4 · 自定义的极限</div>
-      <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>UGC 工具能做到什么程度</div>
-        <h2 class="section-title">动物、外星人、机器人、<br/>甚至<span class="accent">浮在空中</span>的 Mii</h2>
-
-        <p class="lead" style="margin-top: 18px; max-width: none;">「除了本人、家人、朋友等真实人物之外，也会有玩家想制作原创角色。<br/>因此我们<strong>尽可能让玩家透过各种方式制作出任何样子的 Mii</strong>。」<span style="font-size: 12px; color: var(--ink-faint);">—— 高桥 龙太郎</span></p>
-
-        <div class="image-hero" style="margin-top: 18px;">
-          <img src="assets/mii-variety.png" alt="多样化的 Mii 角色" />
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ============ Slide 25: Mii 多样性展示 · 标题页 ============ -->
-    <section class="slide">
-      <div class="slide-label">03.4 · 自定义的极限</div>
-      <div class="slide-inner">
-        <h2 class="section-title">我的 Mii 们</h2>
-        <p class="lead">把我的猫、oc、自己和大学老师都搬进了岛上。</p>
-        <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
-          <img src="images/居民.png" alt="我的 Mii 居民" style="display: block; max-width: 100%; max-height: 58vh; width: auto; height: auto;" />
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ Slide 25: 性格系统 ============ -->
-    <section class="slide">
-      <div class="slide-label">03.5 · 性格设计的两层结构</div>
-      <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>③ 性格 × 微个性</div>
-        <h2 class="section-title">为什么 16 种性格<span class="accent">不够</span>？</h2>
-
-        <div class="grid grid-2" style="margin-top: 22px;">
-          <div class="card">
-            <div class="tag">基础层 · 自初代延续</div>
-            <h4>16 种主性格</h4>
-            <p style="margin-bottom: 14px;">决定 Mii 的对话风格、行动倾向。覆盖大多数人格类型。</p>
-            <div class="pill-row">
-              <span class="pill">温柔</span>
-              <span class="pill">活泼</span>
-              <span class="pill">认真</span>
-              <span class="pill">冷静</span>
-              <span class="pill muted">… 共 16 种</span>
-            </div>
-          </div>
-          <div class="card" style="background: linear-gradient(135deg, #FFFBEE, #FFF4DC); border-color: #E5C988;">
-            <div class="tag" style="background: var(--yellow); color: #6E4D14;">本作新增 · 一大发明</div>
-            <h4>「微个性」：玩家拼贴的细节</h4>
-            <p style="margin-bottom: 14px;">无法塞进 16 种主性格里的细节，做成<strong>可送给 Mii 的礼物</strong>。</p>
-            <div class="pill-row">
-              <span class="pill">独特步姿</span>
-              <span class="pill">大胃王</span>
-              <span class="pill">小鸟胃</span>
-              <span class="pill">说话很大声</span>
-              <span class="pill">睡相差</span>
-              <span class="pill">浮在空中</span>
-              <span class="pill alert">⚠️ 放屁</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="quote" style="margin-top: 22px;">
-          <p>「『微个性』可以说是本作的<span class="highlight">一大发明</span>。<br/>你自己决定加什么，才能更像本人——而那就是『圈内梗』的起点。」</p>
-          <div class="who">高桥 龙太郎（总监督）</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ Slide 27: Palette House ============ -->
-    <section class="slide">
-      <div class="slide-label">03.8 · 礼物制作</div>
-      <div class="slide-inner">
-        <div class="hero-split reverse">
-          <div class="hero-image-wrap">
-            <img class="hero-image" src="assets/palette-house.png" alt="Palette House Workshop" />
-            <div class="image-caption">Palette House Workshop：84 色调色板，万物皆可手绘</div>
-          </div>
-
-          <div>
-            <div class="eyebrow"><span class="dot"></span>⑤ 万物皆可手绘</div>
-            <h2 class="section-title">Palette House<br/><span class="accent">「礼物作坊」</span></h2>
-
-            <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px;">
-              <div class="pill muted" style="padding: 8px 12px; font-size: 12px;">🍔 食物</div>
-              <div class="pill muted" style="padding: 8px 12px; font-size: 12px;">👕 衣服</div>
-              <div class="pill muted" style="padding: 8px 12px; font-size: 12px;">📚 书籍</div>
-              <div class="pill muted" style="padding: 8px 12px; font-size: 12px;">🎮 游戏</div>
-              <div class="pill muted" style="padding: 8px 12px; font-size: 12px;">🐱 宠物</div>
-              <div class="pill muted" style="padding: 8px 12px; font-size: 12px;">🪑 家具</div>
-              <div class="pill muted" style="padding: 8px 12px; font-size: 12px;">🧱 地砖</div>
-              <div class="pill muted" style="padding: 8px 12px; font-size: 12px;">🏠 建筑外观</div>
-            </div>
-
-            <div class="highlight-box yellow" style="margin-top: 20px;">
-              💡 不会画？可以用<strong>文字、贴 Mii 脸照</strong>、套范本，<br/>甚至完全不用 UGC 也能享受游戏。
-            </div>
-
-            <div class="quote" style="margin-top: 16px; padding: 16px 20px;">
-              <p style="font-size: 14px;">「能送给 Mii 最大的东西，就是<strong>『岛』本身</strong>。」</p>
-              <div class="who">高桥 龙太郎</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ Slide 32: 构思公告板 ============ -->
-    <section class="slide fit-slide">
-      <div class="slide-label">04.2 · 团队协作秘诀</div>
-      <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>② 构思公告板</div>
-        <h2 class="section-title">「<span class="accent">构思公告板</span>」<br/>把热情转换成产能</h2>
-
-        <div class="quote" style="margin-top: 16px;">
-          <p>「让所有工作人员都能<span class="highlight">自由写下自己的想法</span>。<br/>当有人写下有趣的想法时，不同岗位的人就会记下，并把它实现。」</p>
-          <div class="who">蔭山 大介（美术总监）</div>
-        </div>
-
-        <div class="grid grid-3" style="margin-top: 16px;">
-          <div class="principle pink">
-            <div class="icon">📝</div>
-            <h5>任何人都能提案</h5>
-            <p>不分岗位 / 资历，<br/>都能贴到公告板上</p>
-          </div>
-          <div class="principle sky">
-            <div class="icon">🙋</div>
-            <h5>提案者可挂帅</h5>
-            <p>「由我来统筹负责！」<br/>主动推动落地</p>
-          </div>
-          <div class="principle mint">
-            <div class="icon">⚖️</div>
-            <h5>资深做平衡</h5>
-            <p>把热情调整到<br/><strong>现实可行的程度</strong></p>
+          <div class="paint-carousel-dots" aria-label="礼物作坊示例轮播">
+            <button class="active" type="button" aria-label="显示礼物作坊示例 1"></button>
+            <button type="button" aria-label="显示礼物作坊示例 2"></button>
           </div>
         </div>
       </div>
@@ -2394,36 +2164,126 @@
 
     <!-- ============ Slide 31: 小剧场 - 模板化拼装剧场 ============ -->
     <section class="slide">
-      <div class="slide-label">03.9 · 小剧场</div>
+      <div class="slide-label">03.7 · 小剧场</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>🎬 永远不重样的「绝版狗血连续剧」</div>
-        <h2 class="section-title">小剧场：<span class="accent">「模板化拼装剧场」</span></h2>
-        <p class="lead">任天堂其实是做了一套剧情版的 <strong>Figma 组件库</strong>——把"剧情"拆成可复用的外壳 + 可替换的变量。</p>
+        <h2 class="section-title">UGC核心：<span class="accent">模板化拼装剧场</span></h2>
+        <p class="lead">任天堂其实是做了一套剧情版的 <strong>Figma 组件库</strong>。他们打造了 100 多个高表现力的公式化舞台，但台上的演员、台词、声音都是玩家亲手设计的变量；当它们被随机排列组合丢上台，玩家看到的就是永远不重样的「绝版狗血连续剧」——这就是低成本创造海量有趣内容的终极巧思。</p>
 
-        <div class="grid grid-3" style="margin-top: 22px;">
-          <div class="card">
-            <div class="tag" style="background: #E5F1F8; color: #2C5C7C;">① 固定外壳</div>
-            <h4>精雕 100+ 个动画「容器」</h4>
-            <p>不为每个人量身定制电影，只做完全固定的<strong>纯动画外壳</strong>：<br/>· 【A 冲向 B 告白，B 满脸通红答应】<br/>· 【吃到绝顶美味，背景瞬间飞向宇宙】</p>
+        <div class="formula-diagram">
+          <div class="formula-term sky">
+            <div class="formula-badge">固定动画外壳</div>
+            <div class="formula-sub">10% 的底层开发</div>
+            <p>100+ 个高度夸张、极具表现力的<strong>基础动画模板</strong>——高复用的 Figma 基础组件</p>
+            <div class="pill-row">
+              <span class="pill">飞向宇宙</span>
+              <span class="pill">大哭淹没房间</span>
+              <span class="pill">半路杀出告白者</span>
+              <span class="pill">...</span>
+            </div>
           </div>
-          <div class="card" style="background: linear-gradient(135deg, #FFFBEE, #FFF4DC); border-color: #E5C988;">
-            <div class="tag" style="background: var(--yellow); color: #6E4D14;">② 配置项</div>
-            <h4>核心元素全部「下发」</h4>
-            <p>外壳里能变的地方都留成槽位：<br/>· <strong>下发角色</strong>：随机塞进【你的老板】【你的前任】<br/>· <strong>下发台词</strong>：自动读取你输入的恶搞文本</p>
-          </div>
-          <div class="card" style="background: linear-gradient(135deg, #F1FFF6, #DFF5E5); border-color: #B6E0C2;">
-            <div class="tag" style="background: #BDE6CA; color: #2C7A4B;">③ 随机拼装</div>
-            <h4>像拼乐高一样组合</h4>
-            <p>运行时，算法把<strong>固定外壳</strong>和<strong>玩家输入的变量</strong>随机拼在一起——同一个舞台，永远是不同的演员和台词。</p>
-          </div>
-        </div>
 
-        <div class="highlight-box mint" style="margin-top: 20px;">
-          💡 <strong>一句话总结：</strong>任天堂不是在讲故事，而是在做<strong>「故事的生产线」</strong>。他们只打造了 100 多个高表现力的公式化舞台，但台上的演员、台词、声音都是玩家亲手设计的变量；当它们被随机排列组合丢上台，玩家看到的就是永远不重样的「绝版狗血连续剧」——这就是<strong>低成本创造海量有趣内容</strong>的终极巧思。
+          <div class="formula-op">×</div>
+
+          <div class="formula-term yellow">
+            <div class="formula-badge">玩家输入内容</div>
+            <div class="formula-sub">90% 的情感带入</div>
+            <p>玩家捏的 <strong>Mii</strong>、手写的缺德台词、自己调的奇葩音调——不断变化的专属剧场</p>
+            <div class="pill-row">
+              <span class="pill">你推</span>
+              <span class="pill">暗恋对象</span>
+              <span class="pill">闺蜜</span>
+              <span class="pill">...</span>
+            </div>
+          </div>
+
+          <div class="formula-op">=</div>
+
+          <div class="formula-term mint result">
+            <div class="formula-badge">永不重样的狗血连续剧</div>
+            <div class="formula-sub">运行时算法组合</div>
+            <p><strong>无限流的无厘头剧情</strong>——同一个舞台，永远是不同的演员、台词和声音。</p>
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- ============ Slide 27: Mii 多样性展示 ============ -->
+    <section class="slide">
+      <div class="slide-label">03.8 · 自定义的极限</div>
+      <div class="slide-inner">
+        <div class="eyebrow"><span class="dot"></span>UGC 能做到什么程度</div>
+        <h2 class="section-title">Mii 的多重宇宙</h2>
+
+        <p class="lead" style="margin-top: 18px; max-width: none;">把自己、宠物、oc都搬进岛上</p>
+        <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+          <img src="images/居民.png" alt="我的 Mii 居民" style="display: block; max-width: 100%; max-height: 58vh; width: auto; height: auto;" />
+        </div>
+      </div>
+    </section>
+
+   <!-- ============ Slide 28: Mii 多样性展示 ============ -->
+   <section class="slide">
+    <div class="slide-label">03.8 · 自定义的极限</div>
+    <div class="slide-inner">
+      <div class="eyebrow"><span class="dot"></span>UGC 能做到什么程度</div>
+      <h2 class="section-title">Mii 的多重宇宙</h2>
+
+      <p class="lead" style="margin-top: 18px; max-width: none;">「除了本人、家人、朋友等真实人物之外，也会有玩家想制作原创角色。<br/>因此我们<strong>尽可能让玩家透过各种方式制作出任何样子的 Mii</strong>。」<span style="font-size: 12px; color: var(--ink-faint);">—— 高桥 龙太郎</span></p>
+
+      <div class="paint-carousel paint-carousel-small" data-paint-carousel>
+        <div class="paint-carousel-viewport">
+          <div class="paint-carousel-track">
+            <div class="paint-carousel-slide" aria-hidden="true">
+              <div class="paint-carousel-video">
+                <video preload="metadata" playsinline>
+                  <source src="images/ugc2.mp4" type="video/mp4">
+                </video>
+              </div>
+            </div>
+            <div class="paint-carousel-slide">
+              <div class="paint-carousel-video">
+                <video preload="metadata" playsinline>
+                  <source src="images/ugc0.mp4" type="video/mp4">
+                </video>
+                <button class="paint-carousel-video-play" type="button" aria-label="播放 UGC 视频 1"><span>▶</span></button>
+              </div>
+            </div>
+            <div class="paint-carousel-slide">
+              <div class="paint-carousel-video">
+                <video preload="metadata" playsinline>
+                  <source src="images/ugc1.mp4" type="video/mp4">
+                </video>
+                <button class="paint-carousel-video-play" type="button" aria-label="播放 UGC 视频 2"><span>▶</span></button>
+              </div>
+            </div>
+            <div class="paint-carousel-slide">
+              <div class="paint-carousel-video">
+                <video preload="metadata" playsinline>
+                  <source src="images/ugc2.mp4" type="video/mp4">
+                </video>
+                <button class="paint-carousel-video-play" type="button" aria-label="播放 UGC 视频 3"><span>▶</span></button>
+              </div>
+            </div>
+            <div class="paint-carousel-slide" aria-hidden="true">
+              <div class="paint-carousel-video">
+                <video preload="metadata" playsinline>
+                  <source src="images/ugc0.mp4" type="video/mp4">
+                </video>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="paint-carousel-dots" aria-label="UGC 视频轮播">
+          <button class="active" type="button" aria-label="显示 UGC 视频 1"></button>
+          <button type="button" aria-label="显示 UGC 视频 2"></button>
+          <button type="button" aria-label="显示 UGC 视频 3"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
     <!-- ============ Slide 30: Part 4 Cover ============ -->
     <section class="slide chapter-cover c4">
       <div class="ch-side">
@@ -2465,142 +2325,33 @@
       </div>
     </section>
 
-    <!-- ============ Slide: 我的 Mii 展示 ============ -->
-    <section class="slide">
-      <div class="slide-label">03.X · 我的 Mii</div>
+    <!-- ============ Slide 32: 构思公告板 ============ -->
+    <section class="slide fit-slide">
+      <div class="slide-label">04.2 · 团队协作秘诀</div>
       <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>玩家手记</div>
-        <h2 class="section-title">我捏的<span class="accent"> Mii</span></h2>
-        <p class="lead">把家人朋友、还有自己，都搬进了岛上。</p>
+        <div class="eyebrow"><span class="dot"></span>② 构思公告板</div>
+        <h2 class="section-title">「<span class="accent">构思公告板</span>」<br/>把热情转换成产能</h2>
 
-        <div class="media-grid featured">
-          <div class="media-slot feature">
-            <span class="slot-tag">主角 / 视频</span>
-            <div class="media-placeholder-inner">
-              <div class="icon">🎬</div>
-              <div class="label">主图 / 视频占位</div>
-              <div class="label-sub">替换为 &lt;img&gt; 或 &lt;video controls&gt;</div>
-            </div>
-          </div>
-          <div class="media-slot square">
-            <span class="slot-tag">01</span>
-            <div class="media-placeholder-inner">
-              <div class="icon">🖼</div>
-              <div class="label">图片占位</div>
-            </div>
-          </div>
-          <div class="media-slot square">
-            <span class="slot-tag">02</span>
-            <div class="media-placeholder-inner">
-              <div class="icon">🖼</div>
-              <div class="label">图片占位</div>
-            </div>
-          </div>
-          <div class="media-slot square">
-            <span class="slot-tag">03</span>
-            <div class="media-placeholder-inner">
-              <div class="icon">🖼</div>
-              <div class="label">图片占位</div>
-            </div>
-          </div>
-          <div class="media-slot square">
-            <span class="slot-tag">04</span>
-            <div class="media-placeholder-inner">
-              <div class="icon">🖼</div>
-              <div class="label">图片占位</div>
-            </div>
-          </div>
+        <div class="quote" style="margin-top: 16px;">
+          <p>「让所有工作人员都能<span class="highlight">自由写下自己的想法</span>。<br/>当有人写下有趣的想法时，不同岗位的人就会记下，并把它实现。」</p>
+          <div class="who">蔭山 大介（美术总监）</div>
         </div>
-      </div>
-    </section>
 
-    <!-- ============ Slide: 别人的 Mii (1/2) ============ -->
-    <section class="slide">
-      <div class="slide-label">03.X · 别人的 Mii · 1 / 2</div>
-      <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>来自玩家社群</div>
-        <h2 class="section-title">别人捏的<span class="accent"> Mii</span></h2>
-        <p class="lead">看看大家的脑洞——明星、二次元、宠物、神话角色都能塞进岛上。</p>
-
-        <div class="media-grid cols-3">
-          <div class="media-slot">
-            <span class="slot-tag">作品 01</span>
-            <div class="media-placeholder-inner">
-              <div class="icon">🖼</div>
-              <div class="label">图片 / 视频占位</div>
-            </div>
+        <div class="grid grid-3" style="margin-top: 16px;">
+          <div class="principle pink">
+            <div class="icon">📝</div>
+            <h5>任何人都能提案</h5>
+            <p>不分岗位 / 资历，<br/>都能贴到公告板上</p>
           </div>
-          <div class="media-slot">
-            <span class="slot-tag">作品 02</span>
-            <div class="media-placeholder-inner">
-              <div class="icon">🖼</div>
-              <div class="label">图片 / 视频占位</div>
-            </div>
+          <div class="principle sky">
+            <div class="icon">🙋</div>
+            <h5>提案者可挂帅</h5>
+            <p>「由我来统筹负责！」<br/>主动推动落地</p>
           </div>
-          <div class="media-slot">
-            <span class="slot-tag">作品 03</span>
-            <div class="media-placeholder-inner">
-              <div class="icon">🖼</div>
-              <div class="label">图片 / 视频占位</div>
-            </div>
-          </div>
-          <div class="media-slot">
-            <span class="slot-tag">作品 04</span>
-            <div class="media-placeholder-inner">
-              <div class="icon">🖼</div>
-              <div class="label">图片 / 视频占位</div>
-            </div>
-          </div>
-          <div class="media-slot">
-            <span class="slot-tag">作品 05</span>
-            <div class="media-placeholder-inner">
-              <div class="icon">🖼</div>
-              <div class="label">图片 / 视频占位</div>
-            </div>
-          </div>
-          <div class="media-slot">
-            <span class="slot-tag">作品 06</span>
-            <div class="media-placeholder-inner">
-              <div class="icon">🖼</div>
-              <div class="label">图片 / 视频占位</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ Slide: 别人的 Mii (2/2) ============ -->
-    <section class="slide">
-      <div class="slide-label">03.X · 别人的 Mii · 2 / 2</div>
-      <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>视频精选</div>
-        <h2 class="section-title">玩家自制<span class="accent">短片 & 名场面</span></h2>
-        <p class="lead">从婚礼现场、偶像演唱会到深夜动物园：UGC 把岛屿变成开放剧本。</p>
-
-        <div class="media-grid" style="grid-template-columns: 1.6fr 1fr; gap: 18px;">
-          <div class="media-slot wide">
-            <span class="slot-tag">主视频</span>
-            <div class="media-placeholder-inner">
-              <div class="icon">▶</div>
-              <div class="label">视频占位（16:9）</div>
-              <div class="label-sub">替换为 &lt;video src="..." controls&gt;</div>
-            </div>
-          </div>
-          <div style="display: grid; grid-template-rows: 1fr 1fr; gap: 18px;">
-            <div class="media-slot wide">
-              <span class="slot-tag">短片 01</span>
-              <div class="media-placeholder-inner">
-                <div class="icon">🎬</div>
-                <div class="label">视频 / 图片占位</div>
-              </div>
-            </div>
-            <div class="media-slot wide">
-              <span class="slot-tag">短片 02</span>
-              <div class="media-placeholder-inner">
-                <div class="icon">🎬</div>
-                <div class="label">视频 / 图片占位</div>
-              </div>
-            </div>
+          <div class="principle mint">
+            <div class="icon">⚖️</div>
+            <h5>资深做平衡</h5>
+            <p>把热情调整到<br/><strong>现实可行的程度</strong></p>
           </div>
         </div>
       </div>
@@ -2685,7 +2436,7 @@
 
 <div class="nav">
   <button id="prev" aria-label="上一页">←</button>
-  <div class="pages"><strong id="cur">1</strong> / <span id="total">43</span></div>
+  <div class="pages"><strong id="cur">1</strong> / <span id="total">38</span></div>
   <button id="next" aria-label="下一页">→</button>
 </div>
 
