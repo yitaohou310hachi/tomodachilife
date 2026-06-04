@@ -1,2 +1,5 @@
 .DS_Store
 Thumbs.db
+
+# Source video files (raw QuickTime exports). HTML uses .mp4 versions only.
+*.mov
