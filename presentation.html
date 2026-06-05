@@ -72,7 +72,7 @@
     pointer-events: auto;
     transform: translateY(0);
   }
-  .slide:not(.cover):not(.chapter-cover) {
+  .slide:not(.cover):not(.chapter-cover):not(.ending) {
     background: transparent;
   }
 
@@ -231,7 +231,7 @@
   /* ============ Cover Slide ============ */
   .cover {
     padding: 0;
-    background: linear-gradient(135deg, #FFE0CB 0%, #FFD2D9 50%, #DDEEF8 100%);
+    background: #000;
     display: flex;
   }
   .cover-image-wrap {
@@ -1255,7 +1255,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: radial-gradient(ellipse at center, #FFE8DC, transparent 70%), var(--bg);
+    background: #000;
   }
   .ending h2 {
     font-size: clamp(46px, 5vw, 78px);
@@ -1267,7 +1267,7 @@
     margin-bottom: 18px;
     letter-spacing: -0.01em;
   }
-  .ending p { font-size: 17px; color: var(--ink-soft); }
+  .ending p { font-size: 17px; color: rgba(255, 255, 255, 0.82); }
 
   /* ============ Floating decorations ============ */
   .float-deco {
@@ -1854,7 +1854,7 @@
         <h2>UGC 生态<br/>是如何长出来的</h2>
         <p>「把开发团队准备的东西，<br/>与玩家自行制作的东西结合起来，<br/><span class="highlight">乐趣就会无限扩大。</span>」</p>
       </div>
-      <div class="ch-image" style="background-image: url('assets/palette-house.png');"></div>
+      <div class="ch-image" style="background-image: url('images/封面3.png');"></div>
     </section>
 
     <!-- ============ Slide 20: UGC 四条主线 ============ -->
@@ -2417,7 +2417,7 @@
         <h2>幕后故事</h2>
         <p>从 Debug 工具到核心玩法，<br/>从公告板到 Mii 新闻，<br/>还有<span class="highlight">藏在访谈里 9 年份的圈内梗</span>。</p>
       </div>
-      <div class="ch-image" style="background-image: url('assets/behind-scenes.png');"></div>
+      <div class="ch-image" style="background-image: url('images/封面5.jpg');"></div>
     </section>
 
     <!-- ============ Slide 31: 抓起的交互 - Debug 工具的逆袭 ============ -->
@@ -2439,6 +2439,11 @@
             <div class="highlight-box mint" style="margin-top: 16px;">
               💡 <strong>启示：</strong>团队自己测试时冒出来的<strong>「我也想试试」</strong>，往往就是产品最该保留的核心动词。
             </div>
+          </div>
+
+          <div class="hero-image-wrap">
+            <img class="hero-image" src="images/抓起.gif" alt="抓起 Mii 的 Debug 工具演示" />
+            <div class="image-caption">从 Debug 工具变成核心交互的「抓起」</div>
           </div>
         </div>
       </div>
@@ -2478,10 +2483,10 @@
 
     <!-- ============ Slide 35: 设计师的 3 件事 ============ -->
     <section class="slide">
-      <div class="slide-label">05 · 给设计师的启示</div>
+      <div class="slide-label">04.3 · 启示</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>如果只能带走 3 件事</div>
-        <h2 class="section-title">作为设计师，<br/>这款游戏让我学到的<span class="accent">3 件事</span></h2>
+        <h2 class="section-title">一点点感想,学到的<span class="accent"> 3 件事</span></h2>
 
         <div class="grid grid-3" style="margin-top: 32px;">
           <div class="card" style="background: linear-gradient(135deg, #FFF5F5, #FFE9EC); border-color: #FFB8C5;">
@@ -2493,7 +2498,7 @@
           <div class="card" style="background: linear-gradient(135deg, #F7FBFF, #EAF4FF); border-color: #B6D8EC;">
             <div class="tag" style="background: #BDE6F5; color: #2C5C7C;">02</div>
             <h4 style="font-size: 22px; margin: 12px 0;">UGC 的引擎，<br/>是「创造 × 回应」</h4>
-            <p>玩家创造一切，但<strong>怎么用、如何反应，交给 Mii</strong>。内容由用户生产，意义由系统赋予——正是这两者之间的张力，让 UGC 持续生长出新的故事。</p>
+            <p>提供模板，给用户足够的自由度定义——正是这两者之间的张力，让 UGC 持续生长出新的故事。</p>
             <p style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed #B6D8EC; font-size: 13px; color: #2C5C7C;"><strong>→ 做 UGC 前，先设计「使用它的人」。</strong></p>
           </div>
           <div class="card" style="background: linear-gradient(135deg, #F1FFF6, #DFF5E5); border-color: #B6E0C2;">
@@ -2506,17 +2511,13 @@
       </div>
     </section>
 
-    <!-- ============ Slide 31: 鸣谢 ============ -->
+    <!-- ============ Slide 36: 引用资料 ============ -->
     <section class="slide ending">
       <div class="slide-inner" style="justify-content: center;">
-        <div style="text-align: center;">
-          <h2>谢谢观看</h2>
-          <p>欢迎一起聊聊：你最想做成 Mii 的那个朋友，<br/>会拥有什么样的「微个性」？</p>
-          <div style="margin-top: 36px; font-size: 12px; color: var(--ink-faint); letter-spacing: 0.1em; line-height: 1.9;">
-            资料来源 · Nintendo 官方开发者访谈 vol.21（Part 1 / 2 / 3）<br/>
-            Nintendo Life · Wccftech · Final Weapon · Eneba · IGN · GamesRadar+ 等评测<br/>
-            Wikipedia (Tomodachi Life: Living the Dream / Tomodachi Collection) · MiiWiki
-          </div>
+        <div style="text-align: center; width: 100%;">
+          <div style="max-width: 920px; margin: 0 auto; font-size: 13px; color: rgba(255, 255, 255, 0.68); letter-spacing: 0.06em; line-height: 2; white-space: normal;">
+            引用资料：Nintendo 官方开发者访谈 vol.21（Part 1 / 2 / 3） · Nintendo Life · Wccftech · Final Weapon · Eneba · IGN · GamesRadar+ 等评测 · Wikipedia · MiiWiki
+           </div>
         </div>
       </div>
     </section>
