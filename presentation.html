@@ -42,13 +42,23 @@
     font-feature-settings: 'palt';
     -webkit-font-smoothing: antialiased;
   }
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   /* ============ Stage ============ */
+  /* 铺满整个屏幕：始终跟随当前屏幕比例，不留信箱黑边。
+     在内置 16" 全屏时即为 MacBook 原生比例；外接屏上也填满，
+     分割页两侧不再露出 background.png。
+     设为 size 容器后，内部用 cqw/cqh 单位自适应排版。 */
   .stage {
     position: relative;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    container-type: size;
   }
 
   .slides {
@@ -60,7 +70,7 @@
   .slide {
     position: absolute;
     inset: 0;
-    padding: 5vh 6vw;
+    padding: 5cqh 6cqw;
     opacity: 0;
     pointer-events: none;
     transform: translateY(20px);
@@ -77,15 +87,12 @@
   }
 
   /* Background decorations */
+  /* 内容页改用 background.png 干净底图，去掉四角彩色渐变光 */
   .stage::before {
     content: '';
     position: absolute;
     inset: 0;
-    background-image:
-      radial-gradient(circle at 12% 20%, rgba(255, 150, 168, 0.10) 0, transparent 28%),
-      radial-gradient(circle at 88% 18%, rgba(127, 200, 232, 0.12) 0, transparent 30%),
-      radial-gradient(circle at 88% 88%, rgba(151, 216, 178, 0.10) 0, transparent 30%),
-      radial-gradient(circle at 10% 86%, rgba(255, 210, 122, 0.10) 0, transparent 28%);
+    background-image: none;
     pointer-events: none;
     z-index: 0;
   }
@@ -110,8 +117,8 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding-top: clamp(28px, 3.6vh, 48px);
-    padding-bottom: clamp(16px, 2vh, 28px);
+    padding-top: clamp(28px, 3.6cqh, 48px);
+    padding-bottom: clamp(16px, 2cqh, 28px);
   }
 
   .eyebrow {
@@ -135,26 +142,26 @@
   }
 
   h1.title {
-    font-size: clamp(40px, 4.6vw, 64px);
+    font-size: clamp(40px, 4.6cqw, 64px);
     font-weight: 800;
     line-height: 1.12;
     letter-spacing: -0.01em;
     margin-bottom: 16px;
   }
   h2.section-title {
-    font-size: clamp(28px, 3vw, 42px);
+    font-size: clamp(28px, 3cqw, 42px);
     font-weight: 800;
     line-height: 1.22;
     margin-bottom: 18px;
     letter-spacing: -0.005em;
   }
   h3.sub-title {
-    font-size: clamp(20px, 1.8vw, 26px);
+    font-size: clamp(20px, 1.8cqw, 26px);
     font-weight: 700;
     margin-bottom: 10px;
   }
   p.lead {
-    font-size: clamp(14px, 1.1vw, 17px);
+    font-size: clamp(14px, 1.1cqw, 17px);
     color: var(--ink-soft);
     line-height: 1.8;
     max-width: 56ch;
@@ -218,9 +225,9 @@
   /* Slide top-left label */
   .slide-label {
     position: absolute;
-    top: 22px;
-    left: 6vw;
-    font-size: 11px;
+    top: clamp(22px, 3.2cqh, 42px);
+    left: 6cqw;
+    font-size: clamp(15px, 1.24cqw, 24px);
     color: var(--ink-faint);
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -248,7 +255,7 @@
   }
   .cover-text {
     flex: 0 0 42%;
-    padding: 8vh 4vw;
+    padding: 8cqh 4cqw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -271,7 +278,7 @@
     width: fit-content;
   }
   .cover-text h1 {
-    font-size: clamp(44px, 5vw, 78px);
+    font-size: clamp(44px, 5cqw, 78px);
     font-weight: 900;
     line-height: 1.05;
     letter-spacing: -0.02em;
@@ -282,7 +289,7 @@
     color: transparent;
   }
   .cover-text .subtitle {
-    font-size: clamp(15px, 1.3vw, 19px);
+    font-size: clamp(15px, 1.3cqw, 19px);
     color: var(--ink-soft);
     margin-bottom: 32px;
     line-height: 1.7;
@@ -315,7 +322,14 @@
   .agenda-slide .toc-grid {
     margin-top: auto;
     margin-bottom: auto;
-    transform: translateY(2vh);
+    transform: translateY(2cqh);
+  }
+  /* 目录页小标题/主标题对齐 slide20 位置 */
+  .agenda-slide .slide-label {
+    top: calc(5cqh + clamp(32px, 4cqh, 56px));
+  }
+  .agenda-slide .slide-inner {
+    padding-top: calc(clamp(32px, 4cqh, 56px) + clamp(38px, 4.2cqh, 52px));
   }
   .toc-card {
     background: var(--paper);
@@ -368,7 +382,7 @@
   }
   .chapter-cover .ch-side {
     flex: 0 0 48%;
-    padding: 0 6vw;
+    padding: 0 6cqw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -380,7 +394,7 @@
     background-repeat: no-repeat;
   }
   .chapter-cover .ch-num {
-    font-size: clamp(120px, 14vw, 200px);
+    font-size: clamp(120px, 14cqw, 200px);
     font-weight: 900;
     line-height: 1;
     letter-spacing: -0.05em;
@@ -397,7 +411,7 @@
   .chapter-cover.c3 .ch-num { background-image: linear-gradient(135deg, #A6D8B8, #D2EBDA); }
   .chapter-cover.c4 { background: linear-gradient(135deg, #FFFAEC, #FFF1D6); }
   .chapter-cover.c4 .ch-num { background-image: linear-gradient(135deg, #E8C57E, #FFE2A5); }
-  .chapter-cover h2 { font-size: clamp(36px, 3.8vw, 52px); margin-bottom: 14px; }
+  .chapter-cover h2 { font-size: clamp(36px, 3.8cqw, 52px); margin-bottom: 14px; }
   .chapter-cover p { color: var(--ink-soft); font-size: 16px; line-height: 1.85; max-width: 26em; }
 
   /* ============ Cards ============ */
@@ -960,7 +974,7 @@
     overflow: hidden;
     border: 1px solid var(--line);
     box-shadow: var(--shadow-lg);
-    background: var(--paper);
+    background: #000;
     cursor: grab;
     touch-action: pan-y;
     user-select: none;
@@ -984,13 +998,18 @@
   .paint-carousel-slide {
     flex: 0 0 100%;
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
   }
   .paint-carousel-slide img {
-    width: 100%;
+    width: auto;
     height: 100%;
+    max-width: 100%;
     display: block;
     object-fit: contain;
-    background: #fff;
+    background: transparent;
     pointer-events: none;
     user-select: none;
     -webkit-user-select: none;
@@ -999,11 +1018,16 @@
   .paint-carousel-video {
     position: relative;
     height: 100%;
+    width: 100%;
     background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .paint-carousel-slide video {
-    width: 100%;
+    width: auto;
     height: 100%;
+    max-width: 100%;
     display: block;
     object-fit: contain;
     background: #000;
@@ -1082,7 +1106,10 @@
     align-items: stretch;
     justify-content: center;
     gap: 16px;
-    margin-top: 28px;
+    margin-top: clamp(20px, 2.6cqh, 36px);
+    margin-bottom: clamp(4px, 1cqh, 16px);
+    flex: 1;                /* 占满标题/正文下方剩余高度，让卡片更高 */
+    min-height: 0;
     flex-wrap: nowrap;
   }
   .formula-term {
@@ -1172,15 +1199,15 @@
 
   /* ============ Overflow-safe slide variants ============ */
   .fit-slide .slide-inner {
-    padding-top: clamp(20px, 2.6vh, 32px);
-    padding-bottom: clamp(10px, 1.4vh, 18px);
+    padding-top: clamp(20px, 2.6cqh, 32px);
+    padding-bottom: clamp(10px, 1.4cqh, 18px);
   }
   .fit-slide .eyebrow {
     padding: 6px 12px;
     margin-bottom: 12px;
   }
   .fit-slide h2.section-title {
-    font-size: clamp(26px, 2.6vw, 38px);
+    font-size: clamp(28px, 3cqw, 42px);
     line-height: 1.14;
     margin-bottom: 12px;
   }
@@ -1231,7 +1258,7 @@
     object-fit: contain;
   }
   .fit-page-4 .timeline-consoles-hero {
-    margin-bottom: clamp(14px, 2vh, 24px);
+    margin-bottom: clamp(14px, 2cqh, 24px);
   }
   .fit-page-4 .timeline {
     padding: 12px 10px 0;
@@ -1258,7 +1285,7 @@
     background: #000;
   }
   .ending h2 {
-    font-size: clamp(46px, 5vw, 78px);
+    font-size: clamp(46px, 5cqw, 78px);
     font-weight: 900;
     background: linear-gradient(135deg, var(--coral), var(--pink), var(--lilac));
     -webkit-background-clip: text;
@@ -1306,9 +1333,311 @@
   .slide.active *:nth-child(4) { animation-delay: 200ms; }
   .slide.active *:nth-child(5) { animation-delay: 250ms; }
 
+  /* ============ 杂志风样板 (.mag) — 全屏画册排版 ============ */
+  .mag .slide-inner {
+    max-width: 1720px;                     /* 留出更大图片栏 */
+    padding-top: clamp(32px, 4cqh, 56px);
+    padding-bottom: clamp(24px, 3cqh, 44px);
+  }
+  /* 左文 / 右大图 画册双栏 */
+  .mag .mag-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.75fr;     /* 右侧图片放大：约占整页 ~55% */
+    gap: clamp(60px, 5cqw, 100px);         /* 文图间距适度放大 */
+    align-items: center;
+    flex: 1;
+    min-height: 0;
+  }
+  .mag .mag-text { min-width: 0; }
+  /* 小字标签 → 标题上方 eyebrow：与正文同字号、调淡 */
+  .mag .mag-text .slide-label {
+    position: static;
+    top: auto;
+    left: auto;
+    font-size: clamp(15px, 1.24cqw, 24px); /* 与正文一致 */
+    color: var(--ink-faint);
+    margin-bottom: clamp(14px, 1.6cqh, 22px);
+  }
+  /* 大标题 → 当前的 80%（上限 58px）、行高 1.2、加粗 */
+  .mag h2.section-title {
+    font-size: clamp(28px, 3cqw, 42px);
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin-bottom: clamp(18px, 2cqh, 28px);
+  }
+  /* 正文 → 当前的 80%（上限 24px）、行高 1.6、段间距 24px */
+  .mag p.lead {
+    font-size: clamp(15px, 1.24cqw, 24px);
+    line-height: 1.6;
+    max-width: 44ch;
+    margin-bottom: 24px;
+  }
+  .mag .mag-text p.lead:last-child { margin-bottom: 0; }
+  /* 右侧媒体：填满整列，保证大小 / 位置在各页一致 */
+  .mag .mag-media {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mag .mag-media img {
+    width: 100%;
+    height: auto;
+    max-height: 78cqh;
+    object-fit: contain;
+    border-radius: var(--radius-lg);
+  }
+  .mag .mag-media .paint-carousel,
+  .mag .mag-media .paint-carousel.paint-carousel-small {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+  .mag .mag-media .video-wrap {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+  /* 文字栏里的洞察框：与正文同档 */
+  .mag .mag-text .highlight-box {
+    font-size: clamp(14px, 1.15cqw, 20px) !important;
+    margin-top: clamp(16px, 2cqh, 24px);
+    padding: clamp(12px, 1.4cqw, 18px) clamp(14px, 1.6cqw, 22px);
+  }
+
+  /* ============ 杂志风样板 · 标题在上 / 素材在下（参考 slide5 竖排） ============ */
+  /* 把左右双栏 mag-grid 改成竖向：上方整块文字，下方整幅素材 */
+  .mag-top .mag-grid {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: none;
+    gap: clamp(18px, 2.4cqh, 34px);
+    align-items: stretch;
+  }
+  .mag-top .mag-text { max-width: none; }
+  .mag-top .mag-text p.lead { max-width: 80ch; }
+  /* 素材区：占据标题下方剩余空间，整幅居中铺开 */
+  .mag-top .mag-media {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+  }
+  .mag-top .mag-media img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 58cqh;
+  }
+  /* 轮播 / 视频按 16:9，用高度约束宽度，避免整幅过高溢出 */
+  .mag-top .mag-media .paint-carousel,
+  .mag-top .mag-media .paint-carousel.paint-carousel-small {
+    width: min(100%, 92cqh);
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  .mag-top .mag-media .video-wrap {
+    width: min(100%, 92cqh);
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  /* 让普通/紧凑页的灰字小标题 + 主标题对齐 slide20 的位置 */
+  .mag-align .slide-label {
+    top: calc(5cqh + clamp(32px, 4cqh, 56px));
+  }
+  .mag-align .slide-inner {
+    padding-top: calc(clamp(32px, 4cqh, 56px) + clamp(38px, 4.2cqh, 52px));
+  }
+
+  /* ============ 杂志风样板 · 左右双栏清单页 (.mag-list) ============ */
+  .mag-list .slide-inner {
+    max-width: 1720px;
+    padding-top: calc(clamp(32px, 4cqh, 56px) + clamp(38px, 4.2cqh, 52px));   /* 主标题对齐 slide20 */
+  }
+  .mag-list .slide-label {
+    font-size: clamp(15px, 1.24cqw, 24px);
+    top: calc(5cqh + clamp(32px, 4cqh, 56px));   /* 对齐 slide20 小标题位置 */
+  }
+  .mag-list h2.section-title {
+    font-size: clamp(28px, 3cqw, 42px);
+    line-height: 1.2;
+    margin-bottom: clamp(14px, 1.8cqh, 24px);
+  }
+  .mag-list p.lead {
+    font-size: clamp(15px, 1.24cqw, 24px);
+    line-height: 1.6;
+    max-width: none;
+    margin-bottom: clamp(18px, 2.4cqh, 32px);
+  }
+  .mag-list .compare {
+    gap: clamp(28px, 2.6cqw, 52px);
+    flex: 1;
+    align-content: center;
+    margin-top: 0 !important;
+  }
+  .mag-list .compare .col {
+    padding: clamp(24px, 2.2cqw, 40px);
+    border-radius: var(--radius-lg);
+  }
+  .mag-list .compare .col h5 {
+    font-size: clamp(17px, 1.5cqw, 24px);
+    margin-bottom: clamp(12px, 1.6cqh, 20px);
+  }
+  .mag-list .compare li {
+    font-size: clamp(14px, 1.15cqw, 20px);
+    line-height: 1.7;
+    padding: clamp(7px, 1cqh, 12px) 0;
+  }
+  .mag-list .highlight-box {
+    font-size: clamp(14px, 1.15cqw, 20px) !important;
+    padding: clamp(12px, 1.4cqw, 18px) clamp(14px, 1.6cqw, 22px) !important;
+    margin-top: clamp(12px, 1.6cqh, 18px) !important;
+  }
+  /* 封面：全屏放大主标题与副标题 */
+  .mag-cover .cover-text {
+    flex-basis: 46%;
+    padding: 8cqh 4.6cqw;
+  }
+  .mag-cover .cover-text h1 {
+    font-size: clamp(56px, 6cqw, 104px);
+    margin-bottom: clamp(18px, 2.2cqh, 28px);
+  }
+  .mag-cover .cover-text .subtitle {
+    font-size: clamp(18px, 1.6cqw, 26px);
+    line-height: 1.65;
+  }
+  .mag-cover .cover-text .badge { font-size: 14px; }
+
+  /* ============ 杂志风样板 · 卡片页 (.mag-cards) ============ */
+  .mag-cards .slide-inner {
+    max-width: 1720px;
+    padding-top: calc(clamp(32px, 4cqh, 56px) + clamp(38px, 4.2cqh, 52px));   /* 主标题对齐 slide20 */
+  }
+  .mag-cards .slide-label {
+    font-size: clamp(15px, 1.24cqw, 24px);   /* 与正文一致 */
+    top: calc(5cqh + clamp(32px, 4cqh, 56px));   /* 对齐 slide20 小标题位置 */
+  }
+  .mag-cards h2.section-title {
+    font-size: clamp(28px, 3cqw, 42px);    /* 与目录页(slide3)标题同档 */
+    line-height: 1.2;
+    margin-bottom: clamp(20px, 2.6cqh, 36px);
+  }
+  /* 卡片在剩余空间内垂直居中、间距更大 */
+  .mag-cards .grid-3,
+  .mag-cards .grid-4 {
+    gap: clamp(24px, 2cqw, 40px);
+    flex: 1;
+    align-content: center;
+    margin-top: 0 !important;
+  }
+  .mag-cards .card {
+    padding: clamp(26px, 2.4cqw, 44px);
+    border-radius: var(--radius-lg);
+  }
+  .mag-cards .card .tag {
+    font-size: clamp(13px, 1cqw, 18px);
+    padding: 5px 14px;
+    margin-bottom: 14px;
+  }
+  .mag-cards .card h4 {
+    font-size: clamp(20px, 1.7cqw, 28px) !important;
+    line-height: 1.35;
+    margin: 0 0 14px !important;
+  }
+  .mag-cards .card p {
+    font-size: clamp(15px, 1.2cqw, 21px) !important;
+    line-height: 1.7;
+  }
+  /* .mag-cards 下：grid-2 居中、principle 圆标卡片放大、quote 放大 */
+  .mag-cards .grid-2 {
+    gap: clamp(24px, 2cqw, 40px);
+    flex: 1;
+    align-content: center;
+    margin-top: 0 !important;
+  }
+  .mag-cards .principle {
+    padding: clamp(20px, 2cqw, 36px);
+    border-radius: var(--radius-lg);
+  }
+  .mag-cards .principle .icon {
+    width: clamp(56px, 5cqw, 84px);
+    height: clamp(56px, 5cqw, 84px);
+    font-size: clamp(26px, 2.4cqw, 40px);
+    margin-bottom: clamp(12px, 1.6cqh, 20px);
+  }
+  .mag-cards .principle h5 {
+    font-size: clamp(18px, 1.6cqw, 26px);
+    margin-bottom: clamp(8px, 1.2cqh, 14px);
+  }
+  .mag-cards .principle p {
+    font-size: clamp(14px, 1.2cqw, 21px) !important;
+    line-height: 1.6;
+  }
+  .mag-cards p.lead {
+    font-size: clamp(15px, 1.24cqw, 24px);
+    line-height: 1.6;
+    margin-bottom: clamp(14px, 1.8cqh, 22px);
+  }
+  .mag-cards .quote {
+    padding: clamp(20px, 2cqw, 32px) clamp(22px, 2.2cqw, 36px);
+  }
+  .mag-cards .quote p {
+    font-size: clamp(16px, 1.4cqw, 24px) !important;
+    line-height: 1.65;
+  }
+  .mag-cards .quote .who { font-size: clamp(12px, 1cqw, 17px); }
+
+  /* ============ 杂志风样板 · hero-split 混合页 (.mag-split) ============ */
+  .mag-split .slide-inner {
+    max-width: 1720px;
+    padding-top: calc(clamp(32px, 4cqh, 56px) + clamp(38px, 4.2cqh, 52px));   /* 主标题对齐 slide20 */
+  }
+  .mag-split .slide-label {
+    font-size: clamp(15px, 1.24cqw, 24px);
+    top: calc(5cqh + clamp(32px, 4cqh, 56px));   /* 对齐 slide20 小标题位置 */
+  }
+  .mag-split .hero-split { gap: clamp(48px, 4.4cqw, 88px); }
+  .mag-split h2.section-title {
+    font-size: clamp(28px, 3cqw, 42px);
+    line-height: 1.2;
+    margin-bottom: clamp(14px, 1.8cqh, 22px);
+  }
+  .mag-split p.lead {
+    font-size: clamp(16px, 1.3cqw, 24px) !important;
+    line-height: 1.6;
+  }
+  .mag-split .card {
+    padding: clamp(14px, 1.4cqw, 20px) clamp(16px, 1.6cqw, 22px) !important;
+  }
+  .mag-split .card h4 { font-size: clamp(16px, 1.35cqw, 21px) !important; }
+  .mag-split .card p { font-size: clamp(14px, 1.15cqw, 18px) !important; line-height: 1.6; }
+  .mag-split .story h4 { font-size: clamp(17px, 1.5cqw, 24px); }
+  .mag-split .story p { font-size: clamp(14px, 1.2cqw, 20px); }
+  .mag-split .story .label { font-size: clamp(13px, 1.05cqw, 17px); }
+  .mag-split .highlight-box { font-size: clamp(14px, 1.15cqw, 19px) !important; }
+
+  /* ============ 全屏可读性：通用组件字号随屏放大 ============ */
+  .toc-card .num { font-size: clamp(48px, 5cqw, 76px); }
+  .toc-card h4 { font-size: clamp(17px, 1.5cqw, 24px); }
+  .toc-card p { font-size: clamp(13px, 1.15cqw, 19px); }
+  .quote p { font-size: clamp(17px, 1.5cqw, 24px); }
+  .quote .who { font-size: clamp(12px, 1cqw, 16px); }
+  .chapter-cover h2 { font-size: clamp(36px, 4.2cqw, 64px); }
+  .chapter-cover p { font-size: clamp(16px, 1.5cqw, 24px); }
+  .timeline-node .year { font-size: clamp(18px, 1.7cqw, 26px); }
+  .timeline-node .name { font-size: clamp(13px, 1.2cqw, 19px); }
+  .timeline-node .platform { font-size: clamp(10px, 0.9cqw, 14px); }
+  .timeline-node .desc { font-size: clamp(12px, 1.05cqw, 17px); }
+  .formula-badge { font-size: clamp(17px, 1.55cqw, 24px); }
+  .formula-term p { font-size: clamp(13px, 1.2cqw, 19px); }
+  .formula-sub { font-size: clamp(11px, 0.95cqw, 15px); }
+  .formula-term .pill { font-size: clamp(11px, 0.95cqw, 15px); }
+  .ending p { font-size: clamp(17px, 1.5cqw, 24px); }
+
   /* ============ Misc ============ */
   .key-quote {
-    font-size: clamp(24px, 2.6vw, 38px);
+    font-size: clamp(24px, 2.6cqw, 38px);
     font-weight: 800;
     line-height: 1.4;
     color: var(--ink);
@@ -1445,7 +1774,7 @@
   <div class="slides" id="slides">
 
     <!-- ============ Slide 1: 封面 ============ -->
-    <section class="slide cover active">
+    <section class="slide cover mag-cover active">
       <div class="cover-image-wrap"></div>
       <div class="cover-text">
         <div class="badge">
@@ -1458,7 +1787,7 @@
     </section>
 
     <!-- ============ Slide 2: 先认识 Mii ============ -->
-    <section class="slide">
+    <section class="slide mag-split">
       <div class="slide-label">INTRO · 一句话讲清楚玩法</div>
       <div class="slide-inner">
         <div class="hero-split">
@@ -1536,7 +1865,7 @@
     </section>
 
     <!-- ============ Slide 5: 系列时间线 ============ -->
-    <section class="slide fit-slide fit-page-4">
+    <section class="slide fit-slide fit-page-4 mag-align">
       <div class="slide-label">01.1 · 系列家谱</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>16 年血脉</div>
@@ -1589,7 +1918,7 @@
     </section>
 
     <!-- ============ Slide 6: 重制的契机 - 我玩透了 ============ -->
-    <section class="slide">
+    <section class="slide mag-align">
       <div class="slide-label">01.2 · 重制的契机</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>从一声叹息开始</div>
@@ -1620,7 +1949,7 @@
     </section>
 
     <!-- ============ Slide 7: 两个核心命题 ============ -->
-    <section class="slide">
+    <section class="slide mag-cards">
       <div class="slide-label">01.3 · 核心命题</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>不是续作，是重生</div>
@@ -1660,7 +1989,7 @@
     </section>
 
     <!-- ============ Slide 9: 硬件升级 - 设计取舍 ============ -->
-    <section class="slide">
+    <section class="slide mag-list">
       <div class="slide-label">02.1 · 硬件升级 · 设计取舍</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>性能提升 ≠ 视觉升级</div>
@@ -1697,19 +2026,24 @@
     </section>
 
     <!-- ============ Slide 10: 硬件升级 - 卡通风格 ============ -->
-    <section class="slide">
-      <div class="slide-label">02.1 · 看起来像：卡通风格</div>
+    <section class="slide mag">
       <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>形状不变，但每一个部件都重画</div>
-        <h2 class="section-title">素朴的<span class="accent">卡通风格</span>更新</h2>
-        <p class="lead">不改变 Mii 的核心特征，如：五官风格、手脚形状、身体比例，但把每一个部件的结构与设计都从头绘制。</p>
-
-        <img src="images/mii collection.png" alt="Mii 风格的三代演变" style="display: block; margin: 22px auto 0; max-width: 100%; max-height: 56vh; width: auto; height: auto;" />
+        <div class="mag-grid">
+          <div class="mag-text">
+            <div class="slide-label">02.1 · 看起来像：卡通风格</div>
+            <div class="eyebrow"><span class="dot"></span>形状不变，但每一个部件都重画</div>
+            <h2 class="section-title">素朴的<span class="accent">卡通风格</span>更新</h2>
+            <p class="lead">不改变 Mii 的核心特征，如：五官风格、手脚形状、身体比例，但把每一个部件的结构与设计都从头绘制。</p>
+          </div>
+          <div class="mag-media">
+            <img src="images/mii collection.png" alt="Mii 风格的三代演变" />
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- ============ Slide 11: 硬件升级 - 声音 ============ -->
-    <section class="slide">
+    <section class="slide mag-align">
       <div class="slide-label">02.1 · 听起来像：声音</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>关于「原声」的反向调音</div>
@@ -1718,7 +2052,7 @@
 
         <div class="hero-split" style="margin-top: 18px; flex: 0; gap: 30px;">
           <div style="display: flex; align-items: center; justify-content: center;">
-            <img src="images/voice.png" alt="Mii 声音处理补充说明" style="display: block; max-width: 100%; max-height: 54vh; width: auto; height: auto;" />
+            <img src="images/voice.png" alt="Mii 声音处理补充说明" style="display: block; max-width: 100%; max-height: 54cqh; width: auto; height: auto;" />
           </div>
 
           <div style="display: flex; align-items: center;">
@@ -1741,13 +2075,13 @@
     </section>
 
     <!-- ============ Slide 12: Mii 是怎样的生物 ============ -->
-    <section class="slide">
+    <section class="slide mag-cards">
       <div class="slide-label">02.2 · Mii 的定位</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>整个团队反复讨论的一句话</div>
         <h2 class="section-title">Mii 不是分身，<br/>是<span class="accent">「拥有人格」</span>的生物</h2>
 
-        <div style="display: flex; gap: 18px; margin-top: auto; margin-bottom: auto; transform: translateY(2vh);">
+        <div style="display: flex; gap: 18px; margin-top: auto; margin-bottom: auto; transform: translateY(2cqh);">
           <div class="principle pink" style="flex: 1;">
             <div class="icon">🍼</div>
             <h5>值得被照顾</h5>
@@ -1768,52 +2102,62 @@
     </section>
 
     <!-- ============ Slide 10: 值得被照顾 - 体现在哪 ============ -->
-    <section class="slide">
-      <div class="slide-label">02.2 · Mii 的定位 · ① 值得被照顾</div>
+    <section class="slide mag mag-top">
       <div class="slide-inner">
-        <h2 class="section-title">「值得被照顾」<br/>玩家用<span class="accent-pink">家长般的目光</span>守着</h2>
-        <p class="lead">玩家不"控制" Mii，而是<strong>它发出需求，玩家来响应</strong> —— 这是 Tomodachi 系列最核心的关系。和一般生活模拟（动森、星露谷）不同，你不需要打工赚钱，只需要看着它们过得好不好。</p>
-
-        <div style="display: flex; justify-content: center; align-items: center; margin-top: 18px;">
-          <img src="images/xuqiu.png" alt="Mii 发出需求的场景" style="display: block; max-width: 100%; max-height: 54vh; width: auto; height: auto;" />
+        <div class="mag-grid">
+          <div class="mag-text">
+            <div class="slide-label">02.2 · Mii 的定位 · ① 值得被照顾</div>
+            <h2 class="section-title">「值得被照顾」<br/>玩家用<span class="accent-pink">家长般的目光</span>守着</h2>
+            <p class="lead">玩家不"控制" Mii，而是<strong>它发出需求，玩家来响应</strong> —— 这是 Tomodachi 系列最核心的关系。和一般生活模拟（动森、星露谷）不同，你不需要打工赚钱，只需要看着它们过得好不好。</p>
+          </div>
+          <div class="mag-media">
+            <img src="images/xuqiu.png" alt="Mii 发出需求的场景" />
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ============ Slide 11: 拥有鲜明性格 - 体现在哪 ============ -->
-    <section class="slide">
-      <div class="slide-label">02.2 · Mii 的定位 · ② 拥有鲜明性格</div>
+    <section class="slide mag mag-top">
       <div class="slide-inner">
-        <h2 class="section-title">「拥有鲜明性格」<br/>Mii 不是同一种<span class="accent-sky">可爱模板</span></h2>
-        <p class="lead">每只 Mii 都有自己的性格、喜好与行动倾向。玩家输入同样的内容，最后会因为 Mii 的个性不同，长出完全不同的反应。</p>
-
-        <div style="display: flex; justify-content: center; align-items: center; margin-top: 18px;">
-          <img src="images/xingge.png" alt="Mii 性格差异示意" style="display: block; max-width: 100%; max-height: 54vh; width: auto; height: auto;" />
-        </div>
-
-        <div class="highlight-box sky" style="margin-top: 18px;">
-          💡 <strong>关键洞察：制造<strong>可预期的差异</strong>：玩家知道它们有个性，但永远不知道下一次会怎么表现。
+        <div class="mag-grid">
+          <div class="mag-text">
+            <div class="slide-label">02.2 · Mii 的定位 · ② 拥有鲜明性格</div>
+            <h2 class="section-title">「拥有鲜明性格」<br/>Mii 不是同一种<span class="accent-sky">可爱模板</span></h2>
+            <p class="lead">每只 Mii 都有自己的性格、喜好与行动倾向。玩家输入同样的内容，最后会因为 Mii 的个性不同，长出完全不同的反应。</p>
+            <div class="highlight-box sky">
+              💡 <strong>关键洞察：制造<strong>可预期的差异</strong>：玩家知道它们有个性，但永远不知道下一次会怎么表现。
+            </div>
+          </div>
+          <div class="mag-media">
+            <img src="images/xingge.png" alt="Mii 性格差异示意" style="transform: scale(0.7);" />
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ============ Slide 12: 只装傻不吐槽 - 体现在哪 ============ -->
-    <section class="slide">
-      <div class="slide-label">02.2 · Mii 的定位 · ③ 有梗的生活</div>
+    <section class="slide mag mag-top">
       <div class="slide-inner">
-        <h2 class="section-title">「有梗的生活」<br/>笑点全在<span class="accent-mint">玩家心里</span></h2>
-        <p class="lead">Mii 像一个认真演荒诞剧的演员，<strong>用夸张的肢体动作和剧情演绎无厘头的小岛生活。</strong></p>
-
-        <div class="video-wrap has-video" style="margin-top: 22px; aspect-ratio: 1206 / 678; max-width: min(980px, 100%); border-radius: calc(var(--radius-lg) / 2);">
-          <video controls preload="auto" playsinline style="object-fit: contain;">
-            <source src="images/小剧场1.mp4" type="video/mp4">
-          </video>
+        <div class="mag-grid">
+          <div class="mag-text">
+            <div class="slide-label">02.2 · Mii 的定位 · ③ 有梗的生活</div>
+            <h2 class="section-title">「有梗的生活」<br/>笑点全在<span class="accent-mint">玩家心里</span></h2>
+            <p class="lead">Mii 像一个认真演荒诞剧的演员，<strong>用夸张的肢体动作和剧情演绎无厘头的小岛生活。</strong></p>
+          </div>
+          <div class="mag-media">
+            <div class="video-wrap has-video" style="aspect-ratio: 1206 / 678; border-radius: calc(var(--radius-lg) / 2);">
+              <video controls preload="auto" playsinline style="object-fit: contain;">
+                <source src="images/小剧场1.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ============ Slide 16: 与 Mii 的交互 · 总览 ============ -->
-    <section class="slide">
+    <section class="slide mag-split">
       <div class="slide-label">02.3 · 与 Mii 的交互</div>
       <div class="slide-inner">
         <div class="hero-split">
@@ -1858,7 +2202,7 @@
     </section>
 
     <!-- ============ Slide 20: UGC 四条主线 ============ -->
-    <section class="slide">
+    <section class="slide mag-cards">
       <div class="slide-label">03.0 · UGC 全景</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>玩家创造一切，Mii 决定怎么用</div>
@@ -1895,46 +2239,48 @@
     </section>
 
     <!-- ============ Slide 21: Mii Maker 自定义 ============ -->
-    <section class="slide">
+    <section class="slide mag-align">
       <div class="slide-label">03.1 · Mii 面容自定义</div>
-      <div class="slide-inner" style="transform: translateY(-2vh);">
+      <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>① 面容</div>
         <h2 class="section-title">从「像本人」到<br/>「想做<span class="accent">谁</span>就做谁」</h2>
 
-        <div class="grid grid-4" style="gap: 12px; margin-top: 18px;">
-          <div class="highlight-box sky" style="padding: 14px 16px; font-size: 13px;">
-            ✨ <strong>更细致的部件</strong><br/><span style="color: var(--ink-soft);">睫毛、双眼皮、嘴巴可调角度</span>
+        <div style="display: flex; gap: clamp(20px, 2.4cqw, 44px); align-items: center; flex: 1; min-height: 0; margin-top: clamp(16px, 2.2cqh, 28px);">
+          <div style="display: flex; flex-direction: column; gap: clamp(10px, 1.6cqh, 18px); flex: 0 0 auto; width: clamp(190px, 22cqw, 300px);">
+            <div class="highlight-box sky" style="padding: 14px 16px; font-size: 13px;">
+              ✨ <strong>更细致的部件</strong><br/><span style="color: var(--ink-soft);">睫毛、双眼皮、嘴巴可调角度</span>
+            </div>
+            <div class="highlight-box pink" style="padding: 14px 16px; font-size: 13px;">
+              🎨 <strong>头发双色</strong><br/><span style="color: var(--ink-soft);">副色设定能做双色发型</span>
+            </div>
+            <div class="highlight-box mint" style="padding: 14px 16px; font-size: 13px;">
+              🌈 <strong>颜色全开</strong><br/><span style="color: var(--ink-soft);">肤色 / 部件色不限</span>
+            </div>
+            <div class="highlight-box yellow" style="padding: 14px 16px; font-size: 13px;">
+              🏳️‍🌈 <strong>无限制关系</strong><br/><span style="color: var(--ink-soft);">性别 / 恋爱对象 / 婚礼服自由</span>
+            </div>
           </div>
-          <div class="highlight-box pink" style="padding: 14px 16px; font-size: 13px;">
-            🎨 <strong>头发双色</strong><br/><span style="color: var(--ink-soft);">副色设定能做双色发型</span>
-          </div>
-          <div class="highlight-box mint" style="padding: 14px 16px; font-size: 13px;">
-            🌈 <strong>颜色全开</strong><br/><span style="color: var(--ink-soft);">肤色 / 部件色不限</span>
-          </div>
-          <div class="highlight-box yellow" style="padding: 14px 16px; font-size: 13px;">
-            🏳️‍🌈 <strong>无限制关系</strong><br/><span style="color: var(--ink-soft);">性别 / 恋爱对象 / 婚礼服自由</span>
-          </div>
-        </div>
 
-        <div class="video-wrap has-video" style="margin-top: 22px; aspect-ratio: 16 / 9; max-width: min(980px, 100%); border-radius: calc(var(--radius-lg) / 2);">
-          <video autoplay loop muted playsinline preload="auto" style="object-fit: contain;">
-            <source src="images/捏人UI.mp4" type="video/mp4">
-          </video>
+          <div class="video-wrap has-video" style="flex: 0 1 auto; height: 100%; width: auto; aspect-ratio: 16 / 9; max-width: 72cqw; margin: 0; border-radius: calc(var(--radius-lg) / 2);">
+            <video autoplay loop muted playsinline preload="auto" style="object-fit: contain;">
+              <source src="images/捏人UI.mp4" type="video/mp4">
+            </video>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ============ Slide: Face Paint · 手绘自由度 ============ -->
-    <section class="slide">
-      <div class="slide-label">03.2 · 脸部彩绘</div>
+    <section class="slide mag mag-top">
       <div class="slide-inner">
-        <div class="hero-split reverse" style="display: block;">
-          <div>
+        <div class="mag-grid">
+          <div class="mag-text">
+            <div class="slide-label">03.2 · 脸部彩绘</div>
             <div class="eyebrow"><span class="dot"></span>② 脸部彩绘 · 本作最受好评的功能</div>
             <h2 class="section-title">把<span class="accent">手绘自由度</span><br/>开到最大</h2>
-
-            <p class="lead" style="margin-top: 14px;">不只是选择部件——还能在 Mii 脸上<strong>直接画</strong>。<br/>胡子、雀斑、纹身、彩妆、动物特征……任何你想绘制的细节都可以实现。</p>
-
+            <p class="lead">不只是选择部件——还能在 Mii 脸上<strong>直接画</strong>。<br/>胡子、雀斑、纹身、彩妆、动物特征……任何你想绘制的细节都可以实现。</p>
+          </div>
+          <div class="mag-media">
             <div class="paint-carousel paint-carousel-small" data-paint-carousel>
               <div class="paint-carousel-viewport">
                 <div class="paint-carousel-track">
@@ -1971,13 +2317,16 @@
     </section>
 
     <!-- ============ Slide: Face Paint · 真实彩蛋 ============ -->
-    <section class="slide">
-      <div class="slide-label">03.2 · 脸部彩绘 · 真实彩蛋</div>
+    <section class="slide mag mag-top">
       <div class="slide-inner">
-        <h2 class="section-title">把<span class="accent">手绘自由度</span><br/>开到最大</h2>
-        <p class="lead" style="margin-top: 14px;">「特征遗传系统」遇上玩家手绘：画了猫脸的mii真的生出了带有猫脸的宝宝，因此有了圈内梗：“这孩子从出生就带着面部彩绘”</p>
-
-        <div class="paint-carousel paint-carousel-small" data-paint-carousel>
+        <div class="mag-grid">
+          <div class="mag-text">
+            <div class="slide-label">03.2 · 脸部彩绘 · 真实彩蛋</div>
+            <h2 class="section-title">把<span class="accent">手绘自由度</span><br/>开到最大</h2>
+            <p class="lead">「特征遗传系统」遇上玩家手绘：画了猫脸的mii真的生出了带有猫脸的宝宝，因此有了圈内梗：“这孩子从出生就带着面部彩绘”</p>
+          </div>
+          <div class="mag-media">
+            <div class="paint-carousel paint-carousel-small" data-paint-carousel>
           <div class="paint-carousel-viewport">
             <div class="paint-carousel-track">
               <div class="paint-carousel-slide" aria-hidden="true">
@@ -1999,18 +2348,23 @@
             <button type="button" aria-label="显示彩绘示例 2"></button>
           </div>
         </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- ============ Slide: 脸部彩绘 · 不会画画也没压力 ============ -->
-    <section class="slide">
-      <div class="slide-label">03.2 · 脸部彩绘</div>
+    <section class="slide mag mag-top">
       <div class="slide-inner">
-        <h2 class="section-title">把<span class="accent">手绘自由度</span><br/>开到最大</h2>
-        <p class="lead" style="margin-top: 14px; color: var(--ink-soft); max-width: none;">不会画画也<strong>完全不用有压力</strong>。哪怕只用简单的功能照样能创造有梗的生活。</p>
-        <p class="lead" style="margin-top: 8px; color: var(--ink-soft); max-width: none;">重点从来不是「画得好不好」，而是<strong>「敢不敢玩」</strong>——抽象、鬼畜、玩梗，越随手越好笑。</p>
-
-        <div class="paint-carousel paint-carousel-small" data-paint-carousel>
+        <div class="mag-grid">
+          <div class="mag-text">
+            <div class="slide-label">03.2 · 脸部彩绘</div>
+            <h2 class="section-title">把<span class="accent">手绘自由度</span><br/>开到最大</h2>
+            <p class="lead">不会画画也<strong>完全不用有压力</strong>。哪怕只用简单的功能照样能创造有梗的生活。</p>
+            <p class="lead">重点从来不是「画得好不好」，而是<strong>「敢不敢玩」</strong>——抽象、鬼畜、玩梗，越随手越好笑。</p>
+          </div>
+          <div class="mag-media">
+            <div class="paint-carousel paint-carousel-small" data-paint-carousel>
           <div class="paint-carousel-viewport">
             <div class="paint-carousel-track">
               <div class="paint-carousel-slide" aria-hidden="true">
@@ -2032,31 +2386,39 @@
             <button type="button" aria-label="显示内容 2"></button>
           </div>
         </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- ============ Slide 23: 自动生成 Mii ============ -->
-    <section class="slide">
-      <div class="slide-label">03.3 · 给「不擅长画画」的人</div>
+    <section class="slide mag mag-top">
       <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>自由度太高 = 新手会怕</div>
-        <h2 class="section-title">问答式 Mii<span class="accent">自动生成</span></h2>
-        <p class="lead">为不擅长制作 Mii 的玩家准备的全新功能——回答问题，「啪」的一声生成一只 Mii。</p>
-
-        <div style="flex: 1; display: flex; align-items: center; justify-content: center; margin-top: 18px;">
-          <img src="images/问答式生成.gif" alt="问答式 Mii 自动生成演示" style="display: block; max-width: 100%; max-height: 58vh; width: auto; height: auto; border-radius: 18px;" />
+        <div class="mag-grid">
+          <div class="mag-text">
+            <div class="slide-label">03.3 · 给「不擅长画画」的人</div>
+            <div class="eyebrow"><span class="dot"></span>自由度太高 = 新手会怕</div>
+            <h2 class="section-title">问答式 Mii<span class="accent">自动生成</span></h2>
+            <p class="lead">为不擅长制作 Mii 的玩家准备的全新功能——回答问题，「啪」的一声生成一只 Mii。</p>
+          </div>
+          <div class="mag-media">
+            <img src="images/问答式生成.gif" alt="问答式 Mii 自动生成演示" />
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ============ Slide 22+1: 占位页 ============ -->
-    <section class="slide">
-      <div class="slide-label">03.4 · 声音的自定义</div>
+    <section class="slide mag mag-top">
       <div class="slide-inner">
-        <h2 class="section-title">声音的<span class="accent">可玩性</span></h2>
-        <p class="lead" style="margin-top: 14px;">速度、音调、嗓音、起伏...甚至可以通过参数的调配实现一些讲方言的效果。</p>
-
-        <div class="paint-carousel paint-carousel-small" data-paint-carousel>
+        <div class="mag-grid">
+          <div class="mag-text">
+            <div class="slide-label">03.4 · 声音的自定义</div>
+            <h2 class="section-title">声音的<span class="accent">可玩性</span></h2>
+            <p class="lead">速度、音调、嗓音、起伏...甚至可以通过参数的调配实现一些讲方言的效果。</p>
+          </div>
+          <div class="mag-media">
+            <div class="paint-carousel paint-carousel-small" data-paint-carousel>
           <div class="paint-carousel-viewport">
             <div class="paint-carousel-track">
               <div class="paint-carousel-slide" aria-hidden="true">
@@ -2096,17 +2458,22 @@
             <button type="button" aria-label="显示口音视频 3"></button>
           </div>
         </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- ============ Slide 22+2: 占位页 ============ -->
-    <section class="slide">
-      <div class="slide-label">03.5 · 性格的设计</div>
+    <section class="slide mag mag-top">
       <div class="slide-inner">
-        <h2 class="section-title">16种性格之外的<br/><span class="accent">微个性</span></h2>
-        <p class="lead" style="margin-top: 14px;">主性格可以覆盖大多数人格，但总有一些细节无法还原。“微个性”可以称之为本作的一大发明，你自己决定加些什么才更像本人，这也是「圈内梗」的起点。</p>
-
-        <div class="paint-carousel paint-carousel-small" data-paint-carousel>
+        <div class="mag-grid">
+          <div class="mag-text">
+            <div class="slide-label">03.5 · 性格的设计</div>
+            <h2 class="section-title">16种性格之外的<br/><span class="accent">微个性</span></h2>
+            <p class="lead">主性格可以覆盖大多数人格，但总有一些细节无法还原。“微个性”可以称之为本作的一大发明，你自己决定加些什么才更像本人，这也是「圈内梗」的起点。</p>
+          </div>
+          <div class="mag-media">
+            <div class="paint-carousel paint-carousel-small" data-paint-carousel>
           <div class="paint-carousel-viewport">
             <div class="paint-carousel-track">
               <div class="paint-carousel-slide" aria-hidden="true">
@@ -2145,17 +2512,22 @@
             <button type="button" aria-label="显示微个性示例 5"></button>
           </div>
         </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- ============ Slide 22+3: 占位页 ============ -->
-    <section class="slide">
-      <div class="slide-label">03.6 · 礼物制作</div>
+    <section class="slide mag mag-top">
       <div class="slide-inner">
-        <h2 class="section-title">Palette House Workshop<br/><span class="accent">礼物作坊</span></h2>
-        <p class="lead" style="margin-top: 14px;">食物、衣服、宠物、音乐、家具...你可以将任何东西制作成礼物送给你的mii。</p>
-
-        <div class="paint-carousel paint-carousel-small" data-paint-carousel>
+        <div class="mag-grid">
+          <div class="mag-text">
+            <div class="slide-label">03.6 · 礼物制作</div>
+            <h2 class="section-title">Palette House Workshop<br/><span class="accent">礼物作坊</span></h2>
+            <p class="lead">食物、衣服、宠物、音乐、家具...你可以将任何东西制作成礼物送给你的mii。</p>
+          </div>
+          <div class="mag-media">
+            <div class="paint-carousel paint-carousel-small" data-paint-carousel>
           <div class="paint-carousel-viewport">
             <div class="paint-carousel-track">
               <div class="paint-carousel-slide" aria-hidden="true">
@@ -2177,11 +2549,13 @@
             <button type="button" aria-label="显示礼物作坊示例 2"></button>
           </div>
         </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- ============ Slide 31: 小剧场 - 模板化拼装剧场 ============ -->
-    <section class="slide">
+    <section class="slide mag-align">
       <div class="slide-label">03.7 · 小剧场</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>🎬 永远不重样的「绝版狗血连续剧」</div>
@@ -2227,28 +2601,67 @@
     </section>
 
     <!-- ============ Slide 27: Mii 多样性展示 ============ -->
-    <section class="slide">
-      <div class="slide-label">03.8 · 自定义的极限</div>
+    <section class="slide mag mag-top">
       <div class="slide-inner">
-        <div class="eyebrow"><span class="dot"></span>UGC 能做到什么程度</div>
-        <h2 class="section-title">Mii 的多重宇宙</h2>
-
-        <p class="lead" style="margin-top: 18px; max-width: none;">把自己、宠物、oc都搬进岛上</p>
-        <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
-          <img src="images/居民.png" alt="我的 Mii 居民" style="display: block; max-width: 100%; max-height: 58vh; width: auto; height: auto;" />
+        <div class="mag-grid">
+          <div class="mag-text">
+            <div class="slide-label">03.8 · 自定义的极限</div>
+            <div class="eyebrow"><span class="dot"></span>UGC 能做到什么程度</div>
+            <h2 class="section-title">Mii 的多重宇宙</h2>
+            <p class="lead">把自己、宠物、oc都搬进岛上</p>
+          </div>
+          <div class="mag-media">
+            <div class="paint-carousel paint-carousel-small" data-paint-carousel>
+              <div class="paint-carousel-viewport">
+                <div class="paint-carousel-track">
+                  <div class="paint-carousel-slide" aria-hidden="true">
+                    <img src="images/居民3.jpg" alt="" />
+                  </div>
+                  <div class="paint-carousel-slide">
+                    <img src="images/居民.png" alt="我的 Mii 居民" />
+                  </div>
+                  <div class="paint-carousel-slide">
+                    <img src="images/居民1.jpg" alt="玩家创作的 Mii 居民 1" />
+                  </div>
+                  <div class="paint-carousel-slide">
+                    <div class="paint-carousel-video">
+                      <video preload="metadata" playsinline>
+                        <source src="images/居民2.mp4" type="video/mp4">
+                      </video>
+                      <button class="paint-carousel-video-play" type="button" aria-label="播放居民视频"><span>▶</span></button>
+                    </div>
+                  </div>
+                  <div class="paint-carousel-slide">
+                    <img src="images/居民3.jpg" alt="玩家创作的 Mii 居民 3" />
+                  </div>
+                  <div class="paint-carousel-slide" aria-hidden="true">
+                    <img src="images/居民.png" alt="" />
+                  </div>
+                </div>
+              </div>
+              <div class="paint-carousel-dots" aria-label="Mii 居民展示轮播">
+                <button class="active" type="button" aria-label="显示居民 1"></button>
+                <button type="button" aria-label="显示居民 2"></button>
+                <button type="button" aria-label="显示居民 3"></button>
+                <button type="button" aria-label="显示居民 4"></button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
    <!-- ============ Slide 28: Mii 多样性展示 ============ -->
-   <section class="slide">
-    <div class="slide-label">03.8 · 自定义的极限</div>
+   <section class="slide mag mag-top">
     <div class="slide-inner">
-      <div class="eyebrow"><span class="dot"></span>UGC 能做到什么程度</div>
-      <h2 class="section-title">Mii 的多重宇宙</h2>
-
-      <p class="lead" style="margin-top: 18px; max-width: none;">「除了本人、家人、朋友等真实人物之外，也会有玩家想制作原创角色。<br/>因此我们<strong>尽可能让玩家透过各种方式制作出任何样子的 Mii</strong>。」<span style="font-size: 12px; color: var(--ink-faint);">—— 高桥 龙太郎</span></p>
-
+      <div class="mag-grid">
+        <div class="mag-text">
+          <div class="slide-label">03.8 · 自定义的极限</div>
+          <div class="eyebrow"><span class="dot"></span>UGC 能做到什么程度</div>
+          <h2 class="section-title">Mii 的多重宇宙</h2>
+          <p class="lead">「除了本人、家人、朋友等真实人物之外，也会有玩家想制作原创角色。<br/>因此我们<strong>尽可能让玩家透过各种方式制作出任何样子的 Mii</strong>。」<span style="font-size: 12px; color: var(--ink-faint);">—— 高桥 龙太郎</span></p>
+        </div>
+        <div class="mag-media">
       <div class="paint-carousel paint-carousel-small" data-paint-carousel>
         <div class="paint-carousel-viewport">
           <div class="paint-carousel-track">
@@ -2298,18 +2711,22 @@
           <button type="button" aria-label="显示 UGC 视频 3"></button>
         </div>
       </div>
+        </div>
+      </div>
     </div>
   </section>
 
     <!-- ============ Slide 29: 把思念捏进人森 ============ -->
-    <section class="slide">
-      <div class="slide-label">03.9 · 自定义的极限</div>
+    <section class="slide mag mag-top">
       <div class="slide-inner">
-        <h2 class="section-title">把思念捏进<span class="accent">人森</span></h2>
-
-        <p class="lead" style="margin-top: 14px; color: var(--ink-soft); max-width: none;">有人把<strong>已经离开的至亲</strong>，一笔一画重新捏了出来——穿上生前最爱的那件衣服，调成记忆里的声音，写下那句还没来得及说的话。</p>
-        <p class="lead" style="margin-top: 8px; color: var(--ink-soft); max-width: none;">在这座小岛上，他们重新一起吃饭、唱歌、过生日。Mii 不只是一个角色，而是一次可以再次拥抱的<strong>「团聚」</strong>。</p>
-
+        <div class="mag-grid">
+          <div class="mag-text">
+            <div class="slide-label">03.9 · 自定义的极限</div>
+            <h2 class="section-title">把思念捏进<span class="accent">人森</span></h2>
+            <p class="lead">有人把<strong>已经离开的至亲</strong>，一笔一画重新捏了出来——穿上生前最爱的那件衣服，调成记忆里的声音，写下那句还没来得及说的话。</p>
+            <p class="lead">在这座小岛上，他们重新一起吃饭、唱歌、过生日。Mii 不只是一个角色，而是一次可以再次拥抱的<strong>「团聚」</strong>。</p>
+          </div>
+          <div class="mag-media">
         <div class="paint-carousel paint-carousel-small" data-paint-carousel>
           <div class="paint-carousel-viewport">
             <div class="paint-carousel-track">
@@ -2345,19 +2762,23 @@
             <button type="button" aria-label="显示内容 3"></button>
           </div>
         </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- ============ Slide 30: 人森中的 meta 元素 ============ -->
-    <section class="slide">
-      <div class="slide-label">03.9 · 自定义的极限</div>
+    <section class="slide mag mag-top">
       <div class="slide-inner">
-        <h2 class="section-title">人森中的<span class="accent">meta 元素</span></h2>
-
-        <p class="lead" style="margin-top: 14px; color: var(--ink-soft); max-width: none;">游戏偶尔会<strong>打破第四面墙</strong>——Mii 会突然问起「我是真实存在的吗」，或在小剧场里念出一段意味深长、细思极恐的台词。</p>
-        <p class="lead" style="margin-top: 8px; color: var(--ink-soft); max-width: none;">这些藏在日常问答与剧情里的<strong>诡异瞬间</strong>，让玩家恍惚意识到：屏幕里的小人，似乎也在凝视着屏幕外的自己。</p>
-
-        <div class="paint-carousel paint-carousel-small" data-paint-carousel>
+        <div class="mag-grid">
+          <div class="mag-text">
+            <div class="slide-label">03.9 · 自定义的极限</div>
+            <h2 class="section-title">人森中的<span class="accent">meta 元素</span></h2>
+            <p class="lead">游戏偶尔会<strong>打破第四面墙</strong>——Mii 会突然问起「我是真实存在的吗」，或在小剧场里念出一段意味深长、细思极恐的台词。</p>
+            <p class="lead">这些藏在日常问答与剧情里的<strong>诡异瞬间</strong>，让玩家恍惚意识到：屏幕里的小人，似乎也在凝视着屏幕外的自己。</p>
+          </div>
+          <div class="mag-media">
+            <div class="paint-carousel paint-carousel-small" data-paint-carousel>
           <div class="paint-carousel-viewport">
             <div class="paint-carousel-track">
               <div class="paint-carousel-slide" aria-hidden="true">
@@ -2405,6 +2826,8 @@
             <button type="button" aria-label="显示内容 4"></button>
           </div>
         </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -2421,7 +2844,7 @@
     </section>
 
     <!-- ============ Slide 31: 抓起的交互 - Debug 工具的逆袭 ============ -->
-    <section class="slide">
+    <section class="slide mag-split">
       <div class="slide-label">04.1 · 一个 Debug 工具的逆袭</div>
       <div class="slide-inner">
         <div class="hero-split">
@@ -2450,7 +2873,7 @@
     </section>
 
     <!-- ============ Slide 32: 构思公告板 ============ -->
-    <section class="slide fit-slide">
+    <section class="slide mag-cards">
       <div class="slide-label">04.2 · 团队协作秘诀</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>② 构思公告板</div>
@@ -2482,17 +2905,17 @@
     </section>
 
     <!-- ============ Slide 35: 设计师的 3 件事 ============ -->
-    <section class="slide">
+    <section class="slide mag-cards">
       <div class="slide-label">04.3 · 启示</div>
       <div class="slide-inner">
         <div class="eyebrow"><span class="dot"></span>如果只能带走 3 件事</div>
-        <h2 class="section-title">一点点感想,学到的<span class="accent"> 3 件事</span></h2>
+        <h2 class="section-title">升华一下</h2>
 
         <div class="grid grid-3" style="margin-top: 32px;">
           <div class="card" style="background: linear-gradient(135deg, #FFF5F5, #FFE9EC); border-color: #FFB8C5;">
             <div class="tag" style="background: #FFC8D2; color: #8A3A4F;">01</div>
-            <h4 style="font-size: 22px; margin: 12px 0;">升级要有「度」，<br/>判断比能力更重要</h4>
-            <p>硬件、引擎、画面都能变强，但 Mii 的脸、声音、动作却<strong>刻意「退一步」</strong>。设计师真正的功夫，是先想清楚<strong>什么必须保留、什么才值得改</strong>——盲目堆细节，只会丢掉角色的辨识度与情感记忆。</p>
+            <h4 style="font-size: 22px; margin: 12px 0;">升级有「度」，<br/>判断力很重要</h4>
+            <p>硬件、引擎、画面都能变强，但 Mii 的脸、声音、动作却<strong>刻意「退一步」</strong>。先想清楚<strong>什么必须保留、什么才值得改</strong>——盲目堆细节，只会丢掉角色的辨识度与情感记忆。</p>
             <p style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed #FFB8C5; font-size: 13px; color: #8A3A4F;"><strong>→ 克制，本身就是一种设计判断。</strong></p>
           </div>
           <div class="card" style="background: linear-gradient(135deg, #F7FBFF, #EAF4FF); border-color: #B6D8EC;">
@@ -2529,6 +2952,7 @@
   <button id="prev" aria-label="上一页">←</button>
   <div class="pages"><strong id="cur">1</strong> / <span id="total">36</span></div>
   <button id="next" aria-label="下一页">→</button>
+  <button id="fullscreen" aria-label="全屏播放 (F)" title="全屏播放 (F)">⛶</button>
 </div>
 
 <script>
@@ -2564,8 +2988,22 @@
       e.preventDefault(); goTo(0);
     } else if (e.key === 'End') {
       e.preventDefault(); goTo(total - 1);
+    } else if (e.key === 'f' || e.key === 'F') {
+      e.preventDefault(); toggleFullscreen();
     }
   });
+
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      (document.documentElement.requestFullscreen
+        || document.documentElement.webkitRequestFullscreen
+        || (() => {})).call(document.documentElement);
+    } else {
+      (document.exitFullscreen || document.webkitExitFullscreen || (() => {})).call(document);
+    }
+  }
+
+  document.getElementById('fullscreen').addEventListener('click', toggleFullscreen);
 
   let touchStartX = 0;
   document.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; });
